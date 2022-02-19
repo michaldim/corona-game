@@ -1,0 +1,259 @@
+*{
+	box-sizing: border-box;
+	margin: 0;
+}
+
+body {
+  padding: 0;
+  height: 100vh;
+  cursor: none;
+  background-color: #3d3b3b;
+  color: white;
+  overflow: hidden;
+}
+
+header {
+  text-align: center;  
+  color: rgb(184, 238, 184);
+  font-size: 40px;
+  font-family: Garamond, serif;
+  font-weight: bold;
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
+}
+
+header span {
+   font-size: 32px;
+   position: relative;
+   top: 1px;
+}
+
+.cursor {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  background: url("../images/syringe.svg");
+  -webkit-transform: rotateZ(100deg);
+          transform: rotateZ(100deg);
+  position: absolute;
+  pointer-events: none; /*This will make the syringe transparent to clicks. 
+    It will make the real cursor to click what's under the syringe*/
+  z-index: 100;
+}
+
+button {
+  cursor: none;
+}
+
+#circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: rgb(243, 243, 145);
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 30%;
+  bottom: 70%;
+  margin: auto;
+  z-index: 1;
+}
+
+.axis{
+  height: 184px;
+  width: 10px;
+  background: rgb(243, 243, 145);
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 30%;
+  bottom: 70%;
+  margin: auto;
+}
+
+.tinyCircleContainer {
+  height:220px;
+  width:22px;
+  background: rgb(153, 116, 240, 0);
+  position: relative;
+  display: inline-block;
+  z-index: 2;
+}
+
+.tinyCircle {
+  height:24px;
+  width:24px;
+  border-radius: 50%;
+  background: rgb(243, 243, 145);
+  position: absolute;
+  /* right: 0;
+  top: 0; */
+}
+
+.eyes {
+  height: 40px;
+  width: 80px;
+  position: absolute;
+  background: url("../images/eyes.svg");
+  top: 76px;
+  right: -27px;
+  z-index: 3;
+}
+
+@keyframes turnEyes {
+  0% {transform: rotateZ(180deg); opacity: 1}
+  48% {transform: rotateZ(180deg); opacity: 1}
+  49% {transform: rotateZ(180deg); opacity: 0}
+  50% {transform: rotateZ(0deg); opacity: 0}
+  51% {transform: rotateZ(0deg); opacity: 1}
+  98% {transform: rotateZ(0deg); opacity: 1}
+  99% {transform: rotateZ(0deg); opacity: 0}
+  100% {transform: rotateZ(180deg); opacity: 0}
+}
+
+.eyeShades {
+  z-index: 4;
+  height: 20px;
+  width: 76px;
+  background: rgb(243, 243, 145);
+  position: absolute;
+  z-index: 4;
+  right: -25px;
+}
+
+#topEyeshade {
+  top: 58px;
+  animation: none; /*shutTopEyeshade 3s ease infinite normal;*/
+}
+
+#bottomEyeshade{
+  top: 116px;
+  animation: none; /*shutBottomEyeshade 3s ease infinite normal;*/
+}
+
+@keyframes shutTopEyeshade {
+  0% {top: 58px}
+  11% {top: 77px}
+  15% {top: 77px}
+  22% {top: 58px}
+  100% {top: 58px}
+}
+
+@keyframes shutBottomEyeshade {
+  0% {top: 116px}
+  11% {top: 96px}
+  15% {top: 96px}
+  22% {top: 116px}
+  100% {top: 116px}
+}
+
+.figures {
+  width: 56px;
+  height: 56px;
+  position: absolute;
+  z-index: 5;
+}
+
+@keyframes fireworks {
+  0% {width: 4px; height: 4px; opacity: 1;}
+  80% {width: 64px; height: 64px; opacity: 0.8;}
+  100% {width: 64px; height: 64px; opacity: 0;}
+}
+
+@keyframes figureBecomesMini {
+  0% {width: 56px; height: 56px;}
+  100% {width: 0px; height: 0px;}
+}
+
+.ambulance {
+  width: 80px;
+  height: 80px;
+  z-index: 5;
+  background: url("../images/ambulance1.svg");
+}
+
+@keyframes ambulanceDisappear {
+  0% {opacity: 1}
+  100% {opacity: 0}
+}
+
+
+footer {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  display: none;
+}
+
+@keyframes coronaColorsChange1 {
+  0% {background: rgb(243, 243, 145)}
+  80% {background: rgb(243, 243, 145)}
+  100% {background: rgb(245, 188, 65)}
+}
+
+@keyframes coronaColorsChange2 {
+  0% {background: rgb(245, 188, 65)}
+  80% {background: rgb(245, 188, 65)}
+  100% {background: rgb(247, 99, 54)}
+}
+
+@keyframes coronaColorsChange3 {
+  0% {background: rgb(247, 99, 54)}
+  80% {background: rgb(247, 99, 54)}
+  100% {background: rgb(248, 161, 201)}
+}
+
+@keyframes coronaColorsChange4 {
+  0% {background: rgb(248, 161, 201)}
+  80% {background: rgb(248, 161, 201)}
+  100% {background: rgb(233, 49, 240)}
+}
+
+@keyframes coronaColorsChange5 {
+  0% {background: rgb(233, 49, 240)}
+  80% {background: rgb(233, 49, 240)}
+  100% {background: rgb(58, 115, 240)}
+}
+
+@keyframes coronaColorsChange6 {
+  0% {background: rgb(58, 115, 240)}
+  80% {background: rgb(58, 115, 240)}
+  100% {background: rgb(20, 228, 243)}
+}
+
+@keyframes coronaColorsChange7 {
+  0% {background: rgb(20, 228, 243)}
+  80% {background: rgb(20, 228, 243)}
+  100% {background: rgb(101, 241, 159)}
+}
+
+@keyframes coronaColorsChange8 {
+  0% {background: rgb(101, 241, 159)}
+  80% {background: rgb(101, 241, 159)}
+  100% {background: rgb(5, 161, 26)}
+}
+
+@keyframes coronaColorsChange9 {
+  0% {background: rgb(5, 161, 26)}
+  80% {background: rgb(5, 161, 26)}
+  100% {background: rgb(192, 243, 7)}
+}
+
+@keyframes coronaColorsChange10 {
+  0% {background: rgb(192, 243, 7)}
+  80% {background: rgb(192, 243, 7)}
+  100% {background: rgb(243, 243, 145)}
+}
+
+
+/*# sourceMappingURL=cursor.css.map */

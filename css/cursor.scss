@@ -1,0 +1,31 @@
+*{
+	box-sizing: border-box;
+	margin: 0;
+}
+
+body {
+    padding: 0;
+    height: 100vh;
+    cursor: none;
+    background-color: rgb(61, 59, 59);
+    color: white;
+}
+
+.cursor {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    background: url('../images/syringe.svg');
+    transform: rotateZ(100deg);
+    position: absolute;
+    pointer-events: none; /*This will make the syringe transparent to clicks. 
+    It will make the real cursor to click what's under the syringe*/
+    z-index: 100;
+}
+
+button {
+    cursor: none;
+}
+
+
+

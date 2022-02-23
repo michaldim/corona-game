@@ -1,11 +1,37 @@
+const tinyCircles = document.querySelectorAll('.tinyCircle');
+let stage = 1;
+
 //we start the game by clicking the start button
 button.addEventListener("click", () => {
 
     //the score section appears:
-    header.style.display = 'block';
+    header.style.display = 'flex';
     const score = document.querySelector('header span');
     let j = 0;
     score.textContent = j;
+
+    //the timer appears
+    const timer = document.querySelector('#timer');
+    timer.textContent = nums.length; //the number of figures from figuresMovement.js 
+    let x = nums.length;
+    timer.style.animation = `timerGrows 1s ${x+1} ease normal`;
+
+    const countDown = () => {
+        timer.textContent = x -1;
+        x = x - 1;
+        if (x == 3) {
+            tinyCircles.forEach(circle => {
+                circle.style.animation = `coronaColorsChange${stage} 3s linear forwards`;
+            })
+            stage +=1;
+        } else if(x == 0) {
+            clearInterval(countDownInterval);
+            timer.style.animation = none;
+        } 
+ 
+    }
+
+    const countDownInterval = setInterval(countDown, 1000);
 
 
     //the corona's eyes will get closed and turn/look to the other side
@@ -58,7 +84,7 @@ button.addEventListener("click", () => {
             figuresDivs.forEach(figureDiv => {
 
                 if (figureDiv.style.background.includes('figure')){
-                    figureDiv.style.top = parseInt(figureDiv.style.top) + 'px'; //the method parseInt takes only the number (and leaves out the string 'px' attached to it:) 
+                    figureDiv.style.top = parseInt(figureDiv.style.top) + 'px'; //the method parseInt takes only the number (and leaves out the string 'px' attached to it) 
                     figureDiv.style.left = parseInt(figureDiv.style.left) + 'px';
 
                     const i = document.createElement('div');
@@ -75,7 +101,6 @@ button.addEventListener("click", () => {
                             if (z < 20){
                                 figureDiv.style.top = parseInt(figureDiv.style.top) + 1 + 'px'
                                 z += 1;
-                                console.log (figureDiv.style.top);
                             }
                         }, 5  
                         );
@@ -114,7 +139,7 @@ button.addEventListener("click", () => {
     }
    
     
-    setTimeout(check, 5000); //after 10seconds we stop the current level and check how the user succeeded
+    setTimeout(check, 10000); //after 10seconds we stop the current level and check how the user succeeded
 
 });
 

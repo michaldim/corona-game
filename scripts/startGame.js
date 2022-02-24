@@ -1,8 +1,16 @@
 const tinyCircles = document.querySelectorAll('.tinyCircle');
-let stage = 1;
+const secondsForEachStage = [8, 10, 10, 15, 10, 10, 15, 10, 15, 10];
+let stage = 0;
 
 //we start the game by clicking the start button
 button.addEventListener("click", () => {
+    let timeOnBeginning = Date.now(); //////////////////////////////////////
+    console.log(timeOnBeginning);///////////////////////////////////////////
+
+    //the corona's eyes will get closed and turn/look to the other side
+    topEyeshade.style.animation = 'shutTopEyeshade 2.5s 0.65s ease infinite normal';
+    bottomEyeshade.style.animation = 'shutBottomEyeshade 2.5s 0.65s ease infinite normal';
+    eyes.style.animation = 'turnEyes 5s 0.925s ease infinite normal'; 
 
     //the score section appears:
     header.style.display = 'flex';
@@ -12,32 +20,39 @@ button.addEventListener("click", () => {
 
     //the timer appears
     const timer = document.querySelector('#timer');
-    timer.textContent = nums.length; //the number of figures from figuresMovement.js 
-    let x = nums.length;
-    timer.style.animation = `timerGrows 1s ${x+1} ease normal`;
+    let seconds = secondsForEachStage[stage];//
+    timer.textContent = seconds;  
+    timer.style.animation = `timerGrows 1s ${seconds+1} ease normal`;
 
-    const countDown = () => {
-        timer.textContent = x -1;
-        x = x - 1;
-        if (x == 3) {
-            tinyCircles.forEach(circle => {
-                circle.style.animation = `coronaColorsChange${stage} 3s linear forwards`;
-            })
-            stage +=1;
-        } else if(x == 0) {
-            clearInterval(countDownInterval);
-            timer.style.animation = none;
-        } 
- 
+
+    //function that will be called from the countDown function 
+    //and also from the check function
+    const checkBackground = (figureDiv) => {
+        return figureDiv.style.background.includes('stars.svg');
     }
 
-    const countDownInterval = setInterval(countDown, 1000);
 
+    //countDown function for the timer and changing the corona's color when not all figures were clicked
+    const countDown = () => {
+        seconds = seconds - 1;  
+        timer.textContent = seconds;
+        if (seconds == 0 && figuresDivs.every(checkBackground) == false) { //if not all figures have became stars
+            clearInterval(countDownInterval);
+            timer.style.animation = 'none';
 
-    //the corona's eyes will get closed and turn/look to the other side
-    topEyeshade.style.animation = 'shutTopEyeshade 2.5s 0.65s ease infinite normal';
-    bottomEyeshade.style.animation = 'shutBottomEyeshade 2.5s 0.65s ease infinite normal';
-    eyes.style.animation = 'turnEyes 5s 0.925s ease infinite normal';
+            tinyCircles.forEach(circle => {
+                circle.style.animation = `coronaColorsChange${stage} 2.5s linear forwards`; //corona starts to change color
+            })
+
+        } else if (seconds == 0 && figuresDivs.every(checkBackground) == true) { //all figures have became stars
+            clearInterval(countDownInterval);
+            timer.style.animation = 'none';
+            stage += 1;
+        } 
+    }
+
+    const countDownInterval = setInterval(countDown, 1000); //function for the timer
+
 
 
     figures.forEach(figure => {
@@ -53,6 +68,7 @@ button.addEventListener("click", () => {
         setTimeout(() => move(figure), 50);
 
 
+        //function for clicking a figure
         const starsAndPoints = () => {
             currentFigure.removeEventListener('click', starsAndPoints);
             currentFigure.style.background = 'url(./images/stars.svg)';
@@ -64,17 +80,22 @@ button.addEventListener("click", () => {
         //adding eventListener for each figure and adjusting the score
         currentFigure.addEventListener('click', starsAndPoints);
 
-        
+        //function that prevents clicking on figures, while the ambulances come
+        const preventClick = () => {
+            currentFigure.removeEventListener('click', starsAndPoints);
+        }
+
+        //at the end of the stage the user won't be able to click the figures
+        setTimeout(preventClick, secondsForEachStage[stage]*1000);
+
     })
 
 
+
+    //function that checks how the user succeeded after a period of time
     const check = () => {
 
-        stop = 1;
-     
-        const checkBackground = (figureDiv) => {
-            return figureDiv.style.background.includes('stars.svg');
-        }
+        stop = 1;   
         
         if(figuresDivs.every(checkBackground)) {  //"every" returns true if the function returns true for all elements in the array
             console.log ('you made it!');
@@ -87,6 +108,7 @@ button.addEventListener("click", () => {
                     figureDiv.style.top = parseInt(figureDiv.style.top) + 'px'; //the method parseInt takes only the number (and leaves out the string 'px' attached to it) 
                     figureDiv.style.left = parseInt(figureDiv.style.left) + 'px';
 
+                    //creating ambulances and putting them 80px left to each figure
                     const i = document.createElement('div');
                     i.classList.add('ambulance');
                     body.insertBefore(i, footer);
@@ -97,7 +119,7 @@ button.addEventListener("click", () => {
 
                     const figureEntersAmbulance = () => {
                         let z = 0;
-                        setInterval(b => {
+                        setInterval(() => {
                             if (z < 20){
                                 figureDiv.style.top = parseInt(figureDiv.style.top) + 1 + 'px'
                                 z += 1;
@@ -119,7 +141,7 @@ button.addEventListener("click", () => {
                             setInterval(() => {
                                 i.style.left = (parseInt(i.style.left) + 1) + 'px'; 
                             }, 10)
-                            i.style.animation = 'ambulanceDisappear 3s ease forwards normal';
+                            i.style.animation = 'ambulanceDisappears 3s ease forwards normal';
                         }
                     }
 
@@ -138,8 +160,27 @@ button.addEventListener("click", () => {
         
     }
    
-    
-    setTimeout(check, 10000); //after 10seconds we stop the current level and check how the user succeeded
+
+    // if (figuresDivs.every(checkBackground)) {  //"every" returns true if the function returns true for all elements in the array
+    //     console.log ('you made it!');
+    // } else {
+    //     setTimeout(check, secondsForEachStage[stage]*1000); //after period of time we stop the current level and check how the user succeeded
+    // }
+
+    // // if ((Date.now() == timeOnBeginning + secondsForEachStage[stage]*1000) || (figuresDivs.every(checkBackground))) {
+    // //     check();
+    // // }
+
+/*???????????????????????????????????????????????
+    if (figuresDivs.every(checkBackground)) {  //"every" returns true if the function returns true for all elements in the array
+        stop = 1;
+        clearTimeout(timeCheck);
+        console.log ('you made it!');
+    }
+???????????????????????????????????????????????*/
+
+    const timeCheck = setTimeout(check, secondsForEachStage[stage]*1000); //after period of time we stop the current level and check how the user succeeded
+  
 
 });
 

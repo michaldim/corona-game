@@ -182,8 +182,9 @@ button {
 }
 
 @keyframes figureBecomesMini {
-  0% {width: 56px; height: 56px;}
-  100% {width: 0px; height: 0px;}
+  0% {width: 56px; height: 56px; opacity: 1}
+  30% {width: 34px; height: 34px; opacity: 1}
+  100% {width: 0px; height: 0px; opacity: 0}
 }
 
 .ambulance {
@@ -193,7 +194,7 @@ button {
   background: url("../images/ambulance1.svg");
 }
 
-@keyframes ambulanceDisappear {
+@keyframes ambulanceDisappears {
   0% {opacity: 1}
   100% {opacity: 0}
 }
@@ -207,52 +208,52 @@ footer {
   display: none;
 }
 
-@keyframes coronaColorsChange1 {
+@keyframes coronaColorsChange0 {
   0% {background: rgb(245, 194, 100)}
   100% {background: rgb(54, 88, 241)}
 }
 
-@keyframes coronaColorsChange2 {
+@keyframes coronaColorsChange1 {
   0% {background: rgb(54, 88, 241)}
   100% {background: rgb(130, 236, 108)}
 }
 
-@keyframes coronaColorsChange3 {
+@keyframes coronaColorsChange2 {
   0% {background: rgb(130, 236, 108)}
   100% {background: rgb(247, 73, 73)}
 }
 
-@keyframes coronaColorsChange4 {
+@keyframes coronaColorsChange3 {
   0% {background: rgb(247, 73, 73)}
   100% {background: rgb(185, 185, 141)}
 }
 
-@keyframes coronaColorsChange5 {
+@keyframes coronaColorsChange4 {
   0% {background: rgb(185, 185, 141)}
   100% {background: rgb(146, 1, 103)}
 }
 
-@keyframes coronaColorsChange6 {
+@keyframes coronaColorsChange5 {
   0% {background: rgb(146, 1, 103)}
   100% {background: rgb(20, 228, 243)}
 }
 
-@keyframes coronaColorsChange7 {
+@keyframes coronaColorsChange6 {
   0% {background: rgb(20, 228, 243)}
   100% {background: rgb(243, 170, 206)}
 }
 
-@keyframes coronaColorsChange8 {
+@keyframes coronaColorsChange7 {
   0% {background: rgb(243, 170, 206)}
   100% {background: rgb(5, 161, 26)}
 }
 
-@keyframes coronaColorsChange9 {
+@keyframes coronaColorsChange8 {
   0% {background: rgb(5, 161, 26)}
   100% {background: rgb(202, 172, 241)}
 }
 
-@keyframes coronaColorsChange10 {
+@keyframes coronaColorsChange9 {
   0% {background: rgb(202, 172, 241)}
   100% {background: rgb(240, 22, 222)}
 }

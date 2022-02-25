@@ -4,8 +4,7 @@ let stage = 0;
 
 //we start the game by clicking the start button
 button.addEventListener("click", () => {
-    let timeOnBeginning = Date.now(); //////////////////////////////////////
-    console.log(timeOnBeginning);///////////////////////////////////////////
+    let timeOnBeginning = Date.now(); 
 
     //the corona's eyes will get closed and turn/look to the other side
     topEyeshade.style.animation = 'shutTopEyeshade 2.5s 0.65s ease infinite normal';
@@ -54,7 +53,6 @@ button.addEventListener("click", () => {
     const countDownInterval = setInterval(countDown, 1000); //function for the timer
 
 
-
     figures.forEach(figure => {
 
         const currentFigure = document.querySelector('#'+figure);
@@ -65,8 +63,7 @@ button.addEventListener("click", () => {
         currentFigure.style.top = Math.random()*(body.clientHeight - 56) + 'px'; //56 is the size of the figures. body.clientHeight gives the viewport size without the scroll bar
         currentFigure.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
         //starting to move the figures in different directions:
-        setTimeout(() => move(figure), 50);
-
+        move(figure);
 
         //function for clicking a figure
         const starsAndPoints = () => {
@@ -92,94 +89,88 @@ button.addEventListener("click", () => {
 
 
 
-    //function that checks how the user succeeded after a period of time
-    const check = () => {
+    //function that works after the user failed
+    const failingProcedure = () => {
 
         stop = 1;   
         
-        if(figuresDivs.every(checkBackground)) {  //"every" returns true if the function returns true for all elements in the array
-            console.log ('you made it!');
-        } else {
-            console.log ('you failed');
+        console.log ('you failed');
             
-            figuresDivs.forEach(figureDiv => {
+        figuresDivs.forEach(figureDiv => {
 
-                if (figureDiv.style.background.includes('figure')){
-                    figureDiv.style.top = parseInt(figureDiv.style.top) + 'px'; //the method parseInt takes only the number (and leaves out the string 'px' attached to it) 
-                    figureDiv.style.left = parseInt(figureDiv.style.left) + 'px';
+            if (figureDiv.style.background.includes('figure')){
+                figureDiv.style.top = parseInt(figureDiv.style.top) + 'px'; //the method parseInt takes only the number (and leaves out the string 'px' attached to it) 
+                figureDiv.style.left = parseInt(figureDiv.style.left) + 'px';
 
-                    //creating ambulances and putting them 80px left to each figure
-                    const i = document.createElement('div');
-                    i.classList.add('ambulance');
-                    body.insertBefore(i, footer);
-                    i.style.position = 'absolute';
-                    i.style.top = figureDiv.style.top;
-                    i.style.left = (parseInt(figureDiv.style.left) - 80) + "px";
-
-
-                    const figureEntersAmbulance = () => {
-                        let z = 0;
-                        setInterval(() => {
-                            if (z < 20){
-                                figureDiv.style.top = parseInt(figureDiv.style.top) + 1 + 'px'
-                                z += 1;
-                            }
-                        }, 5  
-                        );
-                    }
+                //creating ambulances and putting them 80px left to each figure
+                const i = document.createElement('div');
+                i.classList.add('ambulance');
+                body.insertBefore(i, footer);
+                i.style.position = 'absolute';
+                i.style.top = figureDiv.style.top;
+                i.style.left = (parseInt(figureDiv.style.left) - 80) + "px";
 
 
-                    const movingAmbulance = () => {
-                        if ( parseInt(i.style.left) < parseInt(figureDiv.style.left) ){
-                            i.style.left = (parseInt(i.style.left) + 1) + 'px';
+                const figureEntersAmbulance = () => {
+                    let z = 0;
+                    setInterval(() => {
+                        if (z < 20){
+                            figureDiv.style.top = parseInt(figureDiv.style.top) + 1 + 'px'
+                            z += 1;
                         }
-                    }
-
-
-                    const movingAmbulancePart2 = () => {
-                        if(parseInt(i.style.left) < ourViewPortWidth){
-                            setInterval(() => {
-                                i.style.left = (parseInt(i.style.left) + 1) + 'px'; 
-                            }, 10)
-                            i.style.animation = 'ambulanceDisappears 3s ease forwards normal';
-                        }
-                    }
-
-
-                    setTimeout(figureEntersAmbulance, 1200);
-                    figureDiv.style.animation = 'figureBecomesMini 0.5s 1.2s ease forwards normal';
-                    setInterval(movingAmbulance, 15);
-                    setTimeout(movingAmbulancePart2, 1300);
-
-
+                    }, 5  
+                    );
                 }
-            })
-            
-            
-        }
-        
+
+
+                const movingAmbulance = () => {
+                    if ( parseInt(i.style.left) < parseInt(figureDiv.style.left) ){
+                        i.style.left = (parseInt(i.style.left) + 1) + 'px';
+                    }
+                }
+
+
+                const movingAmbulancePart2 = () => {
+                    if(parseInt(i.style.left) < ourViewPortWidth){
+                        setInterval(() => {
+                            i.style.left = (parseInt(i.style.left) + 1) + 'px'; 
+                        }, 10)
+                        i.style.animation = 'ambulanceDisappears 3s ease forwards normal';
+                    }
+                }
+
+
+                setTimeout(figureEntersAmbulance, 1200);
+                figureDiv.style.animation = 'figureBecomesMini 0.5s 1.2s ease forwards normal';
+                setInterval(movingAmbulance, 15);
+                setTimeout(movingAmbulancePart2, 1300);
+
+
+            }
+        })
     }
    
 
-    // if (figuresDivs.every(checkBackground)) {  //"every" returns true if the function returns true for all elements in the array
-    //     console.log ('you made it!');
-    // } else {
-    //     setTimeout(check, secondsForEachStage[stage]*1000); //after period of time we stop the current level and check how the user succeeded
-    // }
-
-    // // if ((Date.now() == timeOnBeginning + secondsForEachStage[stage]*1000) || (figuresDivs.every(checkBackground))) {
-    // //     check();
-    // // }
-
-/*???????????????????????????????????????????????
-    if (figuresDivs.every(checkBackground)) {  //"every" returns true if the function returns true for all elements in the array
-        stop = 1;
-        clearTimeout(timeCheck);
-        console.log ('you made it!');
+    //function that checks if all the figures were clicked or if the time of the level ended
+    const endLevelCheck = () => {
+        const currentTime = Date.now();
+        if (figuresDivs.every(checkBackground)) {  //"every" returns true if the function returns true for all elements in the array (if all figures became stars)
+            clearInterval(endLevel);
+            stop = 1; //the stars will stop moving
+            clearInterval(countDownInterval); //the clock will stop
+            timer.style.animation = 'none';
+            timer.style.animation = 'timerGrowsAgain 1s 2 ease normal';
+            console.log ('you made it!');
+        } else if (currentTime >= (timeOnBeginning + secondsForEachStage[stage]*1000)) {
+            clearInterval(endLevel);
+            failingProcedure();
+        }
     }
-???????????????????????????????????????????????*/
 
-    const timeCheck = setTimeout(check, secondsForEachStage[stage]*1000); //after period of time we stop the current level and check how the user succeeded
+
+    const endLevel = setInterval(endLevelCheck, 1);
+    
+
   
 
 });

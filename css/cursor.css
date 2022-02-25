@@ -49,6 +49,12 @@ header div span {
   100% {font-size: 40px}
 }
 
+@keyframes timerGrowsAgain {
+  0% {font-size: 40px}
+  50% {font-size: 70px}
+  100% {font-size: 40px}
+}
+
 .cursor {
   width: 48px;
   height: 48px;

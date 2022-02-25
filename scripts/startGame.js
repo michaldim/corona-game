@@ -5,6 +5,7 @@ let stage = 0;
 //we start the game by clicking the start button
 button.addEventListener("click", () => {
     let timeOnBeginning = Date.now(); 
+    button.style.display = 'none';
 
     //the corona's eyes will get closed and turn/look to the other side
     topEyeshade.style.animation = 'shutTopEyeshade 2.5s 0.65s ease infinite normal';
@@ -122,7 +123,7 @@ button.addEventListener("click", () => {
                     );
                 }
 
-
+                //moving the ambulance from the left of the figure towards the figure
                 const movingAmbulance = () => {
                     if ( parseInt(i.style.left) < parseInt(figureDiv.style.left) ){
                         i.style.left = (parseInt(i.style.left) + 1) + 'px';
@@ -130,12 +131,17 @@ button.addEventListener("click", () => {
                 }
 
 
+                //movingAmbulancePart2 will call this function:
+                const moveRight = () => {
+                    i.style.left = (parseInt(i.style.left) + 1) + 'px';
+                }
+                
+                //moving the ambulance from the figure to the right side of the screen
                 const movingAmbulancePart2 = () => {
                     if(parseInt(i.style.left) < ourViewPortWidth){
-                        setInterval(() => {
-                            i.style.left = (parseInt(i.style.left) + 1) + 'px'; 
-                        }, 10)
+                        const movingRight = setInterval(moveRight, 10);
                         i.style.animation = 'ambulanceDisappears 3s ease forwards normal';
+                        setInterval(() => clearInterval(movingRight), 3000);
                     }
                 }
 

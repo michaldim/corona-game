@@ -72,6 +72,13 @@ button {
   cursor: none;
 }
 
+.corona {
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
+}
+
 #circle {
   width: 130px;
   height: 130px;

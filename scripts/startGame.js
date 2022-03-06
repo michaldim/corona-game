@@ -1,11 +1,55 @@
 const tinyCircles = document.querySelectorAll('.tinyCircle');
-const secondsForEachStage = [8, 10, 10, 15, 10, 10, 15, 10, 15, 10];
+const corona = document.querySelectorAll('.corona');
+const tinyCircleContainer = document.querySelectorAll('.tinyCircleContainer');
+const formLabel = document.querySelector('#instructions form label');
+const formTextInput = document.querySelector('#instructions form #nickname');
+const instructionsPTag = document.querySelector('#instructions p');
+let nickname;
 let stage = 0;
 
-//we start the game by clicking the start button
-button.addEventListener("click", () => {
-    let timeOnBeginning = Date.now(); 
-    button.style.display = 'none';
+
+const instructions = document.querySelector('#instructions');
+
+
+//starting the game
+button.addEventListener("click", (e) => {
+    
+    e.preventDefault();//prevent refresh of the page due to the form
+
+    stop = 0;
+     
+    //putting the nickname in local storage
+    nickname = document.forms.nicknameForm.nickname.value;
+    let localName = localStorage.getItem('name');
+
+    if (nickname != ''){
+        localStorage.setItem('name', nickname);
+        localName = localStorage.getItem('name');
+        console.log("Hello " +localName);
+    } else if (nickname == ''){
+        if (localName != null){
+            console.log("Hello " +localName);
+        } else {
+            localName = '';
+            console.log("Hello " + localName);
+        }
+    }
+
+    //we will remove parts of the form that we won't need any more
+    formLabel.style.display = 'none';
+    formTextInput.style.display = 'none';
+    
+
+    //the corona appears
+    corona.forEach(element => {
+        element.style.display = 'block';
+    })
+    //the small circles of the corona appear
+    tinyCircleContainer.forEach(element => {
+        element.style.display = 'inline-block';
+    })
+    
+    instructions.style.display = 'none';
 
     //the corona's eyes will get closed and turn/look to the other side
     topEyeshade.style.animation = 'shutTopEyeshade 2.5s 0.65s ease infinite normal';
@@ -36,19 +80,6 @@ button.addEventListener("click", () => {
     const countDown = () => {
         seconds = seconds - 1;  
         timer.textContent = seconds;
-        if (seconds == 0 && figuresDivs.every(checkBackground) == false) { //if not all figures have became stars
-            clearInterval(countDownInterval);
-            timer.style.animation = 'none';
-
-            tinyCircles.forEach(circle => {
-                circle.style.animation = `coronaColorsChange${stage} 2.5s linear forwards`; //corona starts to change color
-            })
-
-        } else if (seconds == 0 && figuresDivs.every(checkBackground) == true) { //all figures have became stars
-            clearInterval(countDownInterval);
-            timer.style.animation = 'none';
-            stage += 1;
-        } 
     }
 
     const countDownInterval = setInterval(countDown, 1000); //function for the timer
@@ -94,9 +125,7 @@ button.addEventListener("click", () => {
     const failingProcedure = () => {
 
         stop = 1;   
-        
-        console.log ('you failed');
-            
+                    
         figuresDivs.forEach(figureDiv => {
 
             if (figureDiv.style.background.includes('figure')){
@@ -140,7 +169,7 @@ button.addEventListener("click", () => {
                 const movingAmbulancePart2 = () => {
                     if(parseInt(i.style.left) < ourViewPortWidth){
                         const movingRight = setInterval(moveRight, 10);
-                        i.style.animation = 'ambulanceDisappears 3s ease forwards normal';
+                        i.style.animation = 'disappears 3s ease forwards normal';
                         setInterval(() => clearInterval(movingRight), 3000);
                     }
                 }
@@ -149,36 +178,75 @@ button.addEventListener("click", () => {
                 setTimeout(figureEntersAmbulance, 1200);
                 figureDiv.style.animation = 'figureBecomesMini 0.5s 1.2s ease forwards normal';
                 setInterval(movingAmbulance, 15);
-                setTimeout(movingAmbulancePart2, 1300);
-
-
+                setTimeout(movingAmbulancePart2, 1700);
             }
         })
+
+        console.log ('you failed');
+        //bringing back the instraction's box
+        const bringingBackInstructions = () => {
+            
+            if(localName == ''){
+                instructionsPTag.textContent = "You failed and a new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe.";
+            } else {    
+                instructionsPTag.textContent = localName + ',' + " you failed and a new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe."; 
+            }
+
+            instructions.style.opacity = '0';
+            instructions.style.display = 'block';
+            instructions.style.top = 'calc(30% + 4px)';
+            instructions.style.animation = 'instructionsAppears 2.5s ease forwards normal';            
+        }
+        
+        setTimeout(bringingBackInstructions, 2000);
+
     }
    
 
     //function that checks if all the figures were clicked or if the time of the level ended
     const endLevelCheck = () => {
-        const currentTime = Date.now();
         if (figuresDivs.every(checkBackground)) {  //"every" returns true if the function returns true for all elements in the array (if all figures became stars)
             clearInterval(endLevel);
             stop = 1; //the stars will stop moving
+            stage += 1;
             clearInterval(countDownInterval); //the clock will stop
             timer.style.animation = 'none';
-            timer.style.animation = 'timerGrowsAgain 1s 2 ease normal';
-            console.log ('you made it!');
-        } else if (currentTime >= (timeOnBeginning + secondsForEachStage[stage]*1000)) {
+            timer.style.animation = 'timerGrowsAgain 1s 1 ease normal';
+            
+            //hiding the corona
+            corona.forEach(element => {
+                element.style.display = 'none';
+            })
+            
+            //bringing back the instraction's box
+            if(localName == ''){
+                instructions.innerHTML = pAnon[stage]; //pAnon is the text appears in storyLine.js
+            } else {
+                instructions.innerHTML = localName + ',' + p[stage]; ////p is the text appears in storyLine.js
+            }
+            instructions.style.opacity = '0';
+            instructions.style.display = 'block';
+            instructions.style.animation = 'instructionsAppears 2s ease forwards normal';            
+
+
+        } else if (seconds == 0 && figuresDivs.every(checkBackground) == false) { //if not all figures became stars and the seconds ended
             clearInterval(endLevel);
-            failingProcedure();
+            clearInterval(countDownInterval); //the clock will stop
+            failingProcedure();//function that brings the ambulances
+            tinyCircles.forEach(circle => {
+                circle.style.animation = `coronaColorsChange${stage} 2.5s linear forwards`; //corona starts to change color
+            })
         }
     }
 
 
-    const endLevel = setInterval(endLevelCheck, 1);
-    
-
-  
+    const endLevel = setInterval(endLevelCheck, 1); 
 
 });
+
+
+
+
+
 
 

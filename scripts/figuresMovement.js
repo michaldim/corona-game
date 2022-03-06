@@ -1,11 +1,11 @@
 const footer = document.querySelector('footer');
-const button = document.querySelector('button');
+const button = document.querySelector('#instructions form #startButton');
 const topEyeshade = document.querySelector('#topEyeshade');
 const bottomEyeshade = document.querySelector('#bottomEyeshade');
 let stop = 0;
 
 
-const nums = [1, 2, 3, 4, 5, 6, 7];
+
 const figures = []; //figure1, figure2...
 const figuresDivs = [];
 const ourViewPortWidth = body.clientWidth; //clientWidth shows the width of the element we choose
@@ -13,7 +13,7 @@ const ourViewPortHeight = body.clientHeight;
 console.log ('ourViewPortWidth: ' + ourViewPortWidth + ' ourViewPortHeight: ' +ourViewPortHeight)
 
 //defining the figures' arrays
-nums.forEach(num => {
+numsOfFigs.forEach(num => {
     //adding figures into the figures array
     figures.push('figure'+num);
     

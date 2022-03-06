@@ -63,7 +63,7 @@ axis.forEach(element => {
 
 //creating div for the corona's eyes
 const eyes = document.createElement("div");
-eyes.classList.add('eyes');
+eyes.classList.add('eyes', 'corona');
 document.querySelector('#tinyCircleContainer1').append(eyes);
 
 ////creating divs for the corona's eye shades

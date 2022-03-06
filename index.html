@@ -22,7 +22,18 @@
 		</header>
 
 		<div class="cursor"></div>
-		<button>Start</button>
+
+		<div id="instructions">
+			<p>Vaccinate world's population and help fight the coronavirus disease.</br>If you'll fail, a new variant will arrive...</p>
+			<form name="nicknameForm">
+				<label for="nickname">Your nickname: </label><input type="text" id="nickname" name="nickname"/>
+				<input id="startButton" type="submit" value="Lets go!"/>
+			</form>
+			
+			<div id="signIn">signIn</div>
+			<div id="signIn">signUp</div>
+		</div>
+		
 
 		<div class="corona" id="circle"></div>
 		
@@ -32,6 +43,7 @@
 
 		
 	<script src="scripts/cursorAndCorona.js"></script>
+	<script src="scripts/storyLine.js"></script>
 	<script src="scripts/figuresMovement.js"></script>
 	<script src="scripts/startGame.js"></script>
 	

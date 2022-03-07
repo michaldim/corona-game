@@ -94,6 +94,7 @@ button.addEventListener("click", (e) => {
         //putting the figures in different places at starting point
         currentFigure.style.top = Math.random()*(body.clientHeight - 56) + 'px'; //56 is the size of the figures. body.clientHeight gives the viewport size without the scroll bar
         currentFigure.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
+        currentFigure.style.display = 'block';
         //starting to move the figures in different directions:
         move(figure);
 
@@ -179,7 +180,7 @@ button.addEventListener("click", (e) => {
                 figureDiv.style.animation = 'figureBecomesMini 0.5s 1.2s ease forwards normal';
                 setInterval(movingAmbulance, 15);
                 setTimeout(movingAmbulancePart2, 1700);
-            }
+            } 
         })
 
         console.log ('you failed');
@@ -197,8 +198,19 @@ button.addEventListener("click", (e) => {
             instructions.style.top = 'calc(30% + 4px)';
             instructions.style.animation = 'instructionsAppears 2.5s ease forwards normal';            
         }
+
+
+        //changing back the figures to their original size, so they'll be ready for next level
+        const sizingBackFigures = () => {
+            figuresDivs.forEach(figureDiv => {
+                figureDiv.style.animation = 'figureBecomesMini 1ms 1.7s 1 backwards reverse';
+                figureDiv.style.animation = 'fireworks 1ms 1 backwards reverse';
+                figureDiv.style.display = 'none';
+            }) 
+        }
         
         setTimeout(bringingBackInstructions, 2000);
+        setTimeout(sizingBackFigures, 2000);
 
     }
    
@@ -212,6 +224,12 @@ button.addEventListener("click", (e) => {
             clearInterval(countDownInterval); //the clock will stop
             timer.style.animation = 'none';
             timer.style.animation = 'timerGrowsAgain 1s 1 ease normal';
+
+            //resizing the fireworks to their original size, so they'll be ready for next level
+            // figuresDivs.forEach(figureDiv => {
+            //     figureDiv.style.animation = 'fireworks 1ms 0.75s 1 backwards reverse';
+            //     figureDiv.style.display = 'none';
+            // }) 
             
             //hiding the corona
             corona.forEach(element => {

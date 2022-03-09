@@ -9,6 +9,8 @@ let stage = 0;
 
 
 const instructions = document.querySelector('#instructions');
+let figures = []; //figure1, figure2...
+let figuresDivs = [];
 
 
 //starting the game
@@ -17,6 +19,20 @@ button.addEventListener("click", (e) => {
     e.preventDefault();//prevent refresh of the page due to the form
 
     stop = 0;
+
+    //defining the figures' arrays
+    numsOfFigs.forEach(num => {
+        //adding figures into the figures array
+        figures.push('figure'+num);
+        
+        //creating figures div tags in the html
+        const i = document.createElement('div');
+        i.classList.add('figures');
+        i.setAttribute('id', 'figure'+num);
+        body.insertBefore(i, footer);
+        figuresDivs.push(i);
+
+    });
      
     //putting the nickname in local storage
     nickname = document.forms.nicknameForm.nickname.value;
@@ -105,6 +121,10 @@ button.addEventListener("click", (e) => {
             currentFigure.style.animation = 'fireworks 0.75s ease forwards normal';
             j += 10;
             score.textContent = j;
+            //deleting the figure from the DOM
+            setTimeout(() => {
+                currentFigure.remove(); 
+            }, 751);
         }
 
         //adding eventListener for each figure and adjusting the score
@@ -180,10 +200,24 @@ button.addEventListener("click", (e) => {
                 figureDiv.style.animation = 'figureBecomesMini 0.5s 1.2s ease forwards normal';
                 setInterval(movingAmbulance, 15);
                 setTimeout(movingAmbulancePart2, 1700);
+                //cleaning all figures and figures arrays after they entered the ambulance
+                setTimeout(() => {
+                    figuresDivs.forEach(figure => {
+                        figure.remove();
+                    })
+                    figures = []; 
+                    figuresDivs = [];
+                }, 1700);
+                //cleaning the ambulances after they finished their work
+                setTimeout(() => {
+                    const ambulances = document.querySelectorAll('.ambulance');
+                    ambulances.forEach(ambulance => {
+                        ambulance.remove();
+                    })
+                }, 4700);
             } 
         })
 
-        console.log ('you failed');
         //bringing back the instraction's box
         const bringingBackInstructions = () => {
             
@@ -198,20 +232,8 @@ button.addEventListener("click", (e) => {
             instructions.style.top = 'calc(30% + 4px)';
             instructions.style.animation = 'instructionsAppears 2.5s ease forwards normal';            
         }
-
-
-        //changing back the figures to their original size, so they'll be ready for next level
-        const sizingBackFigures = () => {
-            figuresDivs.forEach(figureDiv => {
-                figureDiv.style.animation = 'figureBecomesMini 1ms 1.7s 1 backwards reverse';
-                figureDiv.style.animation = 'fireworks 1ms 1 backwards reverse';
-                figureDiv.style.display = 'none';
-            }) 
-        }
         
         setTimeout(bringingBackInstructions, 2000);
-        setTimeout(sizingBackFigures, 2000);
-
     }
    
 
@@ -224,12 +246,11 @@ button.addEventListener("click", (e) => {
             clearInterval(countDownInterval); //the clock will stop
             timer.style.animation = 'none';
             timer.style.animation = 'timerGrowsAgain 1s 1 ease normal';
-
-            //resizing the fireworks to their original size, so they'll be ready for next level
-            // figuresDivs.forEach(figureDiv => {
-            //     figureDiv.style.animation = 'fireworks 1ms 0.75s 1 backwards reverse';
-            //     figureDiv.style.display = 'none';
-            // }) 
+            //cleaning the figures arrays (in order to get ready for next level):
+            setTimeout(() => {
+                figures = []; 
+                figuresDivs = [];
+            }, 751); //after the last firework ended its work
             
             //hiding the corona
             corona.forEach(element => {
@@ -238,9 +259,9 @@ button.addEventListener("click", (e) => {
             
             //bringing back the instraction's box
             if(localName == ''){
-                instructions.innerHTML = pAnon[stage]; //pAnon is the text appears in storyLine.js
+                instructionsPTag.textContent = pAnon[stage]; //pAnon is the text appears in storyLine.js
             } else {
-                instructions.innerHTML = localName + ',' + p[stage]; ////p is the text appears in storyLine.js
+                instructionsPTag.textContent = localName + ', ' + p[stage]; ////p is the text appears in storyLine.js
             }
             instructions.style.opacity = '0';
             instructions.style.display = 'block';

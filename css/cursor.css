@@ -104,6 +104,13 @@ header div span {
   100% {opacity: 1}
 }
 
+#instructions p {
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
+}
+
 form {
   margin-top: 20px;
 }

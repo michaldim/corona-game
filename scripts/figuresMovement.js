@@ -6,25 +6,11 @@ let stop = 0;
 
 
 
-const figures = []; //figure1, figure2...
-const figuresDivs = [];
 const ourViewPortWidth = body.clientWidth; //clientWidth shows the width of the element we choose
 const ourViewPortHeight = body.clientHeight;
 console.log ('ourViewPortWidth: ' + ourViewPortWidth + ' ourViewPortHeight: ' +ourViewPortHeight)
 
-//defining the figures' arrays
-numsOfFigs.forEach(num => {
-    //adding figures into the figures array
-    figures.push('figure'+num);
-    
-    //creating figures div tags in the html
-    const i = document.createElement('div');
-    i.classList.add('figures');
-    i.setAttribute('id', 'figure'+num);
-    body.insertBefore(i, footer);
-    figuresDivs.push(i);
 
-});
 
 
 
@@ -43,6 +29,7 @@ const move = (figure) => {
     const figureMovement = (randomIntX, randomIntY) => {
        
         if (stop == 1){
+            clearInterval(movementInterval);
             return;
         }
 
@@ -90,7 +77,7 @@ const move = (figure) => {
 
     }
     
-    setInterval(() => figureMovement(randomIntX, randomIntY), 20);
+    const movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 20);
 
 };
 

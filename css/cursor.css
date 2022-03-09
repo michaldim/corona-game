@@ -171,6 +171,11 @@ form label {
   border-radius: 50%;
   background: rgb(245, 194, 100);
   position: absolute;
+  transition: background 2.5s ease;
+  -webkit-transition: background 2.5s ease;
+  -moz-transition: background 2.5s ease;
+  -o-transition: background 2.5s ease;
+  -ms-transition: background 2.5s ease;
   /* right: 0;
   top: 0; */
 }
@@ -271,56 +276,6 @@ footer {
   -webkit-user-select: none;
   -ms-user-select: none;
   display: none;
-}
-
-@keyframes coronaColorsChange0 {
-  0% {background: rgb(245, 194, 100)}
-  100% {background: rgb(54, 88, 241)}
-}
-
-@keyframes coronaColorsChange1 {
-  0% {background: rgb(54, 88, 241)}
-  100% {background: rgb(130, 236, 108)}
-}
-
-@keyframes coronaColorsChange2 {
-  0% {background: rgb(130, 236, 108)}
-  100% {background: rgb(247, 73, 73)}
-}
-
-@keyframes coronaColorsChange3 {
-  0% {background: rgb(247, 73, 73)}
-  100% {background: rgb(185, 185, 141)}
-}
-
-@keyframes coronaColorsChange4 {
-  0% {background: rgb(185, 185, 141)}
-  100% {background: rgb(146, 1, 103)}
-}
-
-@keyframes coronaColorsChange5 {
-  0% {background: rgb(146, 1, 103)}
-  100% {background: rgb(20, 228, 243)}
-}
-
-@keyframes coronaColorsChange6 {
-  0% {background: rgb(20, 228, 243)}
-  100% {background: rgb(243, 170, 206)}
-}
-
-@keyframes coronaColorsChange7 {
-  0% {background: rgb(243, 170, 206)}
-  100% {background: rgb(5, 161, 26)}
-}
-
-@keyframes coronaColorsChange8 {
-  0% {background: rgb(5, 161, 26)}
-  100% {background: rgb(202, 172, 241)}
-}
-
-@keyframes coronaColorsChange9 {
-  0% {background: rgb(202, 172, 241)}
-  100% {background: rgb(240, 22, 222)}
 }
 
 

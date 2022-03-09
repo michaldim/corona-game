@@ -1,4 +1,4 @@
-const numsOfFigs = [1, 2, 3, 4, 5, 6, 7];
+let numsOfFigs = [];
 
 const secondsForEachStage = [8, 10, 9, 15, 10, 10, 15, 10, 15, 10];
 
@@ -9,7 +9,7 @@ const p = [
 "Vaccinate world's population and help fight the coronavirus disease. If you'll fail, a new variant will arrive...",
 "you made it! But the population grows and you need to vaccinate even more people now!",
 "you made it again! Now lets see if you can vaccinate the population faster! Thats the only way to prevent a new variant.",
-"great job! But new evidence came, saying that animals can also get sick. Try to vaccinate them too!",
+"great job! But new evidence came, saying that bats came to population concentrations. Try to vaccinate the bats too!",
 "you are awesome! But the people are in a hurry today. Lets see if you can do your job this fast!",
 ]
 

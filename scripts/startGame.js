@@ -6,8 +6,6 @@ const formTextInput = document.querySelector('#instructions form #nickname');
 const instructionsPTag = document.querySelector('#instructions p');
 let nickname;
 let stage = 0;
-
-
 const instructions = document.querySelector('#instructions');
 let figures = []; //figure1, figure2...
 let figuresDivs = [];
@@ -19,6 +17,15 @@ button.addEventListener("click", (e) => {
     e.preventDefault();//prevent refresh of the page due to the form
 
     stop = 0;
+
+
+    for (let z = 1; z < secondsForEachStage[stage]; z++){
+        numsOfFigs.push(z);
+    }
+    if (stage == 2){
+        numsOfFigs.push(secondsForEachStage[stage]);
+    }
+    
 
     //defining the figures' arrays
     numsOfFigs.forEach(num => {
@@ -146,7 +153,15 @@ button.addEventListener("click", (e) => {
     const failingProcedure = () => {
 
         stop = 1;   
-                    
+
+        let a = Math.random() * 359; /*Math.random() * 255;*/
+        let b = Math.floor(Math.random() * (80 - 26 + 1) + 26);/*Math.random() * 255;*/
+        let c = Math.floor(Math.random() * (75 - 35 + 1) + 35);/*Math.random() * 255;*/
+        tinyCircles.forEach(circle => {
+            //circle.style.background = `rgb(${a}, ${b}, ${c})`;
+            circle.style.background = `hsl(${a}, ${b}%, ${c}%)`;
+        });      
+            
         figuresDivs.forEach(figureDiv => {
 
             if (figureDiv.style.background.includes('figure')){
@@ -207,6 +222,7 @@ button.addEventListener("click", (e) => {
                     })
                     figures = []; 
                     figuresDivs = [];
+                    numsOfFigs = [];
                 }, 1700);
                 //cleaning the ambulances after they finished their work
                 setTimeout(() => {
@@ -250,6 +266,7 @@ button.addEventListener("click", (e) => {
             setTimeout(() => {
                 figures = []; 
                 figuresDivs = [];
+                numsOfFigs = [];
             }, 751); //after the last firework ended its work
             
             //hiding the corona
@@ -263,6 +280,7 @@ button.addEventListener("click", (e) => {
             } else {
                 instructionsPTag.textContent = localName + ', ' + p[stage]; ////p is the text appears in storyLine.js
             }
+            instructions.style.top = '22%';
             instructions.style.opacity = '0';
             instructions.style.display = 'block';
             instructions.style.animation = 'instructionsAppears 2s ease forwards normal';            
@@ -272,9 +290,6 @@ button.addEventListener("click", (e) => {
             clearInterval(endLevel);
             clearInterval(countDownInterval); //the clock will stop
             failingProcedure();//function that brings the ambulances
-            tinyCircles.forEach(circle => {
-                circle.style.animation = `coronaColorsChange${stage} 2.5s linear forwards`; //corona starts to change color
-            })
         }
     }
 

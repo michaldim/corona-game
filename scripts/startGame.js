@@ -5,25 +5,28 @@ const formLabel = document.querySelector('#instructions form label');
 const formTextInput = document.querySelector('#instructions form #nickname');
 const instructionsPTag = document.querySelector('#instructions p');
 let nickname;
-let stage = 0;
+let stage = 0;//will go inside the level tag
 const instructions = document.querySelector('#instructions');
 let figures = []; //figure1, figure2...
 let figuresDivs = [];
+let userScore = 0;
+const bonusArrow = document.querySelector('header #bonusArrow');
+
 
 
 //starting the game
 button.addEventListener("click", (e) => {
     
-    e.preventDefault();//prevent refresh of the page due to the form
+    e.preventDefault();//prevent refreshing the page (due to the form)
 
     stop = 0;
 
-
+    //adding numbers to numsOfFigs array (usually it is one figure less then the number of seconds)
     for (let z = 1; z < secondsForEachStage[stage]; z++){
         numsOfFigs.push(z);
     }
     if (stage == 2){
-        numsOfFigs.push(secondsForEachStage[stage]);
+        numsOfFigs.push(secondsForEachStage[stage]);//in level 2 the number of figures equall to the number of seconds
     }
     
 
@@ -81,15 +84,26 @@ button.addEventListener("click", (e) => {
 
     //the score section appears:
     header.style.display = 'flex';
-    const score = document.querySelector('header span');
-    let j = 0;
-    score.textContent = j;
+    const score = document.querySelector('header #score span');
+    score.textContent = userScore;
 
     //the timer appears
     const timer = document.querySelector('#timer');
-    let seconds = secondsForEachStage[stage];//
+    timer.style.animation = 'none';//in order to reset the animation of the end of the level
+    timer.classList.add('animationIsOn');//bringing back the original className
+    timer.classList.remove('animationRemoved');//a temporary className we added to the timer at the end of the level (now we're removing it)
+    let seconds = secondsForEachStage[stage];
     timer.textContent = seconds;  
     timer.style.animation = `timerGrows 1s ${seconds+1} ease normal`;
+    
+    //the stage appears on screen
+    const level = document.querySelector('header #level span');
+    level.textContent = stage+1;
+
+    //resetting the bonusArrow animation from the end of the level, so it'll be able to work again
+    bonusArrow.style.animation = 'none';
+    bonusArrow.classList.remove('animationRemoved');
+    bonusArrow.classList.add('animationIsOn');
 
 
     //function that will be called from the countDown function 
@@ -126,8 +140,8 @@ button.addEventListener("click", (e) => {
             currentFigure.removeEventListener('click', starsAndPoints);
             currentFigure.style.background = 'url(./images/stars.svg)';
             currentFigure.style.animation = 'fireworks 0.75s ease forwards normal';
-            j += 10;
-            score.textContent = j;
+            userScore += 10;
+            score.textContent = userScore;
             //deleting the figure from the DOM
             setTimeout(() => {
                 currentFigure.remove(); 
@@ -154,13 +168,22 @@ button.addEventListener("click", (e) => {
 
         stop = 1;   
 
-        let a = Math.random() * 359; /*Math.random() * 255;*/
-        let b = Math.floor(Math.random() * (80 - 26 + 1) + 26);/*Math.random() * 255;*/
-        let c = Math.floor(Math.random() * (75 - 35 + 1) + 35);/*Math.random() * 255;*/
+        //making the color of the corona randomly different
+        let h = Math.random() * 359; //the H og the hsl is 0-359
+        let s = Math.floor(Math.random() * (80 - 26 + 1) + 26);//I decided that the percentage of the S in hsl will be between 26 and 80 (because i don't like min saturation and max saturation)
+        let l = Math.floor(Math.random() * (75 - 35 + 1) + 35);//I decided that the percentage of the L in hsl will be between 35 and 75 (not too light and not too dark)
         tinyCircles.forEach(circle => {
-            //circle.style.background = `rgb(${a}, ${b}, ${c})`;
-            circle.style.background = `hsl(${a}, ${b}%, ${c}%)`;
-        });      
+            circle.style.background = `hsl(${h}, ${s}%, ${l}%)`;
+        });   
+        
+        //removing the original class from the timer, resets its animation
+        //and lets the animation work again next level (after adding the old className back)
+        setTimeout(() => {
+            timer.style.animation = 'none';
+            timer.classList.add('animationRemoved');
+            timer.classList.remove('animationIsOn');
+        }, 1000);
+            
             
         figuresDivs.forEach(figureDiv => {
 
@@ -261,7 +284,33 @@ button.addEventListener("click", (e) => {
             stage += 1;
             clearInterval(countDownInterval); //the clock will stop
             timer.style.animation = 'none';
-            timer.style.animation = 'timerGrowsAgain 1s 1 ease normal';
+            timer.classList.add('animationRemoved');
+            timer.classList.remove('animationIsOn');//removing this class resets the animation for this element and lets us use it again after adding this class back
+
+            if (seconds != 0) {
+                timer.style.animation = `timerGrowsAgain 1s ${seconds} ease normal`;
+
+                bonusArrow.style.opacity = '1';
+                bonusArrow.style.animation = `arrowGrows 1s ${seconds} ease normal`;
+                bonusArrow.classList.add('animationRemoved');
+                bonusArrow.classList.remove('animationIsOn');//removing this class resets the animation for this element and lets us use it again after adding this class back
+                
+                setTimeout(() => {
+                    bonusArrow.style.opacity = '0';
+                }, (seconds*1000));
+
+                let bonus = (seconds * 10);
+                const i = 1;
+                let count = 0;
+                setInterval(()=>{
+                    count = count + i;
+                    if (count <= bonus){
+                        userScore += 1;
+                        score.textContent = userScore;
+                    } 
+                }, 100);
+            }
+
             //cleaning the figures arrays (in order to get ready for next level):
             setTimeout(() => {
                 figures = []; 

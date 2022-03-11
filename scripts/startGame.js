@@ -83,9 +83,24 @@ button.addEventListener("click", (e) => {
     eyes.style.animation = 'turnEyes 5s 0.925s ease infinite normal'; 
 
     //the score section appears:
-    header.style.display = 'flex';
+    header.style.opacity = '0';
+    header.style.display = 'flex'; 
     const score = document.querySelector('header #score span');
     score.textContent = userScore;
+    let y = 0;
+    //this function will be called by: window.requestAnimationFrame(opacityChange);
+    //and it will tell the browser that I wish to perform an animation with the opacity
+    const opacityChange = () => {
+        y = y + 0.03;
+        header.style.opacity = `${y}`;
+
+        if (header.style.opacity != '1'){
+            requestAnimationFrame(opacityChange);
+        }
+    }
+
+    window.requestAnimationFrame(opacityChange);
+
 
     //the timer appears
     const timer = document.querySelector('#timer');
@@ -183,7 +198,7 @@ button.addEventListener("click", (e) => {
             timer.classList.add('animationRemoved');
             timer.classList.remove('animationIsOn');
         }, 1000);
-            
+
             
         figuresDivs.forEach(figureDiv => {
 

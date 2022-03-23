@@ -1,4 +1,5 @@
-let numsOfFigs = [];
+import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
+
 
 const secondsForEachStage = [8, 10, 9, 15, 10, 10, 15, 10, 15, 10];
 
@@ -20,3 +21,5 @@ const pAnon = [
     "Great job! But new evidence came, saying that animals can also get sick. Try to vaccinate them too!",
     "You are awesome! But the people are in a hurry today.Lets see if you can do your job this fast!",
 ]
+
+export { secondsForEachStage, pFailure, pFailureAnon, p, pAnon };

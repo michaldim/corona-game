@@ -1,3 +1,28 @@
+import style from '../css/cursor.css';
+import figure1 from '../images/figure1.svg';
+import figure2 from '../images/figure2.svg';
+import figure3 from '../images/figure3.svg';
+import figure4 from '../images/figure4.svg';
+import figure5 from '../images/figure5.svg';
+import figure6 from '../images/figure6.svg';
+import figure7 from '../images/figure7.svg';
+import figure8 from '../images/figure8.svg';
+import figure9 from '../images/figure9.svg';
+import figure10 from '../images/figure10.svg';
+import figure11 from '../images/figure11.svg';
+import figure12 from '../images/figure12.svg';
+import figure13 from '../images/figure13.svg';
+import figure14 from '../images/figure14.svg';
+import stars from '../images/stars.svg';
+import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
+import { secondsForEachStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
+import { stopWorking, ourViewPortWidth, ourViewPortHeight, move } from './figuresMovement';
+
+
+const footer = document.querySelector('footer');
+const button = document.querySelector('#instructions form #startButton');
+const topEyeshade = document.querySelector('#topEyeshade');
+const bottomEyeshade = document.querySelector('#bottomEyeshade');
 const tinyCircles = document.querySelectorAll('.tinyCircle');
 const corona = document.querySelectorAll('.corona');
 const tinyCircleContainer = document.querySelectorAll('.tinyCircleContainer');
@@ -9,6 +34,7 @@ let stage = 0;//will go inside the level tag
 const instructions = document.querySelector('#instructions');
 let figures = []; //figure1, figure2...
 let figuresDivs = [];
+let numsOfFigs = [];//for example: [1, 2, 3, 4, 5, 6, 7] depends on the max number of figures in each level
 let userScore = 0;
 const bonusArrow = document.querySelector('header #bonusArrow');
 
@@ -19,7 +45,7 @@ button.addEventListener("click", (e) => {
     
     e.preventDefault();//prevent refreshing the page (due to the form)
 
-    stop = 0;
+    stopWorking(0);
 
     //adding numbers to numsOfFigs array (usually it is one figure less then the number of seconds)
     for (let z = 1; z < secondsForEachStage[stage]; z++){
@@ -88,13 +114,13 @@ button.addEventListener("click", (e) => {
     const score = document.querySelector('header #score span');
     score.textContent = userScore;
     let y = 0;
-    //this function will be called by: window.requestAnimationFrame(opacityChange);
+    //the next function will be called by: window.requestAnimationFrame(opacityChange);
     //and it will tell the browser that I wish to perform an animation with the opacity
     const opacityChange = () => {
         y = y + 0.03;
         header.style.opacity = `${y}`;
 
-        if (header.style.opacity != '1'){
+        if (header.style.opacity < '1'){
             requestAnimationFrame(opacityChange);
         }
     }
@@ -142,7 +168,7 @@ button.addEventListener("click", (e) => {
         const currentFigure = document.querySelector('#'+figure);
 
         //adding a background image for each figure:
-        currentFigure.style.background = `url('./images/${figure}.svg')`; 
+        currentFigure.style.background = `url('./${figure}.svg')`; 
         //putting the figures in different places at starting point
         currentFigure.style.top = Math.random()*(body.clientHeight - 56) + 'px'; //56 is the size of the figures. body.clientHeight gives the viewport size without the scroll bar
         currentFigure.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
@@ -153,7 +179,7 @@ button.addEventListener("click", (e) => {
         //function for clicking a figure
         const starsAndPoints = () => {
             currentFigure.removeEventListener('click', starsAndPoints);
-            currentFigure.style.background = 'url(./images/stars.svg)';
+            currentFigure.style.background = 'url(./stars.svg)';
             currentFigure.style.animation = 'fireworks 0.75s ease forwards normal';
             userScore += 10;
             score.textContent = userScore;
@@ -181,7 +207,7 @@ button.addEventListener("click", (e) => {
     //function that works after the user failed
     const failingProcedure = () => {
 
-        stop = 1;   
+        stopWorking(1);   
 
         //making the color of the corona randomly different
         let h = Math.random() * 359; //the H og the hsl is 0-359
@@ -295,7 +321,7 @@ button.addEventListener("click", (e) => {
     const endLevelCheck = () => {
         if (figuresDivs.every(checkBackground)) {  //"every" returns true if the function returns true for all elements in the array (if all figures became stars)
             clearInterval(endLevel);
-            stop = 1; //the stars will stop moving
+            stopWorking(1); //the stars will stop moving
             stage += 1;
             clearInterval(countDownInterval); //the clock will stop
             timer.style.animation = 'none';

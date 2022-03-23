@@ -1,10 +1,11 @@
-const footer = document.querySelector('footer');
-const button = document.querySelector('#instructions form #startButton');
-const topEyeshade = document.querySelector('#topEyeshade');
-const bottomEyeshade = document.querySelector('#bottomEyeshade');
+import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
+import { secondsForEachStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
+
+
 let stop = 0;
-
-
+const stopWorking = (binary) => stop = binary; //we can't export "stop" as let, so we make
+                                               //a function that we can export, and it'll
+                                               //change the value of stop
 
 const ourViewPortWidth = body.clientWidth; //clientWidth shows the width of the element we choose
 const ourViewPortHeight = body.clientHeight;
@@ -33,25 +34,8 @@ const move = (figure) => {
             return;
         }
 
-        //four "if" rules for cases that the figures reach the screen edges:
-        if (currentFigure.offsetTop <= 1) { //offsetTop shows the location comparing to the father (the body). We need that offsetTop will be 0 or 1 (and not only offsetTop=0), because sometimes the figures do 2 steps (2 pixels) at a time
-            currentFigure.style.top = ((ourViewPortHeight -56 - 2) + 'px');//Minus 2, because the figures will be stucked if we will send them to ourViewPortHeightMinus1 or ourViewPortHeight. And minus 56 because of the size of the figures (we want them to disappear at the edge of the screen and not 56px after it)
-            currentFigure.style.left = (body.clientWidth -56 - parseInt(currentFigure.style.left)) + 'px';
-        } 
-        else if (currentFigure.offsetTop >= (body.clientHeight -56 - 1)) {
-            currentFigure.style.top = '2px';
-            currentFigure.style.left = (body.clientWidth -56 - parseInt(currentFigure.style.left)) + 'px';
-        } 
-        else if (currentFigure.offsetLeft <= 1) {
-            currentFigure.style.left = ((ourViewPortWidth -56 -2) + 'px');
-            currentFigure.style.top = (body.clientHeight -56 - parseInt(currentFigure.style.top)) + 'px';
-        } 
-        else if (currentFigure.offsetLeft >= (body.clientWidth -56 - 1)) {
-            currentFigure.style.left = '2px';
-            currentFigure.style.top = (body.clientHeight -56 - parseInt(currentFigure.style.top)) + 'px';
-        } 
-        //now 4 rules for the corners' cases:
-        else if ((currentFigure.offsetTop <= 1) && (currentFigure.offsetLeft >= (body.clientWidth -56 - 1))) {
+        //4 rules for the corners' cases:
+        if ((currentFigure.offsetTop <= 1) && (currentFigure.offsetLeft >= (body.clientWidth -56 - 1))) {
             currentFigure.style.top = ((ourViewPortHeight -56 - 2) + 'px');
             currentFigure.style.left = '2px';
         }
@@ -67,6 +51,23 @@ const move = (figure) => {
             currentFigure.style.top = '2px';
             currentFigure.style.left = '2px';
         }
+        //four "if" rules for cases that the figures reach the screen edges:
+        else if (currentFigure.offsetTop <= 1) { //offsetTop shows the location comparing to the father (the body). We need that offsetTop will be 0 or 1 (and not only offsetTop=0), because sometimes the figures do 2 steps (2 pixels) at a time
+            currentFigure.style.top = ((ourViewPortHeight -56 - 2) + 'px');//Minus 2, because the figures will be stucked if we will send them to ourViewPortHeightMinus1 or ourViewPortHeight. And minus 56 because of the size of the figures (we want them to disappear at the edge of the screen and not 56px after it)
+            currentFigure.style.left = (body.clientWidth -56 - parseInt(currentFigure.style.left)) + 'px';
+        } 
+        else if (currentFigure.offsetTop >= (body.clientHeight -56 - 1)) {
+            currentFigure.style.top = '2px';
+            currentFigure.style.left = (body.clientWidth -56 - parseInt(currentFigure.style.left)) + 'px';
+        } 
+        else if (currentFigure.offsetLeft <= 1) {
+            currentFigure.style.left = ((ourViewPortWidth -56 -2) + 'px');
+            currentFigure.style.top = (body.clientHeight -56 - parseInt(currentFigure.style.top)) + 'px';
+        } 
+        else if (currentFigure.offsetLeft >= (body.clientWidth -56 - 1)) {
+            currentFigure.style.left = '2px';
+            currentFigure.style.top = (body.clientHeight -56 - parseInt(currentFigure.style.top)) + 'px';
+        } 
         //if the figure is not in the edge or in the corner,
         //then that's the way it will move on screen:
         else {
@@ -82,3 +83,4 @@ const move = (figure) => {
 };
 
 
+export { stopWorking, ourViewPortWidth, ourViewPortHeight, move };

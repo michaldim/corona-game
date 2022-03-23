@@ -77,4 +77,4 @@ document.querySelector('#tinyCircleContainer1').append(z);
 document.querySelector('#tinyCircleContainer1').append(y);
 
 
-
+export { body, header, cursor, coronaCircle, eyes };

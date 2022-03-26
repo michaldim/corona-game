@@ -37,7 +37,7 @@ let figuresDivs = [];
 let numsOfFigs = [];//for example: [1, 2, 3, 4, 5, 6, 7] depends on the max number of figures in each level
 let userScore = 0;
 const bonusArrow = document.querySelector('header #bonusArrow');
-
+let speed; //figures' speed (Controls the frequency of the interval in the function move)
 
 
 //starting the game
@@ -47,13 +47,24 @@ button.addEventListener("click", (e) => {
 
     stopWorking(0);
 
-    //adding numbers to numsOfFigs array (usually it is one figure less then the number of seconds)
-    for (let z = 1; z < secondsForEachStage[stage]; z++){
-        numsOfFigs.push(z);
+    //adding numbers to numsOfFigs array (usually it is two figures less then the number of seconds)
+    if (stage == 0 || stage == 1 || stage == 3) {
+        for (let z = 1; z <= (secondsForEachStage[stage] - 4); z++){
+            numsOfFigs.push(z);
+        } 
+    } else if (stage == 2 || stage == 4) {
+        for (let z = 1; z <= (secondsForEachStage[stage] - 3); z++){
+            numsOfFigs.push(z);
+        } 
+    } else {
+        for (let z = 1; z <= (secondsForEachStage[stage] - 2); z++){
+            numsOfFigs.push(z);
+        }   
+        // if (stage == 2){
+        //     numsOfFigs.push(secondsForEachStage[stage]);//in level 2 the number of figures equall to the number of seconds
+        // }
     }
-    if (stage == 2){
-        numsOfFigs.push(secondsForEachStage[stage]);//in level 2 the number of figures equall to the number of seconds
-    }
+    
     
 
     //defining the figures' arrays
@@ -174,8 +185,14 @@ button.addEventListener("click", (e) => {
         currentFigure.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
         currentFigure.style.display = 'block';
         //starting to move the figures in different directions:
-        move(figure);
+        if (stage == 4){
+            speed = 'fast';
+        } else {
+            speed = 'regular';
+        }
+        move(figure, speed);
 
+        
         //function for clicking a figure
         const starsAndPoints = () => {
             currentFigure.removeEventListener('click', starsAndPoints);

@@ -16,7 +16,7 @@ console.log ('ourViewPortWidth: ' + ourViewPortWidth + ' ourViewPortHeight: ' +o
 
 
 //the button's event listener will call this function, which will move the figures in random directions
-const move = (figure) => {
+const move = (figure, speed) => {
     //making randon integers for the figures to move in different directions
     let randomIntX = Math.floor(Math.random() * (2 - (-2) + 1)) -2; //this const will give a random integer between -2 and +2
     let randomIntY = Math.floor(Math.random() * (2 - (-2) + 1)) -2; //this const will give a random integer between -2 and +2
@@ -78,7 +78,21 @@ const move = (figure) => {
 
     }
     
-    const movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 20);
+    //now we'll call the figureMovement function, but the interval for this function
+    //will be higher frequency for figures 11-14 (the bats). 
+    let movementInterval;
+    const batArray = [11, 12, 13, 14];
+    //we will use some() method, which checks if  at least one element in the array
+    //passes the test implemented inside some()
+    if (batArray.some(element => currentFigure.style.background.includes(element))) {
+        movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 9);
+    } else if (speed == 'fast') {
+        movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 12);
+        console.log("going fast now");
+    } else {
+        movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 20);
+    }
+    
 
 };
 

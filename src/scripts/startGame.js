@@ -13,9 +13,15 @@ import figure11 from '../images/figure11.svg';
 import figure12 from '../images/figure12.svg';
 import figure13 from '../images/figure13.svg';
 import figure14 from '../images/figure14.svg';
+import figure15 from '../images/figure15.svg';
+import figure16 from '../images/figure16.svg';
+import figure17 from '../images/figure17.svg';
+import figure18 from '../images/figure18.svg';
+import figure19 from '../images/figure19.svg';
+import figure20 from '../images/figure20.svg';
 import stars from '../images/stars.svg';
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
-import { secondsForEachStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
+import { secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 import { stopWorking, ourViewPortWidth, ourViewPortHeight, move } from './figuresMovement';
 
 
@@ -47,26 +53,23 @@ button.addEventListener("click", (e) => {
 
     stopWorking(0);
 
-    //adding numbers to numsOfFigs array (usually it is two figures less then the number of seconds)
-    if (stage == 0 || stage == 1 || stage == 3) {
-        for (let z = 1; z <= (secondsForEachStage[stage] - 4); z++){
+    //adding numbers to numsOfFigs array
+    // if (stage == 5) {
+    //     numsOfFigs.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 16, 17, 18, 19, 20);
+    // } else {
+    //     for (let z = 1; z <= figuresPerStage[stage]; z++){
+    //         numsOfFigs.push(z);
+    //     } 
+    // }
+    for (let z = 1; z <= figuresPerStage[stage]; z++){
+        if ((stage == 5) && (z == 11 || z == 12 || z == 13 || z == 14)){
+            console.log("");
+        } else {
             numsOfFigs.push(z);
-        } 
-    } else if (stage == 2 || stage == 4) {
-        for (let z = 1; z <= (secondsForEachStage[stage] - 3); z++){
-            numsOfFigs.push(z);
-        } 
-    } else {
-        for (let z = 1; z <= (secondsForEachStage[stage] - 2); z++){
-            numsOfFigs.push(z);
-        }   
-        // if (stage == 2){
-        //     numsOfFigs.push(secondsForEachStage[stage]);//in level 2 the number of figures equall to the number of seconds
-        // }
-    }
+        }
+    } 
     
-    
-
+      
     //defining the figures' arrays
     numsOfFigs.forEach(num => {
         //adding figures into the figures array
@@ -185,7 +188,7 @@ button.addEventListener("click", (e) => {
         currentFigure.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
         currentFigure.style.display = 'block';
         //starting to move the figures in different directions:
-        if (stage == 4){
+        if (stage == 4 || stage == 6 || stage == 7){
             speed = 'fast';
         } else {
             speed = 'regular';

@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    mode: 'production', // development
+    mode: 'development', //production
     entry: {
         main: path.resolve(__dirname, 'src/scripts/startGame.js'),
     },

@@ -92,6 +92,7 @@ header #bonusArrow p {
 }
 
 #instructions {
+  display: block;
 	background: linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
   color: black;
   background: -webkit-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));

@@ -46,6 +46,13 @@ const bonusArrow = document.querySelector('header #bonusArrow');
 let speed; //figures' speed (Controls the frequency of the interval in the function move)
 
 
+instructions.style.display = 'none';
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    instructions.style.display = 'block';
+});
+
+
 //starting the game
 button.addEventListener("click", (e) => {
     

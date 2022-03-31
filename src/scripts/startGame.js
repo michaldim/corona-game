@@ -1,4 +1,5 @@
-import style from '../css/cursor.css';
+//import style from '../css/cursor.css';
+import '../css/cursor.css';
 import figure1 from '../images/figure1.svg';
 import figure2 from '../images/figure2.svg';
 import figure3 from '../images/figure3.svg';
@@ -44,13 +45,6 @@ let numsOfFigs = [];//for example: [1, 2, 3, 4, 5, 6, 7] depends on the max numb
 let userScore = 0;
 const bonusArrow = document.querySelector('header #bonusArrow');
 let speed; //figures' speed (Controls the frequency of the interval in the function move)
-
-
-instructions.style.display = 'none';
-
-window.addEventListener('DOMContentLoaded', (event) => {
-    instructions.style.display = 'block';
-});
 
 
 //starting the game

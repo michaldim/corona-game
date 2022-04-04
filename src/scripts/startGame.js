@@ -21,7 +21,9 @@ import figure18 from '../images/figure18.svg';
 import figure19 from '../images/figure19.svg';
 import figure20 from '../images/figure20.svg';
 import stars from '../images/stars.svg';
+import favicon from '../images/favicon.ico';
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
+import { registerButton, registerFormContainer, closeX } from './signInAndRegisterForms';
 import { secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 import { stopWorking, ourViewPortWidth, ourViewPortHeight, move } from './figuresMovement';
 
@@ -33,9 +35,10 @@ const bottomEyeshade = document.querySelector('#bottomEyeshade');
 const tinyCircles = document.querySelectorAll('.tinyCircle');
 const corona = document.querySelectorAll('.corona');
 const tinyCircleContainer = document.querySelectorAll('.tinyCircleContainer');
-const formLabel = document.querySelector('#instructions form label');
-const formTextInput = document.querySelector('#instructions form #nickname');
+const nicknameFormLabel = document.querySelector('#instructions form label');
+const nicknameFormTextInput = document.querySelector('#instructions form #nickname');
 const instructionsPTag = document.querySelector('#instructions p');
+const sign = document.querySelector('#sign');
 let nickname;
 let stage = 0;//will go inside the level tag
 const instructions = document.querySelector('#instructions');
@@ -103,9 +106,11 @@ button.addEventListener("click", (e) => {
     }
 
     //we will remove parts of the form that we won't need any more
-    formLabel.style.display = 'none';
-    formTextInput.style.display = 'none';
+    nicknameFormLabel.style.display = 'none';
+    nicknameFormTextInput.style.display = 'none';
     
+    //we will remove signIn and signUp buttons
+    sign.style.display = 'none';
 
     //the corona appears
     corona.forEach(element => {

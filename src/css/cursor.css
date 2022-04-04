@@ -91,6 +91,185 @@ header #bonusArrow p {
   z-index: 100;
 }
 
+#sign {
+  color: rgb(243, 243, 145);
+  text-align: right;
+  font-size: 24px;
+  font-family: Garamond, serif;
+  font-weight: lighter;
+  position: absolute;
+  top: 15px;
+  right: 0%;
+}
+
+#signIn {
+  color:rgb(247, 247, 197);
+  margin-right: 15px;
+  padding: 0px 20px 4px 20px;
+  display: inline-block;
+  border-radius: 50px;
+  border: 2px solid rgb(247, 247, 197);
+}
+
+#signIn:hover {
+  box-shadow: inset 2px 2px 4px rgb(247, 247, 197, 1), inset -2px -2px 4px rgb(247, 247, 197, 1);
+}
+
+#register {
+  color:rgb(216, 216, 204);
+  padding-right: 8px;
+  display: inline-block;
+}
+
+#register:hover {
+  background: rgb(184, 184, 169, 0.4);
+  border-radius: 5px;
+  padding-bottom: 2px;
+  padding-left: 5px;
+}
+
+#registerFormContainer{
+  display: none;
+  position: fixed;
+  background: #3d3b3b;
+  z-index: 50;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+
+#registerForm {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  position: fixed;
+  top: 20%;
+  right: calc(50% - 200px);  
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 5px;
+  border: 3px solid rgb(184, 184, 169);
+}
+
+#registerFormContainer #registerForm input {
+  margin-bottom: 30px;
+  border: 1px solid rgb(184, 184, 169);
+  height: 40px;
+}
+
+#registerFormContainer #registerForm input:focus {
+  border: none;
+  background-color: rgb(223, 246, 247);/*197 245 247*/
+}
+
+#registerFormContainer #registerForm input[name="firstName"] {
+  /* margin-right: 2.5%; */
+  margin-right: auto;
+  margin-left: 5%; 
+  margin-top: 35px;
+  border-radius: 5px;
+}
+
+#registerFormContainer #registerForm input[name="lastName"] {
+  margin-right: 5%;
+  /* margin-left: 2.5%; */
+  margin-top: 35px; 
+  border-radius: 5px;
+}
+
+
+#registerFormContainer #registerForm input[type=email],
+#registerFormContainer #registerForm input[type=password] {
+  /* border: none; */
+  border-radius: 5px;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+
+#registerFormContainer #registerForm input[type=submit]{
+  border-radius: 20px;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 5px;
+  margin-bottom: 35px;
+  background: linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
+  background: -webkit-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
+	background: -webkit-gradient(linear, top, bottom, color-stop(30%, rgb(243, 243, 145)), color-stop(100%, rgb(247, 247, 197)));
+	background: -moz-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
+	background: -o-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
+	background: -ms-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
+}
+
+#signInFormContainer{
+  display: none;
+  position: fixed;
+  background: #3d3b3b;
+  z-index: 50;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+
+#signInForm {
+  display: flex;
+  position: fixed;
+  top: 20%;
+  right: calc(50% - 200px);
+  flex-wrap: wrap;
+  width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 5px;
+  border: 3px solid rgb(184, 184, 169);
+}
+
+#signInFormContainer #signInForm input {
+  margin-right: 5%;
+  margin-left: 5%;
+  border: 1px solid rgb(184, 184, 169);
+  height: 40px;
+}
+
+#signInFormContainer #signInForm input:focus {
+  border: none;
+  background-color: rgb(223, 246, 247);
+}
+
+#signInFormContainer #signInForm input[type="email"] {
+  margin-top: 35px;
+}
+
+#signInFormContainer #signInForm input[type="password"] {
+  margin-top: 30px;
+}
+
+#signInFormContainer #signInForm input[type="submit"] {
+  margin-top: 35px;
+  margin-bottom: 35px;
+  border-radius: 20px;
+  background: linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
+  background: -webkit-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
+	background: -webkit-gradient(linear, top, bottom, color-stop(30%, rgb(243, 243, 145)), color-stop(100%, rgb(247, 247, 197)));
+	background: -moz-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
+	background: -o-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
+	background: -ms-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
+}
+
+.x {
+  display: none;
+  background: url("../images/close-x.svg");
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  z-index: 51;
+  top: calc(20% - 40px);
+  right: calc(50% - 244px);
+}
+
+
 #instructions {
 	background: linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
   color: black;
@@ -128,15 +307,28 @@ header #bonusArrow p {
   -ms-user-select: none;/*******************************************/
 }
 
-form {
+#instructions form {
   margin-top: 20px;
 }
 
-form label {
+#instructions form label {
   font-weight: lighter;
   font-size: 32px;
   position: relative;
   top: 3px;
+}
+
+#instructions form input[type="submit"] {
+  border-radius: 20px;
+  background: rgb(231, 231, 219);
+}
+
+/* #instructions form input[type="text"] {
+  border: 1px solid rgb(184, 184, 169);
+} */
+
+#instructions form input[type="text"]:focus {
+  background-color: rgb(242, 254, 255);
 }
  
 .corona {

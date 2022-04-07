@@ -23,20 +23,17 @@ import figure20 from '../images/figure20.svg';
 import stars from '../images/stars.svg';
 import favicon from '../images/favicon.ico';
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
-import { registerButton, registerFormContainer, closeX } from './signInAndRegisterForms';
+import { firebaseConfig, app, auth, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button } from './signInAndRegisterForms';
 import { secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
-import { stopWorking, ourViewPortWidth, ourViewPortHeight, move } from './figuresMovement';
+import { stopWorking, ourViewPortWidth, move } from './figuresMovement';
 
 
 const footer = document.querySelector('footer');
-const button = document.querySelector('#instructions form #startButton');
 const topEyeshade = document.querySelector('#topEyeshade');
 const bottomEyeshade = document.querySelector('#bottomEyeshade');
 const tinyCircles = document.querySelectorAll('.tinyCircle');
 const corona = document.querySelectorAll('.corona');
 const tinyCircleContainer = document.querySelectorAll('.tinyCircleContainer');
-const nicknameFormLabel = document.querySelector('#instructions form label');
-const nicknameFormTextInput = document.querySelector('#instructions form #nickname');
 const instructionsPTag = document.querySelector('#instructions p');
 const sign = document.querySelector('#sign');
 let nickname;
@@ -57,14 +54,7 @@ button.addEventListener("click", (e) => {
 
     stopWorking(0);
 
-    //adding numbers to numsOfFigs array
-    // if (stage == 5) {
-    //     numsOfFigs.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 16, 17, 18, 19, 20);
-    // } else {
-    //     for (let z = 1; z <= figuresPerStage[stage]; z++){
-    //         numsOfFigs.push(z);
-    //     } 
-    // }
+    //filling up numsOfFigs array according to figuresPerStage array
     for (let z = 1; z <= figuresPerStage[stage]; z++){
         if ((stage == 5) && (z == 11 || z == 12 || z == 13 || z == 14)){
             console.log("");
@@ -72,7 +62,7 @@ button.addEventListener("click", (e) => {
             numsOfFigs.push(z);
         }
     } 
-    
+
       
     //defining the figures' arrays
     numsOfFigs.forEach(num => {
@@ -98,10 +88,10 @@ button.addEventListener("click", (e) => {
         console.log("Hello " +localName);
     } else if (nickname == ''){
         if (localName != null){
-            console.log("Hello " +localName);
+            console.log("Hello " + localName);
         } else {
             localName = '';
-            console.log("Hello " + localName);
+            console.log("Hello anon");
         }
     }
 
@@ -111,6 +101,10 @@ button.addEventListener("click", (e) => {
     
     //we will remove signIn and signUp buttons
     sign.style.display = 'none';
+    
+    //we will make the button bigger and with lighter text color
+    button.style.fontSize = '17px';
+    button.style.color = '#555';
 
     //the corona appears
     corona.forEach(element => {

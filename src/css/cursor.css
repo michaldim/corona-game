@@ -180,7 +180,8 @@ header #bonusArrow p {
 
 
 #registerFormContainer #registerForm input[type=email],
-#registerFormContainer #registerForm input[type=password] {
+#registerFormContainer #registerForm input[type=password],
+#registerFormContainer #registerForm input[name="nicknameRegisteredUser"] {
   /* border: none; */
   border-radius: 5px;
   margin-right: 5%;
@@ -279,7 +280,7 @@ header #bonusArrow p {
 	background: -o-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
 	background: -ms-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgb(243, 243, 145)', endColorstr='rgb(247, 247, 197)',GradientType=0 );
-  width: 50%;
+  width: 550px;
   padding: 10px;
   border: 7px solid rgb(184, 184, 169);
   text-align: center;

@@ -80,20 +80,22 @@ button.addEventListener("click", (e) => {
      
     //putting the nickname in local storage
     nickname = document.forms.nicknameForm.nickname.value;
-    let localName = localStorage.getItem('name');
 
     if (nickname != ''){
         localStorage.setItem('name', nickname);
-        localName = localStorage.getItem('name');
-        console.log("Hello " +localName);
-    } else if (nickname == ''){
-        if (localName != null){
-            console.log("Hello " + localName);
-        } else {
-            localName = '';
-            console.log("Hello anon");
-        }
-    }
+        // localName = localStorage.getItem('name');
+        // console.log("Hello " +localName);
+    } 
+
+    // else if (nickname == ''){
+    //     if (localName != null){
+    //         console.log("Hello " + localName);
+    //     } else {
+    //         localName = '';
+    //         console.log("Hello anon");
+    //     }
+    // }
+
 
     //we will remove parts of the form that we won't need any more
     nicknameFormLabel.style.display = 'none';
@@ -222,6 +224,8 @@ button.addEventListener("click", (e) => {
 
     })
 
+    
+    let localName = localStorage.getItem('name');
 
 
     //function that works after the user failed

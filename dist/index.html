@@ -1,1 +1,67 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Corona game</title><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/x-icon" href="favicon.ico"><script defer="defer" src="main.70b0379eecb923fb8113.js"></script><link href="main.css" rel="stylesheet"></head><body><header><div id="score">score: <span></span></div><div id="bonusArrow" class="animationIsOn"><p>Great time bonus!</p></div><div id="timer" class="animationIsOn"></div><div id="fictive"></div><div id="level">level: <span></span></div></header><div class="cursor"></div><div id="sign"><div id="register">Register</div><div id="signIn" title="Sign in">Sign in</div></div><div id="registerFormContainer"><form id="registerForm"><input style="flex-basis: 42.5%;" placeholder=" First name" pattern="[a-zA-Zא-ת']*" name="firstName" autocomplete="on" maxlength="25" required> <input style="flex-basis: 42.5%;" placeholder=" Last name" pattern="[a-zA-Zא-ת']*" name="lastName" autocomplete="on" maxlength="30" required> <input style="flex-basis: 90%;" placeholder=" Nickname" name="nicknameRegisteredUser" maxlength="30" required> <input style="flex-basis: 90%;" type="email" placeholder=" Email" name="email" autocomplete="on" required> <input style="flex-basis: 90%;" type="password" pattern=".{6,}" placeholder=" Password" name="password" autocomplete="on" required> <input style="flex-basis: 90%;" type="submit" value="Register"></form></div><div id="signInFormContainer"><form id="signInForm"><input style="flex-basis: 90%;" type="email" placeholder="Email" name="email" autocomplete="on" required> <input style="flex-basis: 90%;" type="password" placeholder="Password" name="password" autocomplete="on" required> <input style="flex-basis: 90%;" type="submit" value="Sign in"></form></div><div class="x"></div><div id="instructions"><p>Vaccinate world's population and help fight the coronavirus disease.<br>If you'll fail, a new variant will arrive...</p><form name="nicknameForm"><label for="nickname">Your nickname:</label><input maxlength="25" id="nickname" name="nickname"/> <input id="startButton" type="submit" value="Lets go!"/></form></div><div class="corona" id="circle"></div><footer>© כל הזכויות שמורות למיכל דימינסקי צרפתי- אין לעשות שום שימוש בתוכן ואו בתמונות ללא אישור מראש ובכתב</footer></body></html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--In Order to let Internet Explorer read the hebrew letters, I needed to had the encoding utf-8-->
+    <meta charset="utf-8">
+    <title>Corona game</title>
+    <!--without the meta tag my media queries didn't work properly-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script defer src="main.8fc4efa8d918fb0c0212.js"></script><link href="main.css" rel="stylesheet"></head>
+
+  <body>
+    
+		<header>
+			<div id="score">score: <span></span></div>
+			<div id="bonusArrow" class="animationIsOn"><p>Great time bonus!</p></div>
+			<div id="timer" class="animationIsOn"></div>
+			<div id="fictive"></div>
+			<div id="level">level: <span></span></div>
+		</header>
+
+		<div class="cursor"></div>
+
+		<div id="sign">
+			<div id="register">Register</div>
+			<div id="signIn" title="Sign in">Sign in</div>
+		</div>
+
+		<div id="signOut">Sign out</div>
+
+		<div id="registerFormContainer">
+			<form id="registerForm">
+				<input style="flex-basis: 42.5%;" type="text" placeholder=" First name" pattern="[a-zA-Zא-ת']*" name="firstName" autocomplete="on" maxlength="25" required>
+				<input style="flex-basis: 42.5%;" type="text" placeholder=" Last name" pattern="[a-zA-Zא-ת']*" name="lastName"  autocomplete="on" maxlength="30" required>
+				<input style="flex-basis: 90%;" type="text" placeholder=" Nickname" name="nicknameRegisteredUser" maxlength="30" required>
+				<input style="flex-basis: 90%;" type="email" placeholder=" Email" name="email"  autocomplete="on" required>
+				<input style="flex-basis: 90%;" type="password" pattern=".{6,}" placeholder=" Password" name="password"  autocomplete="on" required>
+				<input style="flex-basis: 90%;" type="submit" value="Register">
+			</form>
+		</div>
+
+		<div id="signInFormContainer">
+			<form id="signInForm">
+				<input style="flex-basis: 90%;" type="email" placeholder="Email" name="email" autocomplete="on" required>
+				<input style="flex-basis: 90%;" type="password" placeholder="Password" name="password" autocomplete="on" required>
+				<input style="flex-basis: 90%;" type="submit" value="Sign in">
+			</form>
+		</div>
+		<div class="x"></div>
+
+		<div id="instructions">
+			<p>Vaccinate world's population and help fight the coronavirus disease.</br>If you'll fail, a new variant will arrive...</p>
+			<form name="nicknameForm">
+				<label for="nickname">Your nickname: </label><input type="text" maxlength="25" id="nickname" name="nickname"/>
+				<input id="startButton" type="submit" value="Lets go!"/>
+			</form>
+		</div>
+		
+
+		<div class="corona" id="circle"></div>
+		
+
+						
+		<footer>© כל הזכויות שמורות למיכל דימינסקי צרפתי- אין לעשות  שום שימוש בתוכן ואו בתמונות  ללא אישור מראש ובכתב</footer>
+
+  </body>
+</html>

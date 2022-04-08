@@ -32,6 +32,7 @@ const closeX = document.querySelector(".x");
 const nicknameFormLabel = document.querySelector('#instructions form label');
 const nicknameFormTextInput = document.querySelector('#instructions form #nickname');
 const button = document.querySelector('#instructions form #startButton');
+const signOutButton = document.querySelector('#signOut');
 
 
 registerButton.addEventListener("click", () => {
@@ -66,8 +67,11 @@ registerForm.addEventListener('submit', e => {
     button.style.fontSize = '17px';
     button.style.color = '#555';
 
+    signOutButton.style.display = 'block';
+    localStorage.setItem('name', registeredNickname);//adding the registeredNickname to the local storage
+
     createUserWithEmailAndPassword(auth, email, password)//firebase method
-        .then((cred) => {
+        .then(cred => {
             console.log('user created: ', cred.user);
         })
         .then(() => updateProfile(auth.currentUser, {//firebase method, which creates the user's displayName
@@ -76,15 +80,10 @@ registerForm.addEventListener('submit', e => {
         .then(() => {
             console.log ('nickname: ' + auth.currentUser.displayName + 
                         ' email: ' + auth.currentUser.email);
-            if (auth.currentUser.displayName != null) {
-                localStorage.setItem('name', auth.currentUser.displayName);
-            }
         })
         .catch(err => {
-            console.log(err.message)
+            console.log(err.message);
         });
-    
-
 
 });
 
@@ -96,11 +95,41 @@ signInForm.addEventListener('submit', e => {
     nicknameFormTextInput.style.display = 'none';
     registerButton.style.display = 'none';
     signInButton.style.display = 'none';
+    signOutButton.style.display = 'block';
     closeX.style.display = 'none';
     button.style.fontSize = '17px';
     button.style.color = '#555';
+
+    const email = signInForm.email.value;
+    const password = signInForm.password.value;
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then(cred => {
+        console.log('user signed in: ', cred.user, 'nickname: ', auth.currentUser.displayName);
+        localStorage.setItem('name', auth.currentUser.displayName);//adding the registeredNickname to the local storage
+    })
+    .catch(err => {
+        console.log(err.message);
+    })
+
+});
+
+
+signOutButton.addEventListener('click', () => {
+    signOutButton.style.display = 'none';
+    registerButton.style.display = 'inline-block';
+    signInButton.style.display = 'inline-block';
+    localStorage.removeItem('name');//removing the registeredNickname from local storage
+
+    signOut(auth)
+    .then (() => {
+        console.log('the user logged out');
+    })
+    .catch(err => {
+        console.log(err.message);
+    })
 });
 
 
 
-export { firebaseConfig, app, auth, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button };
+export { firebaseConfig, app, auth, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton };

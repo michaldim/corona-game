@@ -280,6 +280,16 @@ header #bonusArrow p {
 	background: -ms-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
 }
 
+#signInFormContainer #signInForm input[type="submit"]:active {
+  height: 36px;
+  margin-top: 37px;
+  margin-bottom: 37px;
+  margin-right: 6%;
+  margin-left: 6%;
+  background: linear-gradient(rgb(243, 243, 145) 70%, rgb(223, 246, 247));
+  background: -webkit-linear-gradient(rgb(243, 243, 145) 70%, rgb(223, 246, 247));
+}
+
 .x {
   display: none;
   background: url("../images/close-x.svg");
@@ -291,6 +301,22 @@ header #bonusArrow p {
   right: calc(50% - 244px);
 }
 
+#hourglass {
+  display: none;
+  background: url("../images/hourglass.svg");
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  z-index: 51;
+  top: 65%;
+  right: calc(50% - 20px);
+  animation: hourglassSpins 0.5s linear infinite;
+}
+
+@keyframes hourglassSpins {
+  0% { transform: rotateZ(0deg) }
+  100% { transform: rotateZ(360deg) }
+}
 
 #instructions {
 	background: linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));

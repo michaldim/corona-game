@@ -52,6 +52,8 @@ button.addEventListener("click", (e) => {
     
     e.preventDefault();//prevent refreshing the page (due to the form)
 
+    signOutButton.style.display = 'none';
+
     stopWorking(0);
 
     //filling up numsOfFigs array according to figuresPerStage array

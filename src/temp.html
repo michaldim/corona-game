@@ -30,12 +30,12 @@
 
 		<div id="registerFormContainer">
 			<form id="registerForm">
-				<input style="flex-basis: 42.5%;" type="text" placeholder=" First name" pattern="[a-zA-Zא-ת']*" name="firstName" autocomplete="on" maxlength="25" required>
-				<input style="flex-basis: 42.5%;" type="text" placeholder=" Last name" pattern="[a-zA-Zא-ת']*" name="lastName"  autocomplete="on" maxlength="30" required>
-				<input style="flex-basis: 90%;" type="text" placeholder=" Nickname" name="nicknameRegisteredUser" maxlength="30" required>
+				<input style="flex-basis: 42.5%;" type="text" placeholder=" First name" pattern="^[a-zA-Z0-9א-ת'_-]+( [a-zA-Z0-9א-ת'_-]+)*$" name="firstName" autocomplete="on" maxlength="25" required>
+				<input style="flex-basis: 42.5%;" type="text" placeholder=" Last name" pattern="^[a-zA-Z0-9א-ת'_-]+( [a-zA-Z0-9א-ת'_-]+)*$" name="lastName"  autocomplete="on" maxlength="30" required>
+				<input style="flex-basis: 90%;" type="text" placeholder=" Nickname" pattern="^[a-zA-Z0-9א-ת'_-]+( [a-zA-Z0-9א-ת'_-]+)*$" name="nicknameRegisteredUser" maxlength="30" required>
 				<input style="flex-basis: 90%;" type="email" placeholder=" Email" name="email"  autocomplete="on" required>
-				<input style="flex-basis: 90%;" type="password" pattern=".{6,}" placeholder=" Password" name="password"  autocomplete="on" required>
-				<input style="flex-basis: 90%;" type="submit" value="Register">
+				<input style="flex-basis: 90%;" type="password" pattern=".{8,}" placeholder=" Password" name="password" id="registeredPassword" minlength="8" required>
+				<input style="flex-basis: 90%;" type="submit" value="Register" id="submitRegisterForm">
 			</form>
 		</div>
 
@@ -47,6 +47,7 @@
 			</form>
 		</div>
 		<div class="x"></div>
+		<div id="hourglass"></div>
 
 		<div id="instructions">
 			<p>Vaccinate world's population and help fight the coronavirus disease.</br>If you'll fail, a new variant will arrive...</p>

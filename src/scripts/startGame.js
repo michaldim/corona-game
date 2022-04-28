@@ -23,7 +23,7 @@ import figure20 from '../images/figure20.svg';
 import stars from '../images/stars.svg';
 import favicon from '../images/favicon.ico';
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
-import { firebaseConfig, app, auth, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton } from './signInAndRegisterForms';
+import { firebaseConfig, app, auth, database, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg } from './signInAndRegisterForms';
 import { secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 import { stopWorking, ourViewPortWidth, move } from './figuresMovement';
 

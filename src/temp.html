@@ -30,11 +30,16 @@
 
 		<div id="registerFormContainer">
 			<form id="registerForm">
-				<input style="flex-basis: 42.5%;" type="text" placeholder=" First name" pattern="^[a-zA-Z0-9א-ת'_-]+( [a-zA-Z0-9א-ת'_-]+)*$" name="firstName" autocomplete="on" maxlength="25" required>
-				<input style="flex-basis: 42.5%;" type="text" placeholder=" Last name" pattern="^[a-zA-Z0-9א-ת'_-]+( [a-zA-Z0-9א-ת'_-]+)*$" name="lastName"  autocomplete="on" maxlength="30" required>
-				<input style="flex-basis: 90%;" type="text" placeholder=" Nickname" pattern="^[a-zA-Z0-9א-ת'_-]+( [a-zA-Z0-9א-ת'_-]+)*$" name="nicknameRegisteredUser" maxlength="30" required>
-				<input style="flex-basis: 90%;" type="email" placeholder=" Email" name="email"  autocomplete="on" required>
-				<input style="flex-basis: 90%;" type="password" pattern=".{8,}" placeholder=" Password" name="password" id="registeredPassword" minlength="8" required>
+				<input id="firstName" style="flex-basis: 42.5%;" type="text" placeholder=" First name" name="firstName" autocomplete="on" maxlength="30" required>
+				<input id="lastName" style="flex-basis: 42.5%;" type="text" placeholder=" Last name" name="lastName" autocomplete="on" maxlength="30" required>
+				<p id="firstNameP">First name and last name must be uppercase or lowercase letters (a hyphen is allowed in between)</p>
+				<p id="lastNameP">First name and last name must be uppercase or lowercase letters (a hyphen is allowed in between)</p>
+				<input id="nicknameRegisteredUser" style="flex-basis: 90%;" type="text" placeholder=" Nickname" name="nicknameRegisteredUser" maxlength="30" required>
+				<p id="nicknameRegisteredUserP">Nickname must contain alphanumeric characters (_, - or . is also allowed in between)</p>
+				<input id="email" style="flex-basis: 90%;" type="email" placeholder=" Email" name="email"  autocomplete="on" required>
+				<p id="emailP">Email must be a valid address, e.g. me@domain.com</p>
+				<input id="registeredPassword" style="flex-basis: 90%;" type="password" placeholder=" Password" name="password" maxlength="20" required>
+				<p id="registeredPasswordP">Password must contain 8-20 alphanumeric characters (@,_,- and . are also allowed)</p>
 				<input style="flex-basis: 90%;" type="submit" value="Register" id="submitRegisterForm">
 			</form>
 		</div>
@@ -52,7 +57,7 @@
 		<div id="instructions">
 			<p>Vaccinate world's population and help fight the coronavirus disease.</br>If you'll fail, a new variant will arrive...</p>
 			<form name="nicknameForm">
-				<label for="nickname">Your nickname: </label><input type="text" maxlength="25" id="nickname" name="nickname"/>
+				<label for="nickname">Your nickname: </label><input type="text" maxlength="30" id="nickname" name="nickname"/>
 				<input id="startButton" type="submit" value="Lets go!"/>
 			</form>
 		</div>

@@ -224,6 +224,39 @@ header #bonusArrow p {
 	background: -ms-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
 }
 
+#registerFormContainer #registerForm input[type=submit]:active {
+  height: 36px;
+  margin-top: 7px;
+  margin-bottom: 37px;
+  margin-right: 6%;
+  margin-left: 6%;
+  background: linear-gradient(rgb(243, 243, 145) 70%, rgb(223, 246, 247));
+  background: -webkit-linear-gradient(rgb(243, 243, 145) 70%, rgb(223, 246, 247));
+}
+
+#registerFormContainer #registerForm input.invalid {
+  border: 2px solid #fa32ba;
+  background: #ffe6f7;
+}
+
+#registerFormContainer #registerForm p {
+  display: none;
+}
+
+#registerFormContainer #registerForm p.invalid {
+  display: block;
+  position: relative;
+  top: -15px;
+  color: #ffe6f7;
+  font-family: Garamond, serif;
+  font-weight: lighter;
+  font-size: 16px;
+  text-align: left;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+ 
 #signInFormContainer{
   display: none;
   position: fixed;

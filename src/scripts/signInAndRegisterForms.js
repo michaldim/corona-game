@@ -284,4 +284,4 @@ signOutButton.addEventListener('click', () => {
 
 
 
-export { firebaseConfig, app, auth, database, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg };
+export { firebaseConfig, app, auth, database, registerButton, registerFormContainer, registerForm, registerFormInputFields, registerFormPFields, registerLastName, registerFirstName, lastNameP, firstNameP, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg };

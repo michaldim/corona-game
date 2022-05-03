@@ -36,6 +36,7 @@ const corona = document.querySelectorAll('.corona');
 const tinyCircleContainer = document.querySelectorAll('.tinyCircleContainer');
 const instructionsPTag = document.querySelector('#instructions p');
 const sign = document.querySelector('#sign');
+const headline = document.querySelector('#headline');////////////////!!!!!!!!!!!!!!!!!!!
 let nickname;
 let stage = 0;//will go inside the level tag
 const instructions = document.querySelector('#instructions');
@@ -53,6 +54,8 @@ button.addEventListener("click", (e) => {
     e.preventDefault();//prevent refreshing the page (due to the form)
 
     signOutButton.style.display = 'none';
+    
+    headline.style.opacity = '0';
 
     stopWorking(0);
 
@@ -396,7 +399,6 @@ button.addEventListener("click", (e) => {
             } else {
                 instructionsPTag.textContent = localName + ', ' + p[stage]; ////p is the text appears in storyLine.js
             }
-            instructions.style.top = '22%';
             instructions.style.opacity = '0';
             instructions.style.display = 'block';
             instructions.style.animation = 'instructionsAppears 2s ease forwards normal';            

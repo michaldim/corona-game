@@ -47,6 +47,7 @@ header #bonusArrow {
   background: url("../images/arrow.svg") no-repeat center; 
   background-size: 60px Auto;
   opacity: 0;
+  transition: opacity 0.5s ease;
   -webkit-transition: opacity 0.5s ease;
   -moz-transition: opacity 0.5s ease;
   -o-transition: opacity 0.5s ease;
@@ -91,6 +92,32 @@ header #bonusArrow p {
   z-index: 100;
 }
 
+#headline {
+  position: absolute;
+  top: 11%;
+  right: 18px;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: 80px;
+  font-family: 'Lucida Handwriting', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: rgb(184, 238, 184);
+  text-shadow: 2px 2px rgb(54, 116, 54);
+  transform: rotateZ(-3deg);
+  z-index: 51;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  -webkit-transition: opacity 0.5s ease;
+  -moz-transition: opacity 0.5s ease;
+  -o-transition: opacity 0.5s ease;
+  -ms-transition: opacity 0.5s ease;
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
+}
+
 #sign {
   color: rgb(243, 243, 145);
   text-align: right;
@@ -100,6 +127,10 @@ header #bonusArrow p {
   position: absolute;
   top: 15px;
   right: 0%;
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
 }
 
 #signIn {
@@ -115,6 +146,13 @@ header #bonusArrow p {
   box-shadow: inset 2px 2px 4px rgb(247, 247, 197, 1), inset -2px -2px 4px rgb(247, 247, 197, 1);
 }
 
+#signIn:active {  /*active means: while pressing a button*/
+  margin-right: 18px;
+  margin-left: 3px;
+  padding: 0px 17px 4px 17px;
+  background: rgb(247, 247, 197, 0.1);
+}
+
 #register {
   color:rgb(216, 216, 204);
   padding-right: 8px;
@@ -128,6 +166,12 @@ header #bonusArrow p {
   padding-left: 5px;
 }
 
+#register:active {
+  border: 2px solid rgb(216, 216, 204, 0.5);
+  padding-right: 6px;
+
+}
+
 #signOut {
   display: none;
   position: absolute;
@@ -139,14 +183,21 @@ header #bonusArrow p {
   font-family: Garamond, serif;
   font-weight: lighter;
   margin-right: 15px;
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
+  padding: 2px 4px;
 }
 
 #signOut:hover {
   background: rgb(184, 184, 169, 0.4);
   border-radius: 5px;
-  /* padding-bottom: 2px;
-  padding-left: 5px; */
-  padding: 0px 5px 3px 5px;
+}
+
+#signOut:active {
+  border: 2px solid rgb(216, 216, 204, 0.5);
+  padding: 0px 2px;
 }
 
 #registerFormContainer{
@@ -165,7 +216,7 @@ header #bonusArrow p {
   flex-wrap: wrap;
   width: 400px;
   position: fixed;
-  top: 20%;
+  top: 28%;
   right: calc(50% - 200px);  
   margin-right: auto;
   margin-left: auto;
@@ -271,7 +322,7 @@ header #bonusArrow p {
 #signInForm {
   display: flex;
   position: fixed;
-  top: 20%;
+  top: 28%;
   right: calc(50% - 200px);
   flex-wrap: wrap;
   width: 400px;
@@ -330,7 +381,7 @@ header #bonusArrow p {
   height: 40px;
   position: fixed;
   z-index: 51;
-  top: calc(20% - 40px);
+  top: calc(28% - 40px);
   right: calc(50% - 244px);
 }
 
@@ -364,13 +415,13 @@ header #bonusArrow p {
   padding: 10px;
   border: 7px solid rgb(184, 184, 169);
   text-align: center;
-  font-size: 40px;
+  font-size: 34px;
   font-family: Garamond, serif;
   font-weight: bold;
   position: absolute;
   right: 0;
   left: 0;
-  top: 22%;
+  top: 28%;
   margin-right: auto;
   margin-left: auto;
   z-index: 10;
@@ -403,10 +454,6 @@ header #bonusArrow p {
   border-radius: 20px;
   background: rgb(231, 231, 219);
 }
-
-/* #instructions form input[type="text"] {
-  border: 1px solid rgb(184, 184, 169);
-} */
 
 #instructions form input[type="text"]:focus {
   background-color: rgb(242, 254, 255);
@@ -529,7 +576,7 @@ header #bonusArrow p {
   width: 56px;
   height: 56px;
   position: absolute;
-  z-index: 5;
+  z-index: 52;
 }
 
 @keyframes fireworks {

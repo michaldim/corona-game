@@ -25,7 +25,7 @@ import favicon from '../images/favicon.ico';
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
 import { firebaseConfig, app, auth, database, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg } from './signInAndRegisterForms';
 import { secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
-import { stopWorking, ourViewPortWidth, move } from './figuresMovement';
+import { stopWorking, ourViewPortWidth, move, trial, slow } from './figuresMovement';
 
 
 const footer = document.querySelector('footer');
@@ -57,6 +57,13 @@ button.addEventListener("click", (e) => {
     
     headline.style.opacity = '0';
 
+    //The trial figures at the home page will stop working
+    Array.from(trial).forEach(element => {
+        console.log(element);
+        element.style.display = 'none'; 
+        stopWorking(1);  
+    });
+
     stopWorking(0);
 
     //filling up numsOfFigs array according to figuresPerStage array
@@ -82,6 +89,52 @@ button.addEventListener("click", (e) => {
         figuresDivs.push(i);
 
     });
+
+    figures.forEach(figure => {
+
+        const currentFigure = document.querySelector('#'+figure);
+
+        //adding a background image for each figure:
+        currentFigure.style.background = `url('./${figure}.svg')`; 
+        //putting the figures in different places at starting point
+        currentFigure.style.top = Math.random()*(body.clientHeight - 56) + 'px'; //56 is the size of the figures. body.clientHeight gives the viewport size without the scroll bar
+        currentFigure.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
+        currentFigure.style.display = 'block';
+        //starting to move the figures in different directions:
+        if (stage == 4 || stage == 6 || stage == 7){
+            speed = 'fast';
+        } else {
+            speed = 'regular';
+        }
+        move(currentFigure, speed);
+
+        
+        //function for clicking a figure
+        const starsAndPoints = () => {
+            currentFigure.removeEventListener('click', starsAndPoints);
+            currentFigure.style.background = 'url(./stars.svg)';
+            currentFigure.style.animation = 'fireworks 0.75s ease forwards normal';
+            userScore += 10;
+            score.textContent = userScore;
+            //deleting the figure from the DOM
+            setTimeout(() => {
+                currentFigure.remove(); 
+            }, 751);
+        }
+
+        //adding eventListener for each figure and adjusting the score
+        currentFigure.addEventListener('click', starsAndPoints);
+
+        //function that prevents clicking on figures, while the ambulances come
+        const preventClick = () => {
+            currentFigure.removeEventListener('click', starsAndPoints);
+        }
+
+        //at the end of the stage the user won't be able to click the figures
+        setTimeout(preventClick, secondsForEachStage[stage]*1000);
+
+    })
+
      
     //putting the nickname in local storage
     nickname = document.forms.nicknameForm.nickname.value;
@@ -182,52 +235,6 @@ button.addEventListener("click", (e) => {
     }
 
     const countDownInterval = setInterval(countDown, 1000); //function for the timer
-
-
-    figures.forEach(figure => {
-
-        const currentFigure = document.querySelector('#'+figure);
-
-        //adding a background image for each figure:
-        currentFigure.style.background = `url('./${figure}.svg')`; 
-        //putting the figures in different places at starting point
-        currentFigure.style.top = Math.random()*(body.clientHeight - 56) + 'px'; //56 is the size of the figures. body.clientHeight gives the viewport size without the scroll bar
-        currentFigure.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
-        currentFigure.style.display = 'block';
-        //starting to move the figures in different directions:
-        if (stage == 4 || stage == 6 || stage == 7){
-            speed = 'fast';
-        } else {
-            speed = 'regular';
-        }
-        move(figure, speed);
-
-        
-        //function for clicking a figure
-        const starsAndPoints = () => {
-            currentFigure.removeEventListener('click', starsAndPoints);
-            currentFigure.style.background = 'url(./stars.svg)';
-            currentFigure.style.animation = 'fireworks 0.75s ease forwards normal';
-            userScore += 10;
-            score.textContent = userScore;
-            //deleting the figure from the DOM
-            setTimeout(() => {
-                currentFigure.remove(); 
-            }, 751);
-        }
-
-        //adding eventListener for each figure and adjusting the score
-        currentFigure.addEventListener('click', starsAndPoints);
-
-        //function that prevents clicking on figures, while the ambulances come
-        const preventClick = () => {
-            currentFigure.removeEventListener('click', starsAndPoints);
-        }
-
-        //at the end of the stage the user won't be able to click the figures
-        setTimeout(preventClick, secondsForEachStage[stage]*1000);
-
-    })
 
     
     let localName = localStorage.getItem('name');
@@ -330,7 +337,7 @@ button.addEventListener("click", (e) => {
         //bringing back the instraction's box
         const bringingBackInstructions = () => {
             
-            if(localName == ''){
+            if((localName == '') || (localName == null)){
                 instructionsPTag.textContent = "You failed and a new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe.";
             } else {    
                 instructionsPTag.textContent = localName + ',' + " you failed and a new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe."; 
@@ -394,7 +401,7 @@ button.addEventListener("click", (e) => {
             })
             
             //bringing back the instraction's box
-            if(localName == ''){
+            if((localName == '') || (localName == null)){
                 instructionsPTag.textContent = pAnon[stage]; //pAnon is the text appears in storyLine.js
             } else {
                 instructionsPTag.textContent = localName + ', ' + p[stage]; ////p is the text appears in storyLine.js

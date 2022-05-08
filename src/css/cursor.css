@@ -453,10 +453,26 @@ header #bonusArrow p {
 #instructions form input[type="submit"] {
   border-radius: 20px;
   background: rgb(231, 231, 219);
+  font-size: 14px;
 }
 
 #instructions form input[type="text"]:focus {
   background-color: rgb(242, 254, 255);
+}
+
+#trial1 {
+  background: url("../images/trial1.svg");
+  z-index: 2;
+}
+
+#trial2 {
+  background: url("../images/trial2.svg");
+  z-index: 2;
+}
+
+#trial3 {
+  background: url("../images/trial3.svg");
+  z-index: 2;
 }
  
 .corona {
@@ -572,7 +588,7 @@ header #bonusArrow p {
   100% {top: 116px}
 }
 
-.figures {
+.figures, .trial {
   width: 56px;
   height: 56px;
   position: absolute;

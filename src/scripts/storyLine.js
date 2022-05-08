@@ -1,5 +1,6 @@
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
 
+const instructionsPTag = document.querySelector('#instructions p');
 
 const secondsForEachStage = [11, 14, 13, 18, 13, 16, 20, 18];
 // 
@@ -32,4 +33,4 @@ const pAnon = [
     "You did it! You saved humanity! You ended the coronavirus disease and made XXX point."
 ]
 
-export { secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon };
+export { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon };

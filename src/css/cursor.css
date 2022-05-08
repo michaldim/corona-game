@@ -613,6 +613,7 @@ header #bonusArrow p {
   height: 80px;
   z-index: 5;
   background: url("../images/ambulance1.svg");
+  z-index: 53;
 }
 
 @keyframes disappears {

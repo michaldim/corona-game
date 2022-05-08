@@ -23,8 +23,8 @@ import figure20 from '../images/figure20.svg';
 import stars from '../images/stars.svg';
 import favicon from '../images/favicon.ico';
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
-import { firebaseConfig, app, auth, database, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg } from './signInAndRegisterForms';
-import { secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
+import { firebaseConfig, app, auth, database, usersCurrentStage, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg } from './signInAndRegisterForms';
+import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 import { stopWorking, ourViewPortWidth, move, trial, slow } from './figuresMovement';
 
 
@@ -34,7 +34,6 @@ const bottomEyeshade = document.querySelector('#bottomEyeshade');
 const tinyCircles = document.querySelectorAll('.tinyCircle');
 const corona = document.querySelectorAll('.corona');
 const tinyCircleContainer = document.querySelectorAll('.tinyCircleContainer');
-const instructionsPTag = document.querySelector('#instructions p');
 const sign = document.querySelector('#sign');
 const headline = document.querySelector('#headline');////////////////!!!!!!!!!!!!!!!!!!!
 let nickname;
@@ -359,6 +358,7 @@ button.addEventListener("click", (e) => {
             clearInterval(endLevel);
             stopWorking(1); //the stars will stop moving
             stage += 1;
+            usersCurrentStage(stage);//updating "currentStage" variable, which is located in storyLine.js 
             clearInterval(countDownInterval); //the clock will stop
             timer.style.animation = 'none';
             timer.classList.add('animationRemoved');

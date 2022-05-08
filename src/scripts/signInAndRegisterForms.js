@@ -9,6 +9,7 @@ import {
     getAuth, createUserWithEmailAndPassword, updateProfile, signOut, signInWithEmailAndPassword
 } from "firebase/auth";
 
+import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAQ8bwV2MCpnsyTasXZLKns3os5dkR1de8",
@@ -23,6 +24,12 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const database = getFirestore();
 //const collectionRef = collection(database, 'users score');
+
+let currentStage = 0;
+//I can't import "let currentStage = 0" because it's not a const
+//so I import the function usersCurrentStage, which will let the storyLine.js know
+//in which stage we are now
+const usersCurrentStage = (stage) => currentStage = stage; 
 
 const registerButton = document.querySelector("#register");
 const registerFormContainer = document.querySelector("#registerFormContainer");
@@ -139,7 +146,7 @@ registerFormInputFields.forEach(inputField => {
 registerForm.addEventListener('submit', e => {
     e.preventDefault();
 
-    //a function that will return true if some of the inputs has 'invalid' class
+    //a function that will return true if the inputs has 'invalid' class
     //afterwards it will check if some of the form's <p> tags has 'invalid' class
     const classListCheck = (element) => {
         return element.classList.contains('invalid');
@@ -165,7 +172,8 @@ registerForm.addEventListener('submit', e => {
                 nicknameFormLabel.style.display = 'none';
                 registerButton.style.display = 'none';
                 signInButton.style.display = 'none';
-                closeX.style.display = 'none';
+                closeX.style.display = 'none'; 
+                instructionsPTag.textContent = registeredNickname + ', ' + p[currentStage];                
                 nicknameFormTextInput.style.display = 'none';
                 button.style.fontSize = '17px';
                 button.style.color = '#555';
@@ -227,6 +235,7 @@ signInForm.addEventListener('submit', e => {
         hourglass.style.display = 'none';
         signInForm.reset(); //cleaning the form
         console.log('user signed in: ', cred.user, 'nickname: ', auth.currentUser.displayName);//cred.user shows us the user's details
+        instructionsPTag.textContent = auth.currentUser.displayName + ', ' + p[currentStage];
         localStorage.setItem('name', auth.currentUser.displayName);//adding the registeredNickname to the local storage
         signInFormContainer.style.display = 'none';
         nicknameFormLabel.style.display = 'none';
@@ -276,6 +285,7 @@ signOutButton.addEventListener('click', () => {
     signOut(auth)
     .then (() => {
         console.log('the user logged out');
+        instructionsPTag.textContent = pAnon[currentStage];
     })
     .catch(err => {
         console.log(err.message);
@@ -284,4 +294,4 @@ signOutButton.addEventListener('click', () => {
 
 
 
-export { firebaseConfig, app, auth, database, registerButton, registerFormContainer, registerForm, registerFormInputFields, registerFormPFields, registerLastName, registerFirstName, lastNameP, firstNameP, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg };
+export { firebaseConfig, app, auth, database, usersCurrentStage, registerButton, registerFormContainer, registerForm, registerFormInputFields, registerFormPFields, registerLastName, registerFirstName, lastNameP, firstNameP, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg };

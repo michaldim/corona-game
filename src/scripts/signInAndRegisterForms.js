@@ -6,7 +6,7 @@ import {
 } from "firebase/firestore";
 
 import {
-    getAuth, createUserWithEmailAndPassword, updateProfile, signOut, signInWithEmailAndPassword
+    getAuth, createUserWithEmailAndPassword, updateProfile, signOut, signInWithEmailAndPassword, sendPasswordResetEmail
 } from "firebase/auth";
 
 import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
@@ -26,9 +26,9 @@ const database = getFirestore();
 //const collectionRef = collection(database, 'users score');
 
 let currentStage = 0;
-//I can't import "let currentStage = 0" because it's not a const
-//so I import the function usersCurrentStage, which will let the storyLine.js know
-//in which stage we are now
+//I can't import "let currentStage = 0" because I can import only const variables,
+//so I import the function usersCurrentStage, which will let signInAndRegisterForm.js know
+//in which stage we are now (it will be called in every stage change from startGame.js)
 const usersCurrentStage = (stage) => currentStage = stage; 
 
 const registerButton = document.querySelector("#register");
@@ -43,13 +43,19 @@ const firstNameP = document.querySelector('#registerFormContainer #registerForm 
 const signInButton = document.querySelector('#signIn');
 const signInFormContainer = document.querySelector('#signInFormContainer');
 const signInForm = document.querySelector('#signInForm');
-const closeX = document.querySelector(".x");
+const closeX = document.querySelector(".x");//the X for signInFormContainer and registerFormContainer
 const nicknameFormLabel = document.querySelector('#instructions form label');
 const nicknameFormTextInput = document.querySelector('#instructions form #nickname');
 const button = document.querySelector('#instructions form #startButton');
 const signOutButton = document.querySelector('#signOut');
 const hourglass = document.querySelector('#hourglass');
-
+const forgotPassword = document.querySelector('#signInFormContainer #signInForm p'); 
+const forgotContainer = document.querySelector("#forgotContainer");
+const forgotForm = document.querySelector("#forgotContainer #forgotForm");
+const closeX2 = document.querySelector(".x2"); //the X for forgotContainer
+const backToGame = document.querySelector('#backToGame');
+const emailSent = document.querySelector('#emailSent');
+const emailSentP = document.querySelector('#emailSent p');
 
 registerButton.addEventListener("click", () => {
     registerFormContainer.style.display = 'block';
@@ -68,6 +74,7 @@ closeX.addEventListener("click", () => {
     registerFormContainer.style.display = 'none';
     registerForm.reset(); //cleaning the form
     closeX.style.display = 'none';
+    backToGame.style.display = 'none';
     //cleaning the background red color of the registerFormInputFields (if the user typed an error)
     registerFormInputFields.forEach(inputField => {
         inputField.classList.remove('invalid');
@@ -246,6 +253,7 @@ signInForm.addEventListener('submit', e => {
         closeX.style.display = 'none';
         button.style.fontSize = '17px';
         button.style.color = '#555';
+        backToGame.style.display = 'none';
     })
     .catch(err => {
         hourglass.style.display = 'none';
@@ -273,6 +281,92 @@ signInForm.addEventListener('submit', e => {
 
     })
 
+});
+
+
+
+//When the user click the sentance "Forgot your password?":
+forgotPassword.addEventListener("click", () => {
+    forgotContainer.style.display = 'block';
+    signInFormContainer.style.display = 'none';
+    closeX.style.display = 'none';
+    closeX2.style.display = 'block'; //the X for forgotContainer
+    backToGame.style.display = 'block';
+});
+
+
+closeX2.addEventListener("click", () => {
+    forgotContainer.style.display = 'none';
+    signInFormContainer.style.display = 'block';
+    closeX.style.display = 'block';
+    closeX2.style.display = 'none';
+    backToGame.style.display = 'block';
+    forgotForm.reset();
+});
+
+backToGame.addEventListener('click', () => {
+    forgotContainer.style.display = 'none';
+    signInFormContainer.style.display = 'none';
+    closeX.style.display = 'none';
+    closeX2.style.display = 'none';
+    backToGame.style.display = 'none';
+    forgotForm.reset();
+});
+
+
+forgotForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const forgotEmailValue = forgotForm.email.value;
+    console.log(forgotEmailValue);
+    hourglass.style.display = 'block';
+    emailSentP.classList.add('animationIsOn');
+    emailSentP.classList.remove('animationRemoved');
+
+    sendPasswordResetEmail(auth, forgotEmailValue)
+    .then(() => {
+        hourglass.style.display = 'none';
+        // Password reset email sent!
+        console.log("Email sent!");
+        emailSent.style.display = 'flex';
+        emailSentP.style.animation = 'emailSent 2.5s ease forwards normal'; 
+
+        setTimeout(() => {
+            emailSent.style.display = 'none';
+            emailSentP.classList.add('animationRemoved');
+            emailSentP.classList.remove('animationIsOn');//it will reset the emailSent animation
+        }, 2500);
+
+        forgotForm.reset();
+        forgotContainer.style.display = 'none';
+        signInFormContainer.style.display = 'block';
+        closeX.style.display = 'block';
+        closeX2.style.display = 'none'; //the X for forgotContainer
+        backToGame.style.display = 'block';
+    })
+    .catch((error) => {
+        hourglass.style.display = 'none';
+        const errorMessage = error.message;
+        console.log(error.message);
+        if (error.message.includes('network-request-failed')) {
+            //i'm putting the alert inside setTimeout, so it will work after 
+            //the hourglass disapperas and not before
+            setTimeout(() => {
+                alert("Network request failed, please check your internet connection or try again later.");
+            }, 300);
+        } else if (error.message.includes('invalid-email')) {
+            setTimeout(() => {
+                alert("Invalid email, please verify your email below and resend it.");
+            }, 300);
+        } else if (error.message.includes('user-not-found')) {
+            setTimeout(() => {
+                alert("Account does not exist.");
+            }, 300);
+        } else {
+            setTimeout(() => {
+                alert("There was a problem processing your request.");
+            }, 300);
+        }
+    });
 });
 
 

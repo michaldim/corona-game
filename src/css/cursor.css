@@ -285,7 +285,8 @@ header #bonusArrow p {
   background: -webkit-linear-gradient(rgb(243, 243, 145) 70%, rgb(223, 246, 247));
 }
 
-#registerFormContainer #registerForm input.invalid {
+#registerFormContainer #registerForm input.invalid,
+#forgotContainer #forgotForm input.invalid {
   border: 2px solid #fa32ba;
   background: #ffe6f7;
 }
@@ -308,7 +309,7 @@ header #bonusArrow p {
 }
 
  
-#signInFormContainer{
+#signInFormContainer, #forgotContainer{
   display: none;
   position: fixed;
   background: #3d3b3b;
@@ -319,7 +320,7 @@ header #bonusArrow p {
   right: 0;
 }
 
-#signInForm {
+#signInForm, #forgotForm {
   display: flex;
   position: fixed;
   top: 28%;
@@ -332,14 +333,33 @@ header #bonusArrow p {
   border: 3px solid rgb(184, 184, 169);
 }
 
-#signInFormContainer #signInForm input {
+#signInFormContainer #signInForm input,
+#forgotContainer #forgotForm input {
   margin-right: 5%;
   margin-left: 5%;
   border: 1px solid rgb(184, 184, 169);
   height: 40px;
 }
 
-#signInFormContainer #signInForm input:focus {
+#signInFormContainer #signInForm p {
+  margin-right: 5%;
+  margin-left: 5%;
+  font-size: 16px;
+  flex-basis: 90%;
+  text-align: right;
+  color: #fbdaf1;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+}
+
+#signInFormContainer #signInForm p:hover {
+  color: rgb(225, 252, 225);
+  text-decoration: underline;
+}
+
+
+#signInFormContainer #signInForm input:focus,
+#forgotContainer #forgotForm input:focus {
   border: none;
   background-color: rgb(223, 246, 247);
 }
@@ -352,8 +372,9 @@ header #bonusArrow p {
   margin-top: 30px;
 }
 
-#signInFormContainer #signInForm input[type="submit"] {
-  margin-top: 35px;
+#signInFormContainer #signInForm input[type="submit"],
+#forgotContainer #forgotForm input[type="submit"] {
+  margin-top: 19px;
   margin-bottom: 35px;
   border-radius: 20px;
   background: linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
@@ -364,9 +385,10 @@ header #bonusArrow p {
 	background: -ms-linear-gradient(rgb(243, 243, 145) 30%, rgb(247, 247, 197));
 }
 
-#signInFormContainer #signInForm input[type="submit"]:active {
+#signInFormContainer #signInForm input[type="submit"]:active,
+#forgotContainer #forgotForm input[type="submit"]:active {
   height: 36px;
-  margin-top: 37px;
+  margin-top: 21px;
   margin-bottom: 37px;
   margin-right: 6%;
   margin-left: 6%;
@@ -374,7 +396,25 @@ header #bonusArrow p {
   background: -webkit-linear-gradient(rgb(243, 243, 145) 70%, rgb(223, 246, 247));
 }
 
-.x {
+#forgotContainer #forgotForm h2 {
+  flex-basis: 90%;
+  margin: 25px 5% 15px 5%;
+  font-family: Garamond, serif;
+}
+
+#forgotContainer #forgotForm p {
+  flex-basis: 90%;
+  margin: auto 5% 30px 5%;
+  color: rgb(209, 249, 209);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+}
+
+#forgotContainer #forgotForm input[type="email"] {
+  margin-bottom: 11px;
+}
+
+.x, .x2 {
   display: none;
   background: url("../images/close-x.svg");
   width: 40px;
@@ -383,6 +423,54 @@ header #bonusArrow p {
   z-index: 51;
   top: calc(28% - 40px);
   right: calc(50% - 244px);
+}
+
+#emailSent {
+  display: none; /*flex*/
+  position: fixed;
+  background: rgb(61, 59, 59, 0.75);
+  z-index: 55;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  justify-content: center; /*centers the objects inside of it in the x axis*/
+}
+
+#emailSent p {
+  align-self: center;/*centers it self in the y axis*/
+  padding: 30px;
+  border: 3px solid rgb(247, 247, 197);
+  font-size: 24px;
+  font-family: Garamond, serif;
+  font-weight: bold;
+  background: rgb(160, 160, 147);
+  color: #fff;
+}
+
+@keyframes emailSent {
+  0% { padding: 0px; opacity: 1 }
+  60% { padding: 30px; opacity: 1 }
+  100% { padding: 30px; opacity: 0 }
+
+}
+
+#backToGame {
+  text-align: right;
+  font-size: 24px;
+  font-family: Garamond, serif;
+  font-weight: lighter;
+  position: absolute;
+  top: 15px;
+  right: 0%;
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
+  color:rgb(247, 247, 197);
+  margin-right: 17px;
+  display: none;
+  z-index: 51;
 }
 
 #hourglass {
@@ -448,6 +536,10 @@ header #bonusArrow p {
   font-size: 32px;
   position: relative;
   top: 3px;
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
 }
 
 #instructions form input[type="submit"] {

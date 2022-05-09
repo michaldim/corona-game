@@ -75,7 +75,7 @@ const move = (figure, speed) => {
             figure.style.top = parseInt(figure.style.top) + randomIntY + 'px'; //the method parseInt takes only the number (and leaves out the string 'px' attached to it:) 
             figure.style.left = parseInt(figure.style.left) + randomIntX + 'px';
         }
-        console.log(figure.style.background + ' X: '+ figure.style.left + ' Y: ' + figure.style.top);
+        //console.log(figure.style.background + ' X: '+ figure.style.left + ' Y: ' + figure.style.top);
 
     }
     

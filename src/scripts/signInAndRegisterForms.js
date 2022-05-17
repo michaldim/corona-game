@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 
 import {
-    getFirestore, collection, onSnapshot, setDoc, addDoc, deleteDoc, doc, 
+    getFirestore, collection, getDocs, onSnapshot, setDoc, addDoc, deleteDoc, doc, 
     query, where, orderBy, serverTimestamp, getDoc, updateDoc
 } from "firebase/firestore";
 
@@ -23,7 +23,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const database = getFirestore();
-//const collectionRef = collection(database, 'users score');
+const collectionRef = collection(database, 'nicknamesCollection');
+
 
 let currentStage = 0;
 //I can't import "let currentStage = 0" because I can import only const variables,
@@ -56,6 +57,7 @@ const closeX2 = document.querySelector(".x2"); //the X for forgotContainer
 const backToGame = document.querySelector('#backToGame');
 const emailSent = document.querySelector('#emailSent');
 const emailSentP = document.querySelector('#emailSent p');
+
 
 registerButton.addEventListener("click", () => {
     registerFormContainer.style.display = 'block';
@@ -93,6 +95,7 @@ const reg = {
     email:/^([\w\d\.-]+)@([\w\d-]+)\.([a-zA-Z]{2,12})(\.[a-zA-Z]{2,8})?$/,
     password:/^[\w\d-@\.]{8,20}$/
 };
+
 
 
 //adding red background and red text for errors in register form
@@ -150,9 +153,31 @@ registerFormInputFields.forEach(inputField => {
 });
 
 
+
+
+
+// const existenceCheck = doc => {
+//     return (doc.data().Nickname).contains('Mickey');
+// };
+
+// getDocs(collectionRef) //collectionRef
+//         .then((snapshot) => {
+//             snapshot.docs.forEach(doc => {
+//                 if((doc.data()).Nickname == 'Mickey') {
+//                     console.log('This nickname is already taken, please choose a different one.')
+//                 } else {
+//                     console.log('great');
+//                 }
+//             }) 
+//         })
+//         .catch(err => {
+//             console.log(err.message)
+//         })
+
+
 registerForm.addEventListener('submit', e => {
     e.preventDefault();
-
+    
     //a function that will return true if the inputs has 'invalid' class
     //afterwards it will check if some of the form's <p> tags has 'invalid' class
     const classListCheck = (element) => {
@@ -166,68 +191,96 @@ registerForm.addEventListener('submit', e => {
     } else {
         hourglass.style.display = 'block';
         const email = registerForm.email.value;
-        const registeredNickname = registerForm.nicknameRegisteredUser.value;
         const password = registerForm.password.value;
-        localStorage.setItem('name', registeredNickname);//adding the registeredNickname to the local storage
+        const registeredNickname = registerForm.nicknameRegisteredUser.value;
+        const docRef = doc(database, 'nicknamesCollection', registeredNickname);
 
-        createUserWithEmailAndPassword(auth, email, password)//firebase method
-            .then((cred) => {
-                registerForm.reset();//cleaning the form
-                console.log (' user registered: ', cred.user);//new user's info
+        //We wan't the Nickname to be unique, so we'll use getDoc in order to check if the
+        //nicknamesCollection already has the registeredNickname in it
+        getDoc(docRef) 
+            .then((doc) => {
                 hourglass.style.display = 'none';
-                registerFormContainer.style.display = 'none';
-                nicknameFormLabel.style.display = 'none';
-                registerButton.style.display = 'none';
-                signInButton.style.display = 'none';
-                closeX.style.display = 'none'; 
-                instructionsPTag.textContent = registeredNickname + ', ' + p[currentStage];                
-                nicknameFormTextInput.style.display = 'none';
-                button.style.fontSize = '17px';
-                button.style.color = '#555';
-                signOutButton.style.display = 'block';            
+                if (doc.data() == null) { //it means that there isn't any user with this Nickname
+                    //so we'll continue with the registration of the new user:
+                    createUserWithEmailAndPassword(auth, email, password)//firebase method
+                        .then((cred) => {
+                            console.log (' user registered: ', cred.user);//new user's info)
+                            localStorage.setItem('score', 0);//adding score to local storage
+                            localStorage.setItem('name', registeredNickname);//adding the registeredNickname to the local storage
+                        })
+                        .then(() => updateProfile(auth.currentUser, { displayName: registeredNickname })) //updateProfile is a firebase method, which creates the user's displayName. Only "registeredNickname" is a varient that I created. 
+                        .then(() => {
+                            console.log ('nickname: ' + auth.currentUser.displayName + 
+                                            ' email: ' + auth.currentUser.email +
+                                            ' userID: ' + auth.currentUser.uid);
+                        })
+                        .then(() => {
+                            //setting a new doc (with user's Nickname) to firebase database
+                            setDoc(docRef, { 
+                                //AuthID: auth.currentUser.uid,
+                                //Score: 0,
+                                Nickname: registeredNickname,
+                            })
+                            .then(() => {
+                                console.log('We have set the new docs'); 
+                                registerForm.reset();//cleaning the form
+                                hourglass.style.display = 'none';
+                                registerFormContainer.style.display = 'none';
+                                nicknameFormLabel.style.display = 'none';
+                                registerButton.style.display = 'none';
+                                signInButton.style.display = 'none';
+                                closeX.style.display = 'none'; 
+                                instructionsPTag.textContent = registeredNickname + ', ' + p[currentStage];                
+                                nicknameFormTextInput.style.display = 'none';
+                                button.style.fontSize = '17px';
+                                button.style.color = '#555';
+                                signOutButton.style.display = 'block'; 
+                            })
+                            .catch(err => {  //catch for setDoc
+                                console.log(err.message);
+                                alert('There was a problem processing your request.');
+                                hourglass.style.display = 'none';
+                            })
+                        })
+                        .catch(err => {  //catch for createUserWithEmailAndPassword
+                            hourglass.style.display = 'none';
+                            console.log(err.message);
 
-            })
-            .then(() => updateProfile(auth.currentUser, { displayName: registeredNickname })) //updateProfile is a firebase method, which creates the user's displayName. Only "registeredNickname" is a varient that I created. 
-            .then(() => {
-                //setting a new doc (with user's Nickname and Score) to firebase database
-                setDoc(doc(database, "users score", auth.currentUser.uid), { //inside of setDoc i'm writing: doc(getFirestore(), the collection's name, ID that I'm setting for this document)
-                    Nickname: registeredNickname,
-                    Score: 0,
-                })
-                localStorage.setItem('score', 0);//adding score to local storage
-            })
-            .then(() => {
-                console.log ('nickname: ' + auth.currentUser.displayName + 
-                            ' email: ' + auth.currentUser.email +
-                            ' userID: ' + auth.currentUser.uid);
-            })
-            .catch(err => {
-                hourglass.style.display = 'none';
-                console.log(err.message);
-
-                if (err.message.includes('network-request-failed')) {
-                    //i'm putting the alert inside setTimeout, so it will work after 
-                    //the hourglass disapperas and not before
-                    setTimeout(() => {
-                        alert("Network request failed, please check your internet connection or try again later.");
-                    }, 300);
-                } else if (err.message.includes('email-already-in-use')) {
-                    setTimeout(() => {
-                        alert("Email already in use.");
-                    }, 300);
-                } else if (err.message.includes('weak-password')) {
-                    setTimeout(() => {
-                        alert("Password should be at least 6 characters.");
-                    }, 300);
-                } else {
-                    setTimeout(() => {
-                        alert("There was a problem processing your request.");
-                    }, 300);
+                            if (err.message.includes('network-request-failed')) {
+                                //i'm putting the alert inside setTimeout, so it will work after 
+                                //the hourglass disapperas and not before
+                                setTimeout(() => {
+                                    alert("Network request failed, please check your internet connection or try again later.");
+                                }, 300);
+                            } else if (err.message.includes('email-already-in-use')) {
+                                setTimeout(() => {
+                                    alert("Email already in use.");
+                                }, 300);
+                            } else if (err.message.includes('weak-password')) {
+                                setTimeout(() => {
+                                    alert("Password should be at least 6 characters.");
+                                }, 300);
+                            } else {
+                                setTimeout(() => {
+                                    alert("There was a problem processing your request.");
+                                }, 300);
+                            }
+                        });
+                    /////////////////////////////////////////
+                } else { //if the Nickname already exists
+                    console.log('Nickname already exists:', doc.data());
+                    alert('This nickname is already taken, please choose a different one');
                 }
-            });
-
-        }
+            })
+            .catch(err => { //catch for getDoc
+                console.log('Error message for getDoc:', err.message);
         
+                hourglass.style.display = 'none';
+                setTimeout(() => {
+                    alert("There was a problem processing your request. Please try again later.");
+                }, 300);
+            })
+    }
 });
 
 
@@ -375,6 +428,9 @@ signOutButton.addEventListener('click', () => {
     registerButton.style.display = 'inline-block';
     signInButton.style.display = 'inline-block';
     localStorage.removeItem('name');//removing the registeredNickname from local storage
+    // if (unsubscribe != null) {
+    //     unsubscribe();
+    // }
 
     signOut(auth)
     .then (() => {

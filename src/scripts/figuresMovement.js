@@ -92,7 +92,6 @@ const move = (figure, speed) => {
         console.log("going fast now");
     } else if (speed == 'slow') {
         movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 40);
-        console.log("going slowwwwww");
     } else {
         movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 20);
     }
@@ -104,7 +103,6 @@ const move = (figure, speed) => {
 const slow = 'slow';
 
 Array.from(trial).forEach(element => {
-    console.log(element);
     element.style.top = Math.random()*(body.clientHeight - 56) + 'px'; //56 is the size of the figures. body.clientHeight gives the viewport size without the scroll bar
     element.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
     move(element, slow);

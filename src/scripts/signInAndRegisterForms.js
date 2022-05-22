@@ -195,12 +195,13 @@ registerForm.addEventListener('submit', e => {
         const registeredNickname = registerForm.nicknameRegisteredUser.value;
         const docRef = doc(database, 'nicknamesCollection', registeredNickname);
 
+
         //We wan't the Nickname to be unique, so we'll use getDoc in order to check if the
         //nicknamesCollection already has the registeredNickname in it
         getDoc(docRef) 
-            .then((doc) => {
+            .then((fireDoc) => { //fireDoc is the name that I gave to the doc, because I didn't want to confuse the browser with the doc function (that belongs to firebase)
                 hourglass.style.display = 'none';
-                if (doc.data() == null) { //it means that there isn't any user with this Nickname
+                if (fireDoc.data() == null) { //it means that there isn't any user with this Nickname
                     //so we'll continue with the registration of the new user:
                     createUserWithEmailAndPassword(auth, email, password)//firebase method
                         .then((cred) => {
@@ -217,12 +218,25 @@ registerForm.addEventListener('submit', e => {
                         .then(() => {
                             //setting a new doc (with user's Nickname) to firebase database
                             setDoc(docRef, { 
-                                //AuthID: auth.currentUser.uid,
-                                //Score: 0,
                                 Nickname: registeredNickname,
                             })
                             .then(() => {
                                 console.log('We have set the new docs'); 
+                            })
+                            .catch(err => {  //catch for setDoc
+                                console.log(err.message);
+                                alert('There was a problem processing your request.');
+                                hourglass.style.display = 'none';
+                            })
+                        })
+                        .then(() => {
+                            setDoc(doc(database, 'usersScore', auth.currentUser.uid), { 
+                                AuthID: auth.currentUser.uid,
+                                Score: 0,
+                                Nickname: registeredNickname,
+                            })
+                            .then(() => {
+                                console.log('We have set the other docs'); 
                                 registerForm.reset();//cleaning the form
                                 hourglass.style.display = 'none';
                                 registerFormContainer.style.display = 'none';
@@ -268,7 +282,7 @@ registerForm.addEventListener('submit', e => {
                         });
                     /////////////////////////////////////////
                 } else { //if the Nickname already exists
-                    console.log('Nickname already exists:', doc.data());
+                    console.log('Nickname already exists:', fireDoc.data());
                     alert('This nickname is already taken, please choose a different one');
                 }
             })

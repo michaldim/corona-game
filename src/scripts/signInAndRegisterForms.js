@@ -206,7 +206,7 @@ registerForm.addEventListener('submit', e => {
                     createUserWithEmailAndPassword(auth, email, password)//firebase method
                         .then((cred) => {
                             console.log (' user registered: ', cred.user);//new user's info)
-                            localStorage.setItem('score', 0);//adding score to local storage
+                            //localStorage.setItem('score', 0);//adding score to local storage
                             localStorage.setItem('name', registeredNickname);//adding the registeredNickname to the local storage
                         })
                         .then(() => updateProfile(auth.currentUser, { displayName: registeredNickname })) //updateProfile is a firebase method, which creates the user's displayName. Only "registeredNickname" is a varient that I created. 
@@ -268,7 +268,7 @@ registerForm.addEventListener('submit', e => {
                                 }, 300);
                             } else if (err.message.includes('email-already-in-use')) {
                                 setTimeout(() => {
-                                    alert("Email already in use.");
+                                    alert("Email already in use, please choose a different one.");
                                 }, 300);
                             } else if (err.message.includes('weak-password')) {
                                 setTimeout(() => {
@@ -441,7 +441,10 @@ signOutButton.addEventListener('click', () => {
     signOutButton.style.display = 'none';
     registerButton.style.display = 'inline-block';
     signInButton.style.display = 'inline-block';
-    localStorage.removeItem('name');//removing the registeredNickname from local storage
+    localStorage.clear(); //clears all localStorage items
+    localStorage.getItem('name');//preventing the cleared name to appear in the console (if we will do console.log())
+    localStorage.getItem('score');//preventing the cleared score to appear in the console (if we will do console.log())
+
     // if (unsubscribe != null) {
     //     unsubscribe();
     // }

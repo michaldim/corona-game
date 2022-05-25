@@ -26,7 +26,7 @@ import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
 import { firebaseConfig, app, auth, database, usersCurrentStage, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg } from './signInAndRegisterForms';
 import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 import { stopWorking, ourViewPortWidth, move, trial, slow } from './figuresMovement';
-
+import { instructions, medal, savedNickname } from './localStorage';
 
 const footer = document.querySelector('footer');
 const topEyeshade = document.querySelector('#topEyeshade');
@@ -38,7 +38,6 @@ const sign = document.querySelector('#sign');
 const headline = document.querySelector('#headline');////////////////!!!!!!!!!!!!!!!!!!!
 let nickname;
 let stage = 0;//will go inside the level tag
-const instructions = document.querySelector('#instructions');
 let figures = []; //figure1, figure2...
 let figuresDivs = [];
 let numsOfFigs = [];//for example: [1, 2, 3, 4, 5, 6, 7] depends on the max number of figures in each level
@@ -53,6 +52,7 @@ button.addEventListener("click", (e) => {
     e.preventDefault();//prevent refreshing the page (due to the form)
 
     signOutButton.style.display = 'none';
+    medal.style.display = 'none';
     
     headline.style.opacity = '0';
 
@@ -115,6 +115,13 @@ button.addEventListener("click", (e) => {
             currentFigure.style.animation = 'fireworks 0.75s ease forwards normal';
             userScore += 10;
             score.textContent = userScore;
+            localStorage.score = userScore;
+            if ((localStorage.bestScore == '') || (localStorage.bestScore == null)) {
+                localStorage.bestScore = userScore;
+            } else if (localStorage.bestScore < userScore) {
+                localStorage.bestScore = userScore;
+            }
+
             //deleting the figure from the DOM
             setTimeout(() => {
                 currentFigure.remove(); 
@@ -135,23 +142,25 @@ button.addEventListener("click", (e) => {
     })
 
      
-    //putting the nickname in local storage
+    //putting the new nickname in local storage and removing best score of old users
     nickname = document.forms.nicknameForm.nickname.value;
 
-    if (nickname != ''){
-        localStorage.setItem('name', nickname);
-        // localName = localStorage.getItem('name');
-        // console.log("Hello " +localName);
-    } 
-
-    // else if (nickname == ''){
-    //     if (localName != null){
-    //         console.log("Hello " + localName);
-    //     } else {
-    //         localName = '';
-    //         console.log("Hello anon");
-    //     }
-    // }
+    if ((nickname != '') && (nickname != null)) {
+        if (savedNickname != nickname) {
+            localStorage.removeItem('bestScore');
+            localStorage.getItem('bestScore');//It's part of the removing method (We do it in order to prevent console.log to show the item that we have removed)
+            localStorage.removeItem('score');
+            localStorage.getItem('score');
+            localStorage.setItem('name', nickname);
+        } else {
+            localStorage.setItem('name', nickname);
+        }
+    } else if ((nickname == '') || (nickname == null)) {
+        localStorage.clear();
+        localStorage.getItem('name');
+        localStorage.getItem('score');
+        localStorage.getItem('bestScore');
+    }
 
 
     //we will remove parts of the form that we won't need any more
@@ -384,6 +393,10 @@ button.addEventListener("click", (e) => {
                     if (count <= bonus){
                         userScore += 1;
                         score.textContent = userScore;
+                        localStorage.score = userScore;
+                        if (localStorage.bestScore < userScore) {
+                            localStorage.bestScore = userScore;
+                        }
                     } 
                 }, 100);
             }

@@ -552,6 +552,22 @@ header #bonusArrow p {
   background-color: rgb(242, 254, 255);
 }
 
+#medal {
+  display: none;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-family: 'Lucida Handwriting', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 24px;
+  color: rgb(184, 238, 184);
+  text-shadow: 2px 2px rgb(54, 116, 54);
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
+  z-index: 0;
+}
+
 #trial1 {
   background: url("../images/trial1.svg");
   z-index: 2;

@@ -739,4 +739,28 @@ footer {
 }
 
 
+
+/*The first line is good for mobile phones with landscape orientation and the second line is good for mobile phones with portrait orientation*/
+/*@media screen and (max-width: 899px) and (orientation: landscape), 
+screen and (max-width: 599px) and (orientation: portrait) {
+
+}*/
+
+@media only screen and (orientation: portrait) {
+
+  #headline {
+    font-size: 10vw;
+    top: 12%;
+  }
+
+  #instructions {
+    width: 100%;
+  }
+
+  #instructions form {
+    display: none;
+  }
+
+}
+
 /*# sourceMappingURL=cursor.css.map */

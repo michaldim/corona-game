@@ -8,11 +8,14 @@ const stopWorking = (binary) => stop = binary; //we can't export "stop" as let, 
                                                //a function that we can export, and it'll
                                                //change the value of stop
 
-const ourViewPortWidth = body.clientWidth; //clientWidth shows the width of the element we choose
+let ourViewPortWidth = body.clientWidth; //clientWidth shows the width of the element we choose
 //const ourViewPortHeight = body.clientHeight;
 console.log ('ourViewPortWidth: ' + ourViewPortWidth + ' ourViewPortHeight: ' +body.clientHeight)
 
-
+//If someone changes the screen size, we wan't to prevent bugs:
+window.addEventListener('resize', () => {
+    ourViewPortWidth = body.clientWidth;
+});
 
 
 

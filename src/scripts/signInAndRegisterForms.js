@@ -6,10 +6,12 @@ import {
 } from "firebase/firestore";
 
 import {
-    getAuth, createUserWithEmailAndPassword, updateProfile, signOut, signInWithEmailAndPassword, sendPasswordResetEmail
+    getAuth, createUserWithEmailAndPassword, updateProfile, signOut, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged
 } from "firebase/auth";
 
 import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
+
+import { instructions, medal, medalSpan, savedNickname } from './localStorage';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAQ8bwV2MCpnsyTasXZLKns3os5dkR1de8",
@@ -45,6 +47,7 @@ const signInButton = document.querySelector('#signIn');
 const signInFormContainer = document.querySelector('#signInFormContainer');
 const signInForm = document.querySelector('#signInForm');
 const closeX = document.querySelector(".x");//the X for signInFormContainer and registerFormContainer
+const nicknameForm = document.querySelector('#instructions form');
 const nicknameFormLabel = document.querySelector('#instructions form label');
 const nicknameFormTextInput = document.querySelector('#instructions form #nickname');
 const button = document.querySelector('#instructions form #startButton');
@@ -208,9 +211,13 @@ registerForm.addEventListener('submit', e => {
                             console.log (' user registered: ', cred.user);//new user's info)
                             //localStorage.setItem('score', 0);//adding score to local storage
                             localStorage.setItem('name', registeredNickname);//adding the registeredNickname to the local storage
+                            localStorage.setItem('bestScore', 0);
+                            localStorage.setItem('score', 0);
+                            medal.style.display = 'none';
                         })
                         .then(() => updateProfile(auth.currentUser, { displayName: registeredNickname })) //updateProfile is a firebase method, which creates the user's displayName. Only "registeredNickname" is a varient that I created. 
                         .then(() => {
+                            document.forms.nicknameForm.nickname.setAttribute("value", auth.currentUser.displayName);//I defined that, so there won't be a mistake when the user will start playing
                             console.log ('nickname: ' + auth.currentUser.displayName + 
                                             ' email: ' + auth.currentUser.email +
                                             ' userID: ' + auth.currentUser.uid);
@@ -230,8 +237,7 @@ registerForm.addEventListener('submit', e => {
                             })
                         })
                         .then(() => {
-                            setDoc(doc(database, 'usersScore', auth.currentUser.uid), { 
-                                AuthID: auth.currentUser.uid,
+                            setDoc(doc(database, 'usersScore', auth.currentUser.displayName), { 
                                 Score: 0,
                                 Nickname: registeredNickname,
                             })
@@ -241,11 +247,11 @@ registerForm.addEventListener('submit', e => {
                                 hourglass.style.display = 'none';
                                 registerFormContainer.style.display = 'none';
                                 nicknameFormLabel.style.display = 'none';
+                                nicknameFormTextInput.style.display = 'none';
                                 registerButton.style.display = 'none';
                                 signInButton.style.display = 'none';
                                 closeX.style.display = 'none'; 
                                 instructionsPTag.textContent = registeredNickname + ', ' + p[currentStage];                
-                                nicknameFormTextInput.style.display = 'none';
                                 button.style.fontSize = '17px';
                                 button.style.color = '#555';
                                 signOutButton.style.display = 'block'; 
@@ -310,7 +316,7 @@ signInForm.addEventListener('submit', e => {
         signInForm.reset(); //cleaning the form
         console.log('user signed in: ', cred.user, 'nickname: ', auth.currentUser.displayName);//cred.user shows us the user's details
         instructionsPTag.textContent = auth.currentUser.displayName + ', ' + p[currentStage];
-        localStorage.setItem('name', auth.currentUser.displayName);//adding the registeredNickname to the local storage
+        document.forms.nicknameForm.nickname.setAttribute("value", auth.currentUser.displayName);//I defined that, so there won't be a mistake when the user will start playing
         signInFormContainer.style.display = 'none';
         nicknameFormLabel.style.display = 'none';
         nicknameFormTextInput.style.display = 'none';
@@ -321,6 +327,27 @@ signInForm.addEventListener('submit', e => {
         button.style.fontSize = '17px';
         button.style.color = '#555';
         backToGame.style.display = 'none';
+        medal.style.display = 'none';
+        localStorage.clear();
+        localStorage.getItem('score');//I'm doing it after clear(), because it cleans the score (so it won't appear if I'll do console.log())
+        localStorage.getItem('bestScore');//I'm doing it after clear(), because it cleans the bestScore (so it won't appear if I'll do console.log())
+        localStorage.setItem('name', auth.currentUser.displayName);//adding the registeredNickname to the local storage
+        //Now I'll set the user's bestScore from firebase into the local storage
+        getDoc(doc(database, 'usersScore', auth.currentUser.displayName))
+            .then((docum) => {
+                localStorage.setItem('bestScore', docum.data().Score);//adding the registeredNickname to the local storage
+                
+                //and if bestScore exists, I'll make it appear with the medal at the top of the screen
+                if ((localStorage.getItem('bestScore') != null) && (localStorage.getItem('bestScore') != '') && (localStorage.getItem('bestScore') != 0)) {
+                    medalSpan.textContent = localStorage.getItem('bestScore');
+                    medal.style.display = 'block';
+                } else { //if there aren't any scores
+                    medal.style.display = 'none';
+                }
+            })
+            .catch((err) => {
+                console.log(err.message);
+            })
     })
     .catch(err => {
         hourglass.style.display = 'none';
@@ -453,6 +480,13 @@ signOutButton.addEventListener('click', () => {
     .then (() => {
         console.log('the user logged out');
         instructionsPTag.textContent = pAnon[currentStage];
+        medal.style.display = 'none';
+        nicknameFormLabel.style.display = 'inline-block';
+        nicknameFormLabel.style.right = '3px';
+        nicknameFormTextInput.style.display = 'inline-block';
+        button.style.fontSize = '14px';
+        button.style.color = 'buttontext';
+        document.forms.nicknameForm.nickname.setAttribute("value", '');
     })
     .catch(err => {
         console.log(err.message);
@@ -460,5 +494,29 @@ signOutButton.addEventListener('click', () => {
 });
 
 
+//checking if the user signed in (it's important for cases where the user refreshes the page)
+let status = 0;
 
-export { firebaseConfig, app, auth, database, usersCurrentStage, registerButton, registerFormContainer, registerForm, registerFormInputFields, registerFormPFields, registerLastName, registerFirstName, lastNameP, firstNameP, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg };
+onAuthStateChanged(auth, (user) => {
+    if (user) { //if Auth user exists, we want the signOut button to be on, at the beginning of the game (instead of the register and signIn buttons)
+        status = 1;
+        console.log(status, user);
+        registerButton.style.display = 'none';
+        signInButton.style.display = 'none'; 
+        signOutButton.style.display = 'block';
+        instructionsPTag.textContent = auth.currentUser.displayName + ', ' + p[currentStage];
+        nicknameFormLabel.style.display = 'none';
+        nicknameFormTextInput.style.display = 'none';
+        button.style.fontSize = '17px';
+        button.style.color = '#555';
+    } else { //if there isn't any user
+        status = 0;
+        console.log(status, user);
+    }
+})
+
+
+
+
+
+export { firebaseConfig, app, auth, database, usersCurrentStage, registerButton, registerFormContainer, registerForm, registerFormInputFields, registerFormPFields, registerLastName, registerFirstName, lastNameP, firstNameP, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg, status };

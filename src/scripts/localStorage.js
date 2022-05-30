@@ -7,7 +7,7 @@ const savedNickname = localStorage.getItem('name');//name that was saved from la
 if((savedNickname != '') && (savedNickname != null)) {
     document.forms.nicknameForm.nickname.setAttribute("value", localStorage.name);
     document.forms.nicknameForm.nickname.style.color = "#555555";
-
+    //and if bestScore exists, I'll make it appear with the medal at the top of the screen
     if ((localStorage.getItem('bestScore') != null) && (localStorage.getItem('bestScore') != '') && (localStorage.getItem('bestScore') != 0)) {
         medalSpan.textContent = localStorage.getItem('bestScore');
         medal.style.display = 'block';
@@ -16,4 +16,4 @@ if((savedNickname != '') && (savedNickname != null)) {
 }
 
 
-export { instructions, medal, savedNickname };
+export { instructions, medal, medalSpan, savedNickname };

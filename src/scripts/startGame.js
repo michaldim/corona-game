@@ -23,10 +23,11 @@ import figure20 from '../images/figure20.svg';
 import stars from '../images/stars.svg';
 import favicon from '../images/favicon.ico';
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
-import { firebaseConfig, app, auth, database, usersCurrentStage, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg } from './signInAndRegisterForms';
+import { firebaseConfig, app, auth, database, usersCurrentStage, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg, status } from './signInAndRegisterForms';
 import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 import { stopWorking, ourViewPortWidth, move, trial, slow } from './figuresMovement';
 import { instructions, medal, savedNickname } from './localStorage';
+import { doc, updateDoc } from "firebase/firestore";
 
 const footer = document.querySelector('footer');
 const topEyeshade = document.querySelector('#topEyeshade');
@@ -44,6 +45,7 @@ let numsOfFigs = [];//for example: [1, 2, 3, 4, 5, 6, 7] depends on the max numb
 let userScore = 0;
 const bonusArrow = document.querySelector('header #bonusArrow');
 let speed; //figures' speed (Controls the frequency of the interval in the function move)
+let currentLevelClicksSuccess = 0;
 
 
 //starting the game
@@ -107,20 +109,17 @@ button.addEventListener("click", (e) => {
         }
         move(currentFigure, speed);
 
-        
+
         //function for clicking a figure
         const starsAndPoints = () => {
             currentFigure.removeEventListener('click', starsAndPoints);
             currentFigure.style.background = 'url(./stars.svg)';
             currentFigure.style.animation = 'fireworks 0.75s ease forwards normal';
             userScore += 10;
+            currentLevelClicksSuccess += 1;
+            console.log(currentLevelClicksSuccess);
             score.textContent = userScore;
             localStorage.score = userScore;
-            if ((localStorage.bestScore == '') || (localStorage.bestScore == null)) {
-                localStorage.bestScore = userScore;
-            } else if (localStorage.bestScore < userScore) {
-                localStorage.bestScore = userScore;
-            }
 
             //deleting the figure from the DOM
             setTimeout(() => {
@@ -146,7 +145,7 @@ button.addEventListener("click", (e) => {
     nickname = document.forms.nicknameForm.nickname.value;
 
     if ((nickname != '') && (nickname != null)) {
-        if (savedNickname != nickname) {
+        if (localStorage.getItem('name') != nickname) {
             localStorage.removeItem('bestScore');
             localStorage.getItem('bestScore');//It's part of the removing method (We do it in order to prevent console.log to show the item that we have removed)
             localStorage.removeItem('score');
@@ -156,10 +155,12 @@ button.addEventListener("click", (e) => {
             localStorage.setItem('name', nickname);
         }
     } else if ((nickname == '') || (nickname == null)) {
-        localStorage.clear();
-        localStorage.getItem('name');
-        localStorage.getItem('score');
-        localStorage.getItem('bestScore');
+        if (stage == 0) {
+            localStorage.clear();
+            localStorage.getItem('name');
+            localStorage.getItem('score');
+            localStorage.getItem('bestScore');
+        }
     }
 
 
@@ -358,6 +359,13 @@ button.addEventListener("click", (e) => {
         }
         
         setTimeout(bringingBackInstructions, 2000);
+
+        
+        userScore = userScore - (currentLevelClicksSuccess * 10);//Taking back the scores of this level
+        console.log('userScore' + userScore)
+        currentLevelClicksSuccess = 0;
+        //score.textContent = userScore;
+        localStorage.score = userScore;//Changing the scores back in the localStorage
     }
    
 
@@ -396,9 +404,24 @@ button.addEventListener("click", (e) => {
                         localStorage.score = userScore;
                         if (localStorage.bestScore < userScore) {
                             localStorage.bestScore = userScore;
+
+                            if (status == 1) { //if there is an Auth user
+                                updateDoc(doc(database, 'usersScore', auth.currentUser.displayName), {
+                                    Score: localStorage.getItem('bestScore')
+                                })
+                                .then(() => {
+                                    console.log('Score updated');
+                                })
+                                .catch((err) => {
+                                    console.log(err.message);
+                                })
+                            }
+                            
+
                         }
                     } 
                 }, 100);
+
             }
 
             //cleaning the figures arrays (in order to get ready for next level):
@@ -421,7 +444,15 @@ button.addEventListener("click", (e) => {
             }
             instructions.style.opacity = '0';
             instructions.style.display = 'block';
-            instructions.style.animation = 'instructionsAppears 2s ease forwards normal';            
+            instructions.style.animation = 'instructionsAppears 2s ease forwards normal'; 
+            
+            //Defining the bestScore in the localStorage, after completing the level successfully
+            if ((localStorage.bestScore == '') || (localStorage.bestScore == null)) {
+                localStorage.bestScore = userScore;
+            } else if (localStorage.bestScore < userScore) {
+                localStorage.bestScore = userScore;
+            }
+            currentLevelClicksSuccess = 0;
 
 
         } else if (seconds == 0 && figuresDivs.every(checkBackground) == false) { //if not all figures became stars and the seconds ended

@@ -23,7 +23,7 @@ import figure20 from '../images/figure20.svg';
 import stars from '../images/stars.svg';
 import favicon from '../images/favicon.ico';
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
-import { firebaseConfig, app, auth, database, usersCurrentStage, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg, status } from './signInAndRegisterForms';
+import { firebaseConfig, app, auth, database, usersCurrentStage, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg, status, quit } from './signInAndRegisterForms';
 import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 import { stopWorking, ourViewPortWidth, move, trial, slow } from './figuresMovement';
 import { instructions, medal, savedNickname } from './localStorage';
@@ -55,7 +55,7 @@ button.addEventListener("click", (e) => {
 
     signOutButton.style.display = 'none';
     medal.style.display = 'none';
-    
+    quit.style.display = 'none';
     headline.style.opacity = '0';
 
     //The trial figures at the home page will stop working
@@ -168,8 +168,9 @@ button.addEventListener("click", (e) => {
     nicknameFormLabel.style.display = 'none';
     nicknameFormTextInput.style.display = 'none';
     
-    //we will remove signIn and signUp buttons
+    //we will remove signIn, signUp and quit buttons
     sign.style.display = 'none';
+    quit.style.display = 'none';
     
     //we will make the button bigger and with lighter text color
     button.style.fontSize = '17px';
@@ -355,7 +356,9 @@ button.addEventListener("click", (e) => {
             instructions.style.opacity = '0';
             instructions.style.display = 'block';
             instructions.style.top = 'calc(30% + 4px)';
-            instructions.style.animation = 'instructionsAppears 2.5s ease forwards normal';            
+            instructions.style.animation = 'instructionsAppears 2.5s ease forwards normal';
+            quit.style.display = 'block';//quit button appears
+            quit.style.animation = 'instructionsAppears 2.5s ease forwards normal';           
         }
         
         setTimeout(bringingBackInstructions, 2000);
@@ -445,7 +448,9 @@ button.addEventListener("click", (e) => {
             instructions.style.opacity = '0';
             instructions.style.display = 'block';
             instructions.style.animation = 'instructionsAppears 2s ease forwards normal'; 
-            
+            quit.style.display = 'block';//quit button appears
+            quit.style.animation = 'instructionsAppears 2s ease forwards normal';
+
             //Defining the bestScore in the localStorage, after completing the level successfully
             if ((localStorage.bestScore == '') || (localStorage.bestScore == null)) {
                 localStorage.bestScore = userScore;

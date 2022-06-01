@@ -169,7 +169,6 @@ header #bonusArrow p {
 #register:active {
   border: 2px solid rgb(216, 216, 204, 0.5);
   padding-right: 6px;
-
 }
 
 #signOut {
@@ -473,6 +472,35 @@ header #bonusArrow p {
   z-index: 51;
 }
 
+#quit {
+  display: none;
+  color:rgb(216, 216, 204);
+  text-align: left;
+  font-size: 24px;
+  font-family: Garamond, serif;
+  font-weight: lighter;
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  padding: 2px 7px 4px 7px;
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
+}
+
+#quit:hover {
+  background: rgb(184, 184, 169, 0.4);
+  border-radius: 5px;
+  padding: 2px 7px 4px 7px;
+}
+
+#quit:active {
+  border: 2px solid rgb(216, 216, 204, 0.5);
+  padding: 0px 5px 2px 5px;
+
+}
+
 #hourglass {
   display: none;
   background: url("../images/hourglass.svg");
@@ -550,6 +578,10 @@ header #bonusArrow p {
 
 #instructions form input[type="text"]:focus {
   background-color: rgb(242, 254, 255);
+}
+
+#instructions h4 {
+  display: none;
 }
 
 #medal {
@@ -750,15 +782,25 @@ screen and (max-width: 599px) and (orientation: portrait) {
 
   #headline {
     font-size: 10vw;
-    top: 12%;
+    top: 14%;
+  }
+
+  #signIn {
+    margin-right: 8px;
   }
 
   #instructions {
     width: 100%;
+    top: 30%
   }
 
+  #instructions p,
   #instructions form {
     display: none;
+  }
+
+  #instructions h4 {
+    display: block;
   }
 
 }

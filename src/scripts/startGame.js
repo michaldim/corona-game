@@ -23,11 +23,12 @@ import figure20 from '../images/figure20.svg';
 import stars from '../images/stars.svg';
 import favicon from '../images/favicon.ico';
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
-import { firebaseConfig, app, auth, database, usersCurrentStage, registerButton, registerFormContainer, registerForm, signInButton, signInFormContainer, signInForm, closeX, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg, status, quit } from './signInAndRegisterForms';
+import { firebaseConfig, app, auth, database, usersCurrentStage, registerFormContainer, registerForm, signInFormContainer, signInForm, closeX, registerButton, signInButton, instructionsP, nicknameForm, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg, status, quit } from './signInAndRegisterForms';
 import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 import { stopWorking, ourViewPortWidth, move, trial, slow } from './figuresMovement';
 import { instructions, medal, savedNickname } from './localStorage';
 import { doc, updateDoc } from "firebase/firestore";
+import { instructionsH4, mediaq1, forPhonesAndTablets } from "./mobile";
 
 const footer = document.querySelector('footer');
 const topEyeshade = document.querySelector('#topEyeshade');

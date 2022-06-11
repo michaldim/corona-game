@@ -614,6 +614,11 @@ header #bonusArrow p {
   background: url("../images/trial3.svg");
   z-index: 2;
 }
+
+.trial4 {
+  background: url("../images/trial4.svg");
+  z-index: 1;
+}
  
 .corona {
   display: none;
@@ -802,6 +807,7 @@ screen and (max-width: 599px) and (orientation: portrait) {
   #instructions h4 {
     display: block;
   }
+
 
 }
 

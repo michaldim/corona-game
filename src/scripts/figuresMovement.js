@@ -1,6 +1,7 @@
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
 import { secondsForEachStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 
+
 const trial = document.querySelectorAll('.trial');
 
 let stop = 0;
@@ -90,12 +91,12 @@ const move = (figure, speed) => {
     //passes the test implemented inside some()
     if (batArray.some(element => figure.style.background.includes(element))) {
         movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 9);
-    } else if (speed == 'fast') {
+    } else if (speed == 'fast') { //for cases that are not bats
         movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 12);
         console.log("going fast now");
-    } else if (speed == 'slow') {
+    } else if (speed == 'slow') { //for cases that are not bats
         movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 40);
-    } else {
+    } else { //for cases that are not bats
         movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 20);
     }
     

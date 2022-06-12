@@ -591,6 +591,14 @@ header #bonusArrow p {
   display: none;
 }
 
+#instructions h5 {
+  position: relative;
+  top: 46px;
+  margin-bottom: -25px;
+  color: rgb(184, 184, 169);
+  display: none;
+}
+
 #medal {
   display: none;
   position: absolute;

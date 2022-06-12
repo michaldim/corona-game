@@ -27,8 +27,8 @@ import { firebaseConfig, app, auth, database, usersCurrentStage, registerFormCon
 import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 import { stopWorking, ourViewPortWidth, move, trial, slow } from './figuresMovement';
 import { instructions, medal, savedNickname } from './localStorage';
-import { doc, updateDoc } from "firebase/firestore";
-import { instructionsH4, mediaq1, forPhonesAndTablets } from "./mobile";
+import { doc, updateDoc, where, orderBy, limit, query, getDocs, collection } from "firebase/firestore";
+import { instructionsH4, mediaq1, forPhonesAndTablets, mobile } from "./mobile";
 
 const footer = document.querySelector('footer');
 const topEyeshade = document.querySelector('#topEyeshade');
@@ -51,6 +51,26 @@ let currentLevelClicksSuccess = 0;
 let failureSign;
 
 
+const colRef = collection(database, 'usersScore');
+const q = query(colRef, orderBy('Score', 'desc'), limit(1));//We'll get only the highest score
+const bestPlayer = document.querySelector('#instructions h5');
+const bestPlayerNickname = document.querySelector('#instructions h5 span');
+
+//Checking who is world's best player and putting it on home screen
+getDocs(q)
+    .then(snapshot => {
+        snapshot.docs.forEach((qDoc) => {
+            if (mobile != 1) { //We wan't to see the best player only on laptops and desktops
+                bestPlayerNickname.textContent = {...qDoc.data()}.Nickname;
+                bestPlayer.style.display = 'block';
+            }
+        })
+    })
+    .catch(err => {
+        console.log(err.message);
+    })
+
+
 //starting the game
 button.addEventListener("click", (e) => {
     
@@ -60,6 +80,7 @@ button.addEventListener("click", (e) => {
     medal.style.display = 'none';
     quit.style.display = 'none';
     headline.style.opacity = '0';
+    bestPlayer.style.display = 'none';
 
     //The trial figures at the home page will stop working
     Array.from(trial).forEach(element => {

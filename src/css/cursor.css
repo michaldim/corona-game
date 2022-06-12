@@ -79,6 +79,13 @@ header #bonusArrow p {
   100% {transform: scale(1, 1)}
 }
 
+@keyframes goGrows {
+  0% {transform: scale(0.60, 0.60); opacity: 1}
+  40% {transform: scale(1, 1); opacity: 1}
+  80% {transform: scale(0.60, 0.60); opacity: 0.8}
+  100% {transform: scale(0.80, 0.80); opacity: 0}
+}
+
 .cursor {
   width: 48px;
   height: 48px;
@@ -543,7 +550,7 @@ header #bonusArrow p {
   z-index: 10;
 }
 
-@keyframes instructionsAppears {
+@keyframes appears {
   0% {opacity: 0}
   100% {opacity: 1}
 }
@@ -618,6 +625,27 @@ header #bonusArrow p {
 .trial4 {
   background: url("../images/trial4.svg");
 }
+
+#go {
+  display: none;
+  font-size: 140px;
+  font-family: 'Lucida Handwriting', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: rgb(184, 238, 184);
+  text-shadow: 2px 2px rgb(54, 116, 54);
+  z-index: 51;
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 20%;
+  bottom: 80%;
+  margin: auto;
+  text-align: center;
+  z-index: 53;
+}
  
 .corona {
   display: none;
@@ -651,12 +679,13 @@ header #bonusArrow p {
   top: 30%;
   bottom: 70%;
   margin: auto;
+  z-index: 1;
 }
 
 .tinyCircleContainer {
   height:220px;
   width:22px;
-  background: rgb(153, 116, 240, 0);
+  /* background: rgb(153, 116, 240, 0); */
   position: relative;
   display: inline-block;
   z-index: 2;

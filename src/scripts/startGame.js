@@ -38,6 +38,7 @@ const corona = document.querySelectorAll('.corona');
 const tinyCircleContainer = document.querySelectorAll('.tinyCircleContainer');
 const sign = document.querySelector('#sign');
 const headline = document.querySelector('#headline');////////////////!!!!!!!!!!!!!!!!!!!
+const go = document.querySelector('#go');
 let nickname;
 let stage = 0;//will go inside the level tag
 let figures = []; //figure1, figure2...
@@ -47,6 +48,7 @@ let userScore = 0;
 const bonusArrow = document.querySelector('header #bonusArrow');
 let speed; //figures' speed (Controls the frequency of the interval in the function move)
 let currentLevelClicksSuccess = 0;
+let failureSign;
 
 
 //starting the game
@@ -77,7 +79,19 @@ button.addEventListener("click", (e) => {
         }
     } 
 
-      
+    if (stage == 0) {
+        if (failureSign == 1) {//If it is not the first time of stage 0, we will not have "Go!"
+            go.style.display = 'none';
+        } else {
+            go.style.display = 'block';
+            go.style.animation = `goGrows 1.35s ease normal`; 
+            setTimeout(() => {
+                go.style.display = 'none';
+            }, 1350); 
+        }   
+    }
+    
+
     //defining the figures' arrays
     numsOfFigs.forEach(num => {
         //adding figures into the figures array
@@ -178,21 +192,50 @@ button.addEventListener("click", (e) => {
     button.style.color = '#555';
 
     //the corona appears
-    corona.forEach(element => {
-        element.style.display = 'block';
-    })
-    //the small circles of the corona appear
-    tinyCircleContainer.forEach(element => {
-        element.style.display = 'inline-block';
-    })
-    
-    instructions.style.display = 'none';
+    if (stage == 0 && failureSign != 1) { //If we are on stage 0, for the first time, then the Corona will appear after the "Go!" will dissappear
+        corona.forEach(element => {
+            element.style.display = 'block';
+            element.style.opacity = '0';
+            element.style.animation = 'appears 0.3s 1.3s ease forwards normal';
+        })
+
+        //the small circles of the corona appear
+        tinyCircleContainer.forEach(element => {
+            element.style.display = 'inline-block';
+            element.style.opacity = '0';
+            element.style.animation = 'appears 0.3s 1.3s ease forwards normal';
+        })
+
+        setTimeout (() => {
+            topEyeshade.style.opacity = '1';
+            bottomEyeshade.style.opacity = '1';
+        }, 1400);
+        
+    } else { //if it is not stage 0, the Corona will appear right away 
+
+        corona.forEach(element => {
+            element.style.display = 'block';
+            element.style.opacity = '1';
+            element.style.animation = 'appears 0s ease forwards normal';
+        })
+
+        //the small circles of the corona appear
+        tinyCircleContainer.forEach(element => {
+            element.style.display = 'inline-block';
+            element.style.opacity = '1';
+            element.style.animation = 'appears 0s ease forwards normal';
+        })
+    }
 
     //the corona's eyes will get closed and turn/look to the other side
     topEyeshade.style.animation = 'shutTopEyeshade 2.5s 0.65s ease infinite normal';
     bottomEyeshade.style.animation = 'shutBottomEyeshade 2.5s 0.65s ease infinite normal';
     eyes.style.animation = 'turnEyes 5s 0.925s ease infinite normal'; 
 
+    
+    instructions.style.display = 'none';
+
+  
     //the score section appears:
     header.style.opacity = '0';
     header.style.display = 'flex'; 
@@ -255,6 +298,7 @@ button.addEventListener("click", (e) => {
     const failingProcedure = () => {
 
         stopWorking(1);   
+        failureSign = 1;//important for the "Go!" in level 0
 
         //making the color of the corona randomly different
         let h = Math.random() * 359; //the H og the hsl is 0-359
@@ -357,9 +401,9 @@ button.addEventListener("click", (e) => {
             instructions.style.opacity = '0';
             instructions.style.display = 'block';
             instructions.style.top = 'calc(30% + 4px)';
-            instructions.style.animation = 'instructionsAppears 2.5s ease forwards normal';
+            instructions.style.animation = 'appears 2.5s ease forwards normal';
             quit.style.display = 'block';//quit button appears
-            quit.style.animation = 'instructionsAppears 2.5s ease forwards normal';           
+            quit.style.animation = 'appears 2.5s ease forwards normal';           
         }
         
         setTimeout(bringingBackInstructions, 2000);
@@ -448,9 +492,9 @@ button.addEventListener("click", (e) => {
             }
             instructions.style.opacity = '0';
             instructions.style.display = 'block';
-            instructions.style.animation = 'instructionsAppears 2s ease forwards normal'; 
+            instructions.style.animation = 'appears 2s ease forwards normal'; 
             quit.style.display = 'block';//quit button appears
-            quit.style.animation = 'instructionsAppears 2s ease forwards normal';
+            quit.style.animation = 'appears 2s ease forwards normal';
 
             //Defining the bestScore in the localStorage, after completing the level successfully
             if ((localStorage.bestScore == '') || (localStorage.bestScore == null)) {

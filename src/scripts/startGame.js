@@ -23,12 +23,12 @@ import figure20 from '../images/figure20.svg';
 import stars from '../images/stars.svg';
 import favicon from '../images/favicon.ico';
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
+import { instructions, medal, savedNickname } from './localStorage';
 import { firebaseConfig, app, auth, database, usersCurrentStage, registerFormContainer, registerForm, signInFormContainer, signInForm, closeX, registerButton, signInButton, instructionsP, nicknameForm, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg, status, quit } from './signInAndRegisterForms';
 import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 import { stopWorking, ourViewPortWidth, move, trial, slow } from './figuresMovement';
-import { instructions, medal, savedNickname } from './localStorage';
-import { doc, updateDoc, where, orderBy, limit, query, getDocs, collection } from "firebase/firestore";
-import { instructionsH4, mediaq1, forPhonesAndTablets, mobile } from "./mobile";
+import { doc, updateDoc, where, orderBy, limit, query, getDocs, collection, onSnapshot } from "firebase/firestore";
+import { instructionsH4, mediaq1, forPhonesAndTablets, mobile, bestPlayerName } from "./mobile";
 
 const footer = document.querySelector('footer');
 const topEyeshade = document.querySelector('#topEyeshade');
@@ -37,7 +37,7 @@ const tinyCircles = document.querySelectorAll('.tinyCircle');
 const corona = document.querySelectorAll('.corona');
 const tinyCircleContainer = document.querySelectorAll('.tinyCircleContainer');
 const sign = document.querySelector('#sign');
-const headline = document.querySelector('#headline');////////////////!!!!!!!!!!!!!!!!!!!
+const headline = document.querySelector('#headline');
 const go = document.querySelector('#go');
 let nickname;
 let stage = 0;//will go inside the level tag
@@ -49,38 +49,40 @@ const bonusArrow = document.querySelector('header #bonusArrow');
 let speed; //figures' speed (Controls the frequency of the interval in the function move)
 let currentLevelClicksSuccess = 0;
 let failureSign;
-
+console.log(document.forms.nicknameForm.nickname.value);
+console.log(localStorage.name);
 
 const colRef = collection(database, 'usersScore');
 const q = query(colRef, orderBy('Score', 'desc'), limit(1));//We'll get only the highest score
-const bestPlayer = document.querySelector('#instructions h5');
-const bestPlayerNickname = document.querySelector('#instructions h5 span');
+const bestPlayerNameSpan = document.querySelector('#instructions #bestPlayerName span');
+const bestPlayerScore = document.querySelector('#instructions #bestPlayerScore');
+const bestPlayerScoreSpan = document.querySelector('#instructions #bestPlayerScore span');
 
-//Checking who is world's best player and putting it on home screen
-getDocs(q)
-    .then(snapshot => {
-        snapshot.docs.forEach((qDoc) => {
-            if (mobile != 1) { //We wan't to see the best player only on laptops and desktops
-                bestPlayerNickname.textContent = {...qDoc.data()}.Nickname;
-                bestPlayer.style.display = 'block';
-            }
-        })
+//Checking in firebase who is world's best player and putting it on home screen
+onSnapshot(q, (snapshot) => {
+    snapshot.docs.forEach((qDoc) => {
+        if (mobile != 1) { //We wan't to see the best player only on laptops and desktops
+            bestPlayerNameSpan.textContent = {...qDoc.data()}.Nickname;
+            bestPlayerScoreSpan.textContent = {...qDoc.data()}.Score;
+        }
     })
-    .catch(err => {
-        console.log(err.message);
-    })
+})
 
+console.log('savedNickname before start of game: ' + savedNickname);
 
 //starting the game
 button.addEventListener("click", (e) => {
     
     e.preventDefault();//prevent refreshing the page (due to the form)
 
+    console.log('after start of game: ' + document.forms.nicknameForm.nickname.value);
+    console.log('after start of game: ' + localStorage.name);
+
     signOutButton.style.display = 'none';
     medal.style.display = 'none';
     quit.style.display = 'none';
     headline.style.opacity = '0';
-    bestPlayer.style.display = 'none';
+    bestPlayerName.style.display = 'none';
 
     //The trial figures at the home page will stop working
     Array.from(trial).forEach(element => {
@@ -93,7 +95,7 @@ button.addEventListener("click", (e) => {
 
     //filling up numsOfFigs array according to figuresPerStage array
     for (let z = 1; z <= figuresPerStage[stage]; z++){
-        if ((stage == 5) && (z == 11 || z == 12 || z == 13 || z == 14)){
+        if ((stage == 4) && (z == 11 || z == 12 || z == 13 || z == 14)){ //We don't want the bats in stage 5
             console.log("");
         } else {
             numsOfFigs.push(z);
@@ -103,7 +105,7 @@ button.addEventListener("click", (e) => {
     if (stage == 0) {
         if (failureSign == 1) {//If it is not the first time of stage 0, we will not have "Go!"
             go.style.display = 'none';
-        } else {
+        } else { //If it is the first time of stage 0
             go.style.display = 'block';
             go.style.animation = `goGrows 1.35s ease normal`; 
             setTimeout(() => {
@@ -138,7 +140,7 @@ button.addEventListener("click", (e) => {
         currentFigure.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
         currentFigure.style.display = 'block';
         //starting to move the figures in different directions:
-        if (stage == 4 || stage == 6 || stage == 7){
+        if (stage >= 5){
             speed = 'fast';
         } else {
             speed = 'regular';
@@ -179,6 +181,9 @@ button.addEventListener("click", (e) => {
      
     //putting the new nickname in local storage and removing best score of old users
     nickname = document.forms.nicknameForm.nickname.value;
+    console.log('Nickname: ' + nickname);
+    console.log('savedNickname after start of game: ' + savedNickname);
+
 
     if ((nickname != '') && (nickname != null)) {
         if (localStorage.getItem('name') != nickname) {
@@ -313,7 +318,7 @@ button.addEventListener("click", (e) => {
 
     
     let localName = localStorage.getItem('name');
-
+    console.log('lacalName: ' + localName);
 
     //function that works after the user failed
     const failingProcedure = () => {
@@ -414,9 +419,9 @@ button.addEventListener("click", (e) => {
         const bringingBackInstructions = () => {
             
             if((localName == '') || (localName == null)){
-                instructionsPTag.textContent = "You failed and a new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe.";
+                instructionsPTag.textContent = "You failed! A new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe.";
             } else {    
-                instructionsPTag.textContent = localName + ',' + " you failed and a new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe."; 
+                instructionsPTag.textContent = localName + ',' + " you failed! A new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe."; 
             }
 
             instructions.style.opacity = '0';
@@ -444,24 +449,63 @@ button.addEventListener("click", (e) => {
             clearInterval(endLevel);
             stopWorking(1); //the stars will stop moving
             stage += 1;
-            usersCurrentStage(stage);//updating "currentStage" variable, which is located in storyLine.js 
+            usersCurrentStage(stage);//updating "currentStage" variable, which is located in signInAndRegisterForms.js 
             clearInterval(countDownInterval); //the clock will stop
             timer.style.animation = 'none';
             timer.classList.add('animationRemoved');
             timer.classList.remove('animationIsOn');//removing this class resets the animation for this element and lets us use it again after adding this class back
 
-            if (seconds != 0) {
-                timer.style.animation = `timerGrowsAgain 1s ${seconds} ease normal`;
-
-                bonusArrow.style.opacity = '1';
-                bonusArrow.style.animation = `arrowGrows 1s ${seconds} ease normal`;
-                bonusArrow.classList.add('animationRemoved');
-                bonusArrow.classList.remove('animationIsOn');//removing this class resets the animation for this element and lets us use it again after adding this class back
+            //Stage 8 is the end of game
+            if (stage == 8) {
+                const fictive = document.querySelector('#fictive');
+                const playAgainButton = document.querySelector('#instructions form button');
+                instructions.style.top = '25%';
+                bonusArrow.style.display = 'none';
+                fictive.style.display = 'none';//Since I made "display: none;" to the bonusArrow, the timer in the header is not centered, so I also made "display: none" to the fictive div (and now the timer is centered)
+                button.style.display = 'none'; 
+                playAgainButton.style.display = 'block';
+                playAgainButton.addEventListener('click', () => {
+                    location.reload() //location.reload() reloads the current URL, like the Refresh button
+                });
+                bestPlayerName.style.display = 'block';
+                bestPlayerScore.style.display = 'block';
+                bestPlayerName.style.marginBottom = '0px';
+                bestPlayerScore.style.marginBottom = '-60px';
                 
+                //adding a lot of fireworks
+                figuresDivs.forEach(figureDiv => {
+                    body.insertBefore(figureDiv, footer);
+                    figureDiv.style.display = 'block';
+                    figureDiv.style.zIndex = '8';
+                    figureDiv.style.width = '56px';
+                    figureDiv.style.height = '56px';
+                    figureDiv.style.top = Math.random()*(body.clientHeight - 56) + 'px'; //56 is the size of the figures. body.clientHeight gives the viewport size without the scroll bar
+                    figureDiv.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
+                    figureDiv.style.animation = 'fireworks 2s ease forwards normal';
+                })
+            } else {
+                //cleaning the figures arrays (in order to get ready for next level):
                 setTimeout(() => {
-                    bonusArrow.style.opacity = '0';
-                }, (seconds*1000));
+                    figures = []; 
+                    figuresDivs = [];
+                    numsOfFigs = [];
+                }, 751); //after the last firework ended its work
+            }
 
+            if (seconds != 0) {
+                if (stage != 8){
+                    timer.style.animation = `timerGrowsAgain 1s ${seconds} ease normal`;
+                    bonusArrow.style.opacity = '1';
+                    bonusArrow.style.animation = `arrowGrows 1s ${seconds} ease normal`;
+                    bonusArrow.classList.add('animationRemoved');
+                    bonusArrow.classList.remove('animationIsOn');//removing this class resets the animation for this element and lets us use it again after adding this class back
+                    
+                    setTimeout(() => {
+                        bonusArrow.style.opacity = '0';
+                    }, (seconds*1000));    
+                }
+
+                //in all stages:
                 let bonus = (seconds * 10);
                 const i = 1;
                 let count = 0;
@@ -476,7 +520,7 @@ button.addEventListener("click", (e) => {
 
                             if (status == 1) { //if there is an Auth user
                                 updateDoc(doc(database, 'usersScore', auth.currentUser.displayName), {
-                                    Score: localStorage.getItem('bestScore')
+                                    Score: Number(localStorage.getItem('bestScore'))  //the info from the localStorage comes as a string, so I change it into a number
                                 })
                                 .then(() => {
                                     console.log('Score updated');
@@ -493,13 +537,6 @@ button.addEventListener("click", (e) => {
 
             }
 
-            //cleaning the figures arrays (in order to get ready for next level):
-            setTimeout(() => {
-                figures = []; 
-                figuresDivs = [];
-                numsOfFigs = [];
-            }, 751); //after the last firework ended its work
-            
             //hiding the corona
             corona.forEach(element => {
                 element.style.display = 'none';

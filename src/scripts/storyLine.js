@@ -2,35 +2,35 @@ import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
 
 const instructionsPTag = document.querySelector('#instructions p');
 
-const secondsForEachStage = [11, 14, 13, 18, 13, 16, 20, 18];
+const secondsForEachStage = [11, 14, 13, 18, 17, 13, 22, 20];
 // 
-const figuresPerStage = [7, 10, 10, 14, 10, 20, 20, 20];
+const figuresPerStage = [7, 10, 10, 14, 20, 10, 20, 20];
 
-const pFailure = "you failed and a new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe";
-const pFailureAnon = "You failed and a new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe";
+const pFailure = "you failed! A new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe.";
+const pFailureAnon = "You failed! A new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe.";
 
 const p = [
-"vaccinate world's population and help fight the coronavirus disease. If you'll fail, a new variant will arrive...",
+"vaccinate the world's population and help fight the coronavirus. If you fail, a new variant will arrive...",
 "you made it! But the population grew and you need to vaccinate more people now!",
-"you made it again! Now lets see if you can do it even faster!",
-"great job! But bats are camming. Can you vaccinate them too?",
-"you are awesome! Now lets see if you can do it with people that are in a hurry!",
-"amazing work! Can you also vaccinate each person in only one second?",
-"the Corona can't beat you! Lets try it now with the bats and faster!",
-"you're almost at the end of your journy, only one stage to go!",
-"you did it! You saved humanity! You ended the coronavirus disease and made XXX point."
+"you made it again! Now let's see if you can do it even faster!",
+"great job! But bats are coming and need to get vaccinated too. Can you do that?",
+"amazing work! Can you vaccinate more people in less time?",
+"you are awesome! Now let's see if you can do it while people are in a hurry!",
+"the coronavirus can't beat you! Let's try it fast and with the bats!",
+"you're almost at the end of your journey. Only one stage to go!",
+"congratulations! You ended the coronavirus. Now, start over and try to gain the world's highest score."
 ]
 
 const pAnon = [
-    "Vaccinate world's population and help fight the coronavirus disease. If you'll fail, a new variant will arrive...",
+    "Vaccinate the world's population and help fight the coronavirus. If you fail, a new variant will arrive...",
     "You made it! But the population grew and you need to vaccinate more people now!",
-    "You made it again! Now lets see if you can do it even faster!",
-    "Great job! But bats are camming. Can you vaccinate them too?",
-    "You are awesome! Now lets see if you can do it with people that are in a hurry!",
-    "Amazing work! Can you also vaccinate each person in only one second?",
-    "The Corona can't beat you! Lets try it now with the bats!",
-    "You're almost at the end of your journy, only one stage to go!",
-    "You did it! You saved humanity! You ended the coronavirus disease and made XXX point."
+    "You made it again! Now let's see if you can do it even faster!",
+    "Great job! But bats are coming and need to get vaccinated too. Can you do that?",
+    "Amazing work! Can you vaccinate more people in less time?",
+    "You are awesome! Now let's see if you can do it while people are in a hurry!",
+    "The coronavirus can't beat you! Let's try it fast and with the bats!",
+    "You're almost at the end of your journey. Only one stage to go!",
+    "Congratulations! You ended the coronavirus. Now, start over and try to gain the world's highest score."
 ]
 
 export { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon };

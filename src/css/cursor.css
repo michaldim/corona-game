@@ -587,16 +587,46 @@ header #bonusArrow p {
   background-color: rgb(242, 254, 255);
 }
 
+#instructions form button {
+  border-radius: 20px;
+  background: rgb(231, 231, 219);
+  font-size: 17px;
+  color: rgb(85, 85, 85);
+  text-align: center;
+  margin: auto;
+  display: none;
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
+}
+
 #instructions h4 {
   display: none;
 }
 
-#instructions h5 {
+#instructions #bestPlayerName {
   position: relative;
   top: 46px;
   margin-bottom: -25px;
   color: rgb(184, 184, 169);
+  display: block;
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
+}
+
+#instructions #bestPlayerScore {
+  position: relative;
+  top: 46px;
+  /* margin-bottom: -60px; */
+  color: rgb(184, 184, 169);
   display: none;
+  user-select: none; /*******************************************/
+  -moz-user-select: none; /*******************************************/
+  -webkit-user-select: none;/*******************************************/
+  -ms-user-select: none;/*******************************************/
 }
 
 #medal {
@@ -832,7 +862,7 @@ screen and (max-width: 599px) and (orientation: portrait) {
 
   #instructions {
     width: 100%;
-    top: 30%
+    top: 30%;
   }
 
   #instructions p,
@@ -842,6 +872,11 @@ screen and (max-width: 599px) and (orientation: portrait) {
 
   #instructions h4 {
     display: block;
+    font-size: 24px;
+  }
+
+  #instructions #bestPlayerName {
+    display: none;
   }
 
 

@@ -13,7 +13,7 @@ let ourViewPortWidth = body.clientWidth; //clientWidth shows the width of the el
 //const ourViewPortHeight = body.clientHeight;
 console.log ('ourViewPortWidth: ' + ourViewPortWidth + ' ourViewPortHeight: ' +body.clientHeight)
 
-//If someone changes the screen size, we wan't to prevent bugs:
+//If someone changes the screen size, we want to prevent bugs:
 window.addEventListener('resize', () => {
     ourViewPortWidth = body.clientWidth;
 });

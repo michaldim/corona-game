@@ -210,6 +210,8 @@ registerForm.addEventListener('submit', e => {
                             console.log ('nickname: ' + auth.currentUser.displayName + 
                                             ' email: ' + auth.currentUser.email +
                                             ' userID: ' + auth.currentUser.uid);
+                            console.log(document.forms.nicknameForm.nickname.value);
+                            console.log(localStorage.name);
                         })
                         .then(() => {
                             //setting a new doc (with user's Nickname) to firebase database
@@ -318,6 +320,7 @@ signInForm.addEventListener('submit', e => {
         backToGame.style.display = 'none';
         medal.style.display = 'none';
         localStorage.clear();
+        localStorage.getItem('name');
         localStorage.getItem('score');//I'm doing it after clear(), because it cleans the score (so it won't appear if I'll do console.log())
         localStorage.getItem('bestScore');//I'm doing it after clear(), because it cleans the bestScore (so it won't appear if I'll do console.log())
         localStorage.setItem('name', auth.currentUser.displayName);//adding the registeredNickname to the local storage
@@ -325,7 +328,9 @@ signInForm.addEventListener('submit', e => {
         getDoc(doc(database, 'usersScore', auth.currentUser.displayName))
             .then((docum) => {
                 localStorage.setItem('bestScore', docum.data().Score);//adding the registeredNickname to the local storage
-                
+                console.log(document.forms.nicknameForm.nickname.value);
+                console.log(localStorage.name);
+
                 //and if bestScore exists, I'll make it appear with the medal at the top of the screen
                 if ((localStorage.getItem('bestScore') != null) && (localStorage.getItem('bestScore') != '') && (localStorage.getItem('bestScore') != 0)) {
                     medalSpan.textContent = localStorage.getItem('bestScore');
@@ -460,6 +465,8 @@ signOutButton.addEventListener('click', () => {
     localStorage.clear(); //clears all localStorage items
     localStorage.getItem('name');//preventing the cleared name to appear in the console (if we will do console.log())
     localStorage.getItem('score');//preventing the cleared score to appear in the console (if we will do console.log())
+    localStorage.getItem('bestScore');//I'm doing it after clear(), because it cleans the bestScore (so it won't appear if I'll do console.log())
+    console.log('after clearing in signout:' + localStorage.name);
 
     // if (unsubscribe != null) {
     //     unsubscribe();
@@ -476,6 +483,8 @@ signOutButton.addEventListener('click', () => {
         button.style.fontSize = '14px';
         button.style.color = 'buttontext';
         document.forms.nicknameForm.nickname.setAttribute("value", '');
+        console.log(document.forms.nicknameForm.nickname.value);
+        console.log(localStorage.name);
     })
     .catch(err => {
         console.log(err.message);
@@ -483,9 +492,9 @@ signOutButton.addEventListener('click', () => {
 });
 
 
-//checking if the user signed in (it's important for cases where the user refreshes the page)
 let status = 0;
 
+//checking if the user signed in (it's important for cases where the user refreshes the page)
 onAuthStateChanged(auth, (user) => {
     if (user) { //if Auth user exists, we want the signOut button to be on, at the beginning of the game (instead of the register and signIn buttons)
         status = 1;

@@ -7,13 +7,17 @@ import { move, slow } from './figuresMovement';
 
 const instructionsH4 = document.querySelector('#instructions h4');
 const trial3 = document.querySelector('#trial3');
+const bestPlayerName = document.querySelector('#instructions #bestPlayerName');
 const trial4 = document.createElement("div");
+
 let mobile;
 
 const mobileAndTablets = () => {
     registerButton.removeEventListener("click", registerButtonEvent);
     signInButton.removeEventListener("click", signInButtonEvent);
     medal.style.display = 'none';
+    bestPlayerName.style.display = 'none';
+    instructionsH4.style.fontSize = '24px';
     mobile = 1;
 
     trial4.classList.add('trial', 'trial4');
@@ -58,4 +62,4 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 }
 
 
-export { instructionsH4, mediaq1, forPhonesAndTablets, mobile };
+export { instructionsH4, mediaq1, forPhonesAndTablets, mobile, bestPlayerName };

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
-
 *{
 	box-sizing: border-box;
 	margin: 0;
@@ -110,7 +108,7 @@ header #bonusArrow p {
   margin-right: auto;
   text-align: center;
   font-size: 80px;
-  font-family: 'Lucida Handwriting', 'Fuzzy Bubbles', cursive;
+  font-family: 'Lucida Handwriting', 'Gochi Hand', cursive;
   letter-spacing: 5px;
   color: rgb(184, 238, 184);
   text-shadow: 2px 2px rgb(54, 116, 54);
@@ -637,7 +635,7 @@ header #bonusArrow p {
   position: absolute;
   top: 15px;
   left: 15px;
-  font-family: 'Lucida Handwriting', 'Fuzzy Bubbles', cursive;
+  font-family: 'Lucida Handwriting', 'Gochi Hand', cursive;
   font-size: 24px;
   color: rgb(184, 238, 184);
   text-shadow: 2px 2px rgb(54, 116, 54);
@@ -670,8 +668,7 @@ header #bonusArrow p {
 #go {
   display: none;
   font-size: 140px;
-  font-family: 'Lucida Handwriting', 'Fuzzy Bubbles', cursive;
-  /* font-family: 'Fuzzy Bubbles', cursive; */
+  font-family: 'Lucida Handwriting', 'Gochi Hand', cursive;
   color: rgb(184, 238, 184);
   text-shadow: 2px 2px rgb(54, 116, 54);
   z-index: 51;

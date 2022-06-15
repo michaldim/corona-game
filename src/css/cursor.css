@@ -101,17 +101,18 @@ header #bonusArrow p {
 
 #headline {
   position: absolute;
-  top: 11%;
-  right: 18px;
+  top: 9%;
+  right: 22px;
   left: 0;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   font-size: 80px;
-  font-family: 'Lucida Handwriting', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Handwriting', 'Fuzzy Bubbles', cursive;
+  letter-spacing: 5px;
   color: rgb(184, 238, 184);
   text-shadow: 2px 2px rgb(54, 116, 54);
-  transform: rotateZ(-3deg);
+  transform: rotateZ(-5deg);
   z-index: 51;
   opacity: 1;
   transition: opacity 0.5s ease;
@@ -634,7 +635,7 @@ header #bonusArrow p {
   position: absolute;
   top: 15px;
   left: 15px;
-  font-family: 'Lucida Handwriting', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Handwriting', 'Fuzzy Bubbles', cursive;
   font-size: 24px;
   color: rgb(184, 238, 184);
   text-shadow: 2px 2px rgb(54, 116, 54);
@@ -667,7 +668,8 @@ header #bonusArrow p {
 #go {
   display: none;
   font-size: 140px;
-  font-family: 'Lucida Handwriting', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Handwriting', 'Fuzzy Bubbles', cursive;
+  /* font-family: 'Fuzzy Bubbles', cursive; */
   color: rgb(184, 238, 184);
   text-shadow: 2px 2px rgb(54, 116, 54);
   z-index: 51;

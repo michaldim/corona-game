@@ -23,9 +23,6 @@ const mobileAndTablets = () => {
     trial4.classList.add('trial', 'trial4');
     body.insertBefore(trial4, trial3);
     trial4.style.zIndex = '11';
-    trial4.style.top = Math.random()*(body.clientHeight - 56) + 'px'; //56 is the size of the figures. body.clientHeight gives the viewport size without the scroll bar
-    trial4.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
-    move(trial4, 'regular');
 }
 
 

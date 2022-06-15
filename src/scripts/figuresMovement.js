@@ -1,6 +1,6 @@
 import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
 import { secondsForEachStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
-
+import {} from './mobile';
 
 const trial = document.querySelectorAll('.trial');
 

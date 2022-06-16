@@ -28,7 +28,7 @@ import { firebaseConfig, app, auth, database, usersCurrentStage, registerFormCon
 import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
 import { stopWorking, ourViewPortWidth, move, trial, slow } from './figuresMovement';
 import { doc, updateDoc, where, orderBy, limit, query, getDocs, collection, onSnapshot } from "firebase/firestore";
-import { instructionsH4, mediaq1, forPhonesAndTablets, mobile, bestPlayerName } from "./mobile";
+import { headline, instructionsH4, mediaq1, forPhonesAndTablets, mobile, bestPlayerName } from "./mobile";
 
 const footer = document.querySelector('footer');
 const topEyeshade = document.querySelector('#topEyeshade');
@@ -37,7 +37,6 @@ const tinyCircles = document.querySelectorAll('.tinyCircle');
 const corona = document.querySelectorAll('.corona');
 const tinyCircleContainer = document.querySelectorAll('.tinyCircleContainer');
 const sign = document.querySelector('#sign');
-const headline = document.querySelector('#headline');
 const go = document.querySelector('#go');
 let nickname;
 let stage = 0;//will go inside the level tag

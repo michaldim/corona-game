@@ -4,7 +4,7 @@ import { body, cursor } from './cursorAndCorona';
 import { move, slow } from './figuresMovement';
 
 
-
+const headline = document.querySelector('#headline');
 const instructionsH4 = document.querySelector('#instructions h4');
 const trial3 = document.querySelector('#trial3');
 const bestPlayerName = document.querySelector('#instructions #bestPlayerName');
@@ -56,14 +56,16 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
     cursor.style.display = 'none';
     bestPlayerName.style.display = 'none';
     instructionsH4.style.fontSize = '24px';
-    
-    if(window.matchMedia('(orientation: landscape)')) {
-        instructions.style.top = '34%';
+
+    if(window.matchMedia('(orientation: landscape)').matches) {
+        instructions.style.top = '40%';
         instructions.style.width = '85%';
+        headline.style.fontSize = '60px';
+        headline.style.top = '13%';
     }
 
     mobileAndTablets();
 }
 
 
-export { instructionsH4, mediaq1, forPhonesAndTablets, mobile, bestPlayerName };
+export { instructionsH4, mediaq1, forPhonesAndTablets, mobile, bestPlayerName, headline };

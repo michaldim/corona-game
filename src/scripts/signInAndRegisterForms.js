@@ -179,7 +179,7 @@ registerForm.addEventListener('submit', e => {
     //some() method works on array or NodeList, but registerFormInputFields and registerFormPFields
     //are HTML Collection, so first i'm changing them to an array and then I add some() method 
     if((Array.from(registerFormInputFields).some(classListCheck)) || (Array.from(registerFormPFields).some(classListCheck))){ //checking if some of the input fields contain 'invalid' class
-        console.log('do nothing');
+        console.log('');
     } else {
         hourglass.style.display = 'block';
         const email = registerForm.email.value;
@@ -197,8 +197,7 @@ registerForm.addEventListener('submit', e => {
                     //so we'll continue with the registration of the new user:
                     createUserWithEmailAndPassword(auth, email, password)//firebase method
                         .then((cred) => {
-                            console.log (' user registered: ', cred.user);//new user's info)
-                            //localStorage.setItem('score', 0);//adding score to local storage
+                            //console.log (' user registered: ', cred.user); //new user's info
                             localStorage.setItem('name', registeredNickname);//adding the registeredNickname to the local storage
                             localStorage.setItem('bestScore', 0);
                             localStorage.setItem('score', 0);
@@ -207,11 +206,9 @@ registerForm.addEventListener('submit', e => {
                         .then(() => updateProfile(auth.currentUser, { displayName: registeredNickname })) //updateProfile is a firebase method, which creates the user's displayName. Only "registeredNickname" is a varient that I created. 
                         .then(() => {
                             document.forms.nicknameForm.nickname.setAttribute("value", auth.currentUser.displayName);//I defined that, so there won't be a mistake when the user will start playing
-                            console.log ('nickname: ' + auth.currentUser.displayName + 
-                                            ' email: ' + auth.currentUser.email +
-                                            ' userID: ' + auth.currentUser.uid);
-                            console.log(document.forms.nicknameForm.nickname.value);
-                            console.log(localStorage.name);
+                            // console.log ('nickname: ' + auth.currentUser.displayName + 
+                            //                 ' email: ' + auth.currentUser.email +
+                            //                 ' userID: ' + auth.currentUser.uid);
                         })
                         .then(() => {
                             //setting a new doc (with user's Nickname) to firebase database
@@ -219,7 +216,7 @@ registerForm.addEventListener('submit', e => {
                                 Nickname: registeredNickname,
                             })
                             .then(() => {
-                                console.log('We have set the new docs'); 
+                                console.log(''); 
                             })
                             .catch(err => {  //catch for setDoc
                                 console.log(err.message);
@@ -233,7 +230,6 @@ registerForm.addEventListener('submit', e => {
                                 Nickname: registeredNickname,
                             })
                             .then(() => {
-                                console.log('We have set the other docs'); 
                                 registerForm.reset();//cleaning the form
                                 hourglass.style.display = 'none';
                                 registerFormContainer.style.display = 'none';
@@ -279,7 +275,7 @@ registerForm.addEventListener('submit', e => {
                         });
                     /////////////////////////////////////////
                 } else { //if the Nickname already exists
-                    console.log('Nickname already exists:', fireDoc.data());
+                    // console.log('Nickname already exists:', fireDoc.data());
                     alert('This nickname is already taken, please choose a different one');
                 }
             })
@@ -305,7 +301,7 @@ signInForm.addEventListener('submit', e => {
     .then(cred => {
         hourglass.style.display = 'none';
         signInForm.reset(); //cleaning the form
-        console.log('user signed in: ', cred.user, 'nickname: ', auth.currentUser.displayName);//cred.user shows us the user's details
+        // console.log('user signed in: ', cred.user, 'nickname: ', auth.currentUser.displayName);//cred.user shows us the user's details
         instructionsPTag.textContent = auth.currentUser.displayName + ', ' + p[currentStage];
         document.forms.nicknameForm.nickname.setAttribute("value", auth.currentUser.displayName);//I defined that, so there won't be a mistake when the user will start playing
         signInFormContainer.style.display = 'none';
@@ -328,8 +324,6 @@ signInForm.addEventListener('submit', e => {
         getDoc(doc(database, 'usersScore', auth.currentUser.displayName))
             .then((docum) => {
                 localStorage.setItem('bestScore', docum.data().Score);//adding the registeredNickname to the local storage
-                console.log(document.forms.nicknameForm.nickname.value);
-                console.log(localStorage.name);
 
                 //and if bestScore exists, I'll make it appear with the medal at the top of the screen
                 if ((localStorage.getItem('bestScore') != null) && (localStorage.getItem('bestScore') != '') && (localStorage.getItem('bestScore') != 0)) {
@@ -405,7 +399,6 @@ backToGame.addEventListener('click', () => {
 forgotForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const forgotEmailValue = forgotForm.email.value;
-    console.log(forgotEmailValue);
     hourglass.style.display = 'block';
     emailSentP.classList.add('animationIsOn');
     emailSentP.classList.remove('animationRemoved');
@@ -413,8 +406,6 @@ forgotForm.addEventListener('submit', (e) => {
     sendPasswordResetEmail(auth, forgotEmailValue)
     .then(() => {
         hourglass.style.display = 'none';
-        // Password reset email sent!
-        console.log("Email sent!");
         emailSent.style.display = 'flex';
         emailSentP.style.animation = 'emailSent 2.5s ease forwards normal'; 
 
@@ -466,15 +457,9 @@ signOutButton.addEventListener('click', () => {
     localStorage.getItem('name');//preventing the cleared name to appear in the console (if we will do console.log())
     localStorage.getItem('score');//preventing the cleared score to appear in the console (if we will do console.log())
     localStorage.getItem('bestScore');//I'm doing it after clear(), because it cleans the bestScore (so it won't appear if I'll do console.log())
-    console.log('after clearing in signout:' + localStorage.name);
-
-    // if (unsubscribe != null) {
-    //     unsubscribe();
-    // }
 
     signOut(auth)
     .then (() => {
-        console.log('the user logged out');
         instructionsPTag.textContent = pAnon[currentStage];
         medal.style.display = 'none';
         nicknameFormLabel.style.display = 'inline-block';
@@ -483,8 +468,6 @@ signOutButton.addEventListener('click', () => {
         button.style.fontSize = '14px';
         button.style.color = 'buttontext';
         document.forms.nicknameForm.nickname.setAttribute("value", '');
-        console.log(document.forms.nicknameForm.nickname.value);
-        console.log(localStorage.name);
     })
     .catch(err => {
         console.log(err.message);
@@ -498,7 +481,6 @@ let status = 0;
 onAuthStateChanged(auth, (user) => {
     if (user) { //if Auth user exists, we want the signOut button to be on, at the beginning of the game (instead of the register and signIn buttons)
         status = 1;
-        console.log(status, user);
         registerButton.style.display = 'none';
         signInButton.style.display = 'none'; 
         signOutButton.style.display = 'block';
@@ -509,7 +491,6 @@ onAuthStateChanged(auth, (user) => {
         button.style.color = '#555';
     } else { //if there isn't any user
         status = 0;
-        console.log(status, user);
     }
 })
 

@@ -48,8 +48,7 @@ const bonusArrow = document.querySelector('header #bonusArrow');
 let speed; //figures' speed (Controls the frequency of the interval in the function move)
 let currentLevelClicksSuccess = 0;
 let failureSign;
-console.log(document.forms.nicknameForm.nickname.value);
-console.log(localStorage.name);
+
 
 const colRef = collection(database, 'usersScore');
 const q = query(colRef, orderBy('Score', 'desc'), limit(1));//We'll get only the highest score
@@ -67,15 +66,11 @@ onSnapshot(q, (snapshot) => {
     })
 })
 
-console.log('savedNickname before start of game: ' + savedNickname);
 
 //starting the game
 button.addEventListener("click", (e) => {
     
     e.preventDefault();//prevent refreshing the page (due to the form)
-
-    console.log('after start of game: ' + document.forms.nicknameForm.nickname.value);
-    console.log('after start of game: ' + localStorage.name);
 
     signOutButton.style.display = 'none';
     medal.style.display = 'none';
@@ -85,7 +80,6 @@ button.addEventListener("click", (e) => {
 
     //The trial figures at the home page will stop working
     Array.from(trial).forEach(element => {
-        console.log(element);
         element.style.display = 'none'; 
         stopWorking(1);  
     });
@@ -154,7 +148,6 @@ button.addEventListener("click", (e) => {
             currentFigure.style.animation = 'fireworks 0.75s ease forwards normal';
             userScore += 10;
             currentLevelClicksSuccess += 1;
-            console.log(currentLevelClicksSuccess);
             score.textContent = userScore;
             localStorage.score = userScore;
 
@@ -180,9 +173,6 @@ button.addEventListener("click", (e) => {
      
     //putting the new nickname in local storage and removing best score of old users
     nickname = document.forms.nicknameForm.nickname.value;
-    console.log('Nickname: ' + nickname);
-    console.log('savedNickname after start of game: ' + savedNickname);
-
 
     if ((nickname != '') && (nickname != null)) {
         if (localStorage.getItem('name') != nickname) {
@@ -317,7 +307,6 @@ button.addEventListener("click", (e) => {
 
     
     let localName = localStorage.getItem('name');
-    console.log('lacalName: ' + localName);
 
     //function that works after the user failed
     const failingProcedure = () => {
@@ -435,9 +424,7 @@ button.addEventListener("click", (e) => {
 
         
         userScore = userScore - (currentLevelClicksSuccess * 10);//Taking back the scores of this level
-        console.log('userScore' + userScore)
         currentLevelClicksSuccess = 0;
-        //score.textContent = userScore;
         localStorage.score = userScore;//Changing the scores back in the localStorage
     }
    
@@ -522,7 +509,7 @@ button.addEventListener("click", (e) => {
                                     Score: Number(localStorage.getItem('bestScore'))  //the info from the localStorage comes as a string, so I change it into a number
                                 })
                                 .then(() => {
-                                    console.log('Score updated');
+                                    console.log('');
                                 })
                                 .catch((err) => {
                                     console.log(err.message);

@@ -10,8 +10,6 @@ const stopWorking = (binary) => stop = binary; //we can't export "stop" as let, 
                                                //change the value of stop
 
 let ourViewPortWidth = body.clientWidth; //clientWidth shows the width of the element we choose
-//const ourViewPortHeight = body.clientHeight;
-console.log ('ourViewPortWidth: ' + ourViewPortWidth + ' ourViewPortHeight: ' +body.clientHeight)
 
 //If someone changes the screen size, we want to prevent bugs:
 window.addEventListener('resize', () => {
@@ -79,7 +77,6 @@ const move = (figure, speed) => {
             figure.style.top = parseInt(figure.style.top) + randomIntY + 'px'; //the method parseInt takes only the number (and leaves out the string 'px' attached to it:) 
             figure.style.left = parseInt(figure.style.left) + randomIntX + 'px';
         }
-        //console.log(figure.style.background + ' X: '+ figure.style.left + ' Y: ' + figure.style.top);
 
     }
     
@@ -93,7 +90,6 @@ const move = (figure, speed) => {
         movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 9);
     } else if (speed == 'fast') { //for cases that are not bats
         movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 12);
-        console.log("going fast now");
     } else if (speed == 'slow') { //for cases that are not bats
         movementInterval = setInterval(() => figureMovement(randomIntX, randomIntY), 40);
     } else { //for cases that are not bats

@@ -40,8 +40,8 @@ const forPhonesAndTablets = (mq) => {
         instructions.style.top = '34%';
         instructions.style.width = '100%';
         headline.style.top = '18%';
+        headline.style.right = '11px';
         mobileAndTablets();
-        console.log('portrait Start')
     }
 }
 
@@ -55,8 +55,8 @@ mediaq1.addEventListener('change', (e) => {
         instructions.style.top = '34%';
         instructions.style.width = '100%';
         headline.style.top = '18%';
+        headline.style.right = '11px';
         mobileAndTablets();
-        console.log('portrait EL');
     }
 });
 
@@ -72,7 +72,6 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
         instructions.style.top = '40%';
         instructions.style.width = '85%';
         headline.style.top = '13%';
-        console.log('hi');
     }
 
     //eventListener for state changes

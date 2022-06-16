@@ -844,43 +844,4 @@ footer {
 }
 
 
-/* @media only screen and (orientation: portrait) {
-
-  #headline {
-    font-size: 10vw;
-    top: 18%;
-  }
-
-  #signIn {
-    margin-right: 8px;
-  }
-
-  #instructions {
-    width: 100%;
-    top: 34%;
-  }
-
-  #instructions p,
-  #instructions form {
-    display: none;
-  }
-
-  #instructions h4 {
-    display: block;
-    font-size: 24px;
-  }
-
-  #instructions #bestPlayerName {
-    display: none;
-  }
-
-  .cursor {
-    display: none;
-  }
-
-
-} */
-
-
-
 /*# sourceMappingURL=cursor.css.map */

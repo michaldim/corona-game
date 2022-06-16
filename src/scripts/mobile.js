@@ -1,5 +1,5 @@
 import { registerButton, registerButtonEvent, signInButton, signInButtonEvent, instructionsP, nicknameForm } from './signInAndRegisterForms';
-import { medal } from './localStorage';
+import { medal, instructions } from './localStorage';
 import { body, cursor } from './cursorAndCorona';
 import { move, slow } from './figuresMovement';
 
@@ -56,6 +56,11 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
     cursor.style.display = 'none';
     bestPlayerName.style.display = 'none';
     instructionsH4.style.fontSize = '24px';
+    
+    if(window.matchMedia('(orientation: landscape)')) {
+        instructions.style.top = '34%';
+        instructions.style.width = '85%';
+    }
 
     mobileAndTablets();
 }

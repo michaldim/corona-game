@@ -139,6 +139,7 @@ header #bonusArrow p {
   -moz-user-select: none; /*******************************************/
   -webkit-user-select: none;/*******************************************/
   -ms-user-select: none;/*******************************************/
+  z-index: 52; 
 }
 
 #signIn {
@@ -854,7 +855,7 @@ screen and (max-width: 599px) and (orientation: portrait) {
 
   #headline {
     font-size: 10vw;
-    top: 14%;
+    top: 18%;
   }
 
   #signIn {
@@ -863,7 +864,7 @@ screen and (max-width: 599px) and (orientation: portrait) {
 
   #instructions {
     width: 100%;
-    top: 30%;
+    top: 34%;
   }
 
   #instructions p,
@@ -877,6 +878,10 @@ screen and (max-width: 599px) and (orientation: portrait) {
   }
 
   #instructions #bestPlayerName {
+    display: none;
+  }
+
+  .cursor {
     display: none;
   }
 

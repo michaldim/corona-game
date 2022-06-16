@@ -1,6 +1,6 @@
 import { registerButton, registerButtonEvent, signInButton, signInButtonEvent, instructionsP, nicknameForm } from './signInAndRegisterForms';
 import { medal } from './localStorage';
-import { body } from './cursorAndCorona';
+import { body, cursor } from './cursorAndCorona';
 import { move, slow } from './figuresMovement';
 
 
@@ -16,8 +16,6 @@ const mobileAndTablets = () => {
     registerButton.removeEventListener("click", registerButtonEvent);
     signInButton.removeEventListener("click", signInButtonEvent);
     medal.style.display = 'none';
-    bestPlayerName.style.display = 'none';
-    instructionsH4.style.fontSize = '24px';
     mobile = 1;
 
     trial4.classList.add('trial', 'trial4');
@@ -55,6 +53,10 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
     instructionsP.style.display = 'none'; //This doesn't appear in the css file
     nicknameForm.style.display = 'none';   //This doesn't appear in the css file 
     instructionsH4.style.display = 'block'; //This doesn't appear in the css file
+    cursor.style.display = 'none';
+    bestPlayerName.style.display = 'none';
+    instructionsH4.style.fontSize = '24px';
+
     mobileAndTablets();
 }
 

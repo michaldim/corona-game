@@ -22,13 +22,13 @@ import figure19 from '../images/figure19.svg';
 import figure20 from '../images/figure20.svg';
 import stars from '../images/stars.svg';
 import favicon from '../images/favicon.ico';
-import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
-import { instructions, medal, savedNickname } from './localStorage';
-import { firebaseConfig, app, auth, database, usersCurrentStage, registerFormContainer, registerForm, signInFormContainer, signInForm, closeX, registerButton, signInButton, instructionsP, nicknameForm, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg, status, quit } from './signInAndRegisterForms';
-import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
-import { stopWorking, ourViewPortWidth, move, trial, slow } from './figuresMovement';
-import { doc, updateDoc, where, orderBy, limit, query, getDocs, collection, onSnapshot } from "firebase/firestore";
-import { headline, instructionsH4, mediaq1, forPhonesAndTablets, mobile, bestPlayerName } from "./mobile";
+import { body, header, eyes } from './cursorAndCorona';
+import { instructions, medal } from './localStorage';
+import { auth, database, usersCurrentStage, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, status, quit } from './signInAndRegisterForms';
+import { instructionsPTag, secondsForEachStage, figuresPerStage, p, pAnon } from './storyLine';
+import { stopWorking, ourViewPortWidth, move, trial } from './figuresMovement';
+import { doc, updateDoc, orderBy, limit, query, collection, onSnapshot } from "firebase/firestore";
+import { headline, mobile, bestPlayerName } from "./mobile";
 
 const footer = document.querySelector('footer');
 const topEyeshade = document.querySelector('#topEyeshade');
@@ -181,9 +181,9 @@ button.addEventListener("click", (e) => {
             localStorage.removeItem('score');
             localStorage.getItem('score');
             localStorage.setItem('name', nickname);
-        } else {
+        } /*else {
             localStorage.setItem('name', nickname);
-        }
+        }*/
     } else if ((nickname == '') || (nickname == null)) {
         if (stage == 0) {
             localStorage.clear();
@@ -509,7 +509,7 @@ button.addEventListener("click", (e) => {
                                     Score: Number(localStorage.getItem('bestScore'))  //the info from the localStorage comes as a string, so I change it into a number
                                 })
                                 .then(() => {
-                                    console.log('');
+                                    //console.log('');
                                 })
                                 .catch((err) => {
                                     console.log(err.message);

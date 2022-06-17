@@ -1,7 +1,6 @@
 import { registerButton, registerButtonEvent, signInButton, signInButtonEvent, instructionsP, nicknameForm } from './signInAndRegisterForms';
 import { medal, instructions } from './localStorage';
 import { body, cursor } from './cursorAndCorona';
-import { move, slow } from './figuresMovement';
 
 
 const headline = document.querySelector('#headline');
@@ -88,4 +87,4 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 }
 
 
-export { instructionsH4, mediaq1, forPhonesAndTablets, mobile, bestPlayerName, headline };
+export { mobile, bestPlayerName, headline };

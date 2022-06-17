@@ -1,17 +1,16 @@
 import { initializeApp } from "firebase/app";
 
 import {
-    getFirestore, collection, getDocs, onSnapshot, setDoc, addDoc, deleteDoc, doc, 
-    query, where, orderBy, serverTimestamp, getDoc, updateDoc
+    getFirestore, collection, setDoc, doc, getDoc
 } from "firebase/firestore";
 
 import {
     getAuth, createUserWithEmailAndPassword, updateProfile, signOut, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged
 } from "firebase/auth";
 
-import { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
+import { instructionsPTag, p, pAnon } from './storyLine';
 
-import { instructions, medal, medalSpan, savedNickname } from './localStorage';
+import { medal, medalSpan } from './localStorage';
 
 
 const firebaseConfig = {
@@ -66,6 +65,7 @@ const quit = document.querySelector('#quit');
 
 const registerButtonEvent = () => {
     registerFormContainer.style.display = 'block';
+    signInFormContainer.style.display = 'none';
     closeX.style.display = 'block';
 }
 
@@ -73,6 +73,7 @@ registerButton.addEventListener("click", registerButtonEvent);
 
 const signInButtonEvent = () => {
     signInFormContainer.style.display = 'block';
+    registerFormContainer.style.display = 'none';
     closeX.style.display = 'block';
 }
 
@@ -86,6 +87,8 @@ closeX.addEventListener("click", () => {
     registerForm.reset(); //cleaning the form
     closeX.style.display = 'none';
     backToGame.style.display = 'none';
+    registerButton.style.display = 'inline-block';
+    signInButton.style.display = 'inline-block';
     //cleaning the background red color of the registerFormInputFields (if the user typed an error)
     registerFormInputFields.forEach(inputField => {
         inputField.classList.remove('invalid');
@@ -205,7 +208,7 @@ registerForm.addEventListener('submit', e => {
                         })
                         .then(() => updateProfile(auth.currentUser, { displayName: registeredNickname })) //updateProfile is a firebase method, which creates the user's displayName. Only "registeredNickname" is a varient that I created. 
                         .then(() => {
-                            document.forms.nicknameForm.nickname.setAttribute("value", auth.currentUser.displayName);//I defined that, so there won't be a mistake when the user will start playing
+                            document.forms.nicknameForm.nickname.value = auth.currentUser.displayName; //I defined that, so there won't be a mistake when the user will start playing
                             // console.log ('nickname: ' + auth.currentUser.displayName + 
                             //                 ' email: ' + auth.currentUser.email +
                             //                 ' userID: ' + auth.currentUser.uid);
@@ -216,7 +219,7 @@ registerForm.addEventListener('submit', e => {
                                 Nickname: registeredNickname,
                             })
                             .then(() => {
-                                console.log(''); 
+                                //console.log(''); 
                             })
                             .catch(err => {  //catch for setDoc
                                 console.log(err.message);
@@ -303,7 +306,7 @@ signInForm.addEventListener('submit', e => {
         signInForm.reset(); //cleaning the form
         // console.log('user signed in: ', cred.user, 'nickname: ', auth.currentUser.displayName);//cred.user shows us the user's details
         instructionsPTag.textContent = auth.currentUser.displayName + ', ' + p[currentStage];
-        document.forms.nicknameForm.nickname.setAttribute("value", auth.currentUser.displayName);//I defined that, so there won't be a mistake when the user will start playing
+        document.forms.nicknameForm.nickname.value = auth.currentUser.displayName; //I defined that, so there won't be a mistake when the user will start playing
         signInFormContainer.style.display = 'none';
         nicknameFormLabel.style.display = 'none';
         nicknameFormTextInput.style.display = 'none';
@@ -374,6 +377,8 @@ forgotPassword.addEventListener("click", () => {
     closeX.style.display = 'none';
     closeX2.style.display = 'block'; //the X for forgotContainer
     backToGame.style.display = 'block';
+    registerButton.style.display = 'none';
+    signInButton.style.display = 'none';
 });
 
 
@@ -392,6 +397,8 @@ backToGame.addEventListener('click', () => {
     closeX.style.display = 'none';
     closeX2.style.display = 'none';
     backToGame.style.display = 'none';
+    registerButton.style.display = 'inline-block';
+    signInButton.style.display = 'inline-block';
     forgotForm.reset();
 });
 
@@ -467,7 +474,7 @@ signOutButton.addEventListener('click', () => {
         nicknameFormTextInput.style.display = 'inline-block';
         button.style.fontSize = '14px';
         button.style.color = 'buttontext';
-        document.forms.nicknameForm.nickname.setAttribute("value", '');
+        document.forms.nicknameForm.nickname.value = '';
     })
     .catch(err => {
         console.log(err.message);
@@ -496,4 +503,4 @@ onAuthStateChanged(auth, (user) => {
 
 
 
-export { firebaseConfig, app, auth, database, usersCurrentStage, registerButton, registerButtonEvent, registerFormContainer, registerForm, registerFormInputFields, registerFormPFields, registerLastName, registerFirstName, lastNameP, firstNameP, signInButton, signInButtonEvent, signInFormContainer, signInForm, closeX, instructionsP, nicknameForm, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, hourglass, reg, status, quit };
+export { auth, database, usersCurrentStage, registerButton, registerButtonEvent, signInButton, signInButtonEvent, instructionsP, nicknameForm, nicknameFormLabel, nicknameFormTextInput, button, signOutButton, status, quit };

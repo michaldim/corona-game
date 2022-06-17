@@ -1,13 +1,8 @@
-import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
-
 const instructionsPTag = document.querySelector('#instructions p');
 
 const secondsForEachStage = [11, 14, 13, 18, 17, 13, 22, 20];
 // 
 const figuresPerStage = [7, 10, 10, 14, 20, 10, 20, 20];
-
-const pFailure = "you failed! A new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe.";
-const pFailureAnon = "You failed! A new variant is spreading now, but don't worry, you can try again and prevent a world catastrophe.";
 
 const p = [
 "vaccinate the world's population and help fight the coronavirus. If you fail, a new variant will arrive...",
@@ -33,4 +28,4 @@ const pAnon = [
     "Congratulations! You ended the coronavirus. Now, start over and try to gain the world's highest score."
 ]
 
-export { instructionsPTag, secondsForEachStage, figuresPerStage, pFailure, pFailureAnon, p, pAnon };
+export { instructionsPTag, secondsForEachStage, figuresPerStage, p, pAnon };

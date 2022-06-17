@@ -16,4 +16,4 @@ if((savedNickname != '') && (savedNickname != null)) {
 }
 
 
-export { instructions, medal, medalSpan, savedNickname };
+export { instructions, medal, medalSpan };

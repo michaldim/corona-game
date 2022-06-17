@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    mode: 'production', //development    
+    mode: 'production', // development /////////////////////////
     entry: {
         main: path.resolve(__dirname, 'src/scripts/startGame.js'),
     },
@@ -13,7 +13,7 @@ module.exports = {
         assetModuleFilename: '[name][ext]',
         clean: true,
     },
-    devtool: 'inline-source-map',
+    //devtool: 'inline-source-map', ///////////////////////////
     devServer: {
         static: path.resolve(__dirname, 'dist'),
         port: 8080,

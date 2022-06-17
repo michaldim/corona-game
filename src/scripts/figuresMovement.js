@@ -1,6 +1,5 @@
-import { body, header, cursor, coronaCircle, eyes } from './cursorAndCorona';
-import { secondsForEachStage, pFailure, pFailureAnon, p, pAnon } from './storyLine';
-import {} from './mobile';
+import { body } from './cursorAndCorona';
+import {} from './mobile'; //because of trial4 which has a class of .trial
 
 const trial = document.querySelectorAll('.trial');
 
@@ -109,4 +108,4 @@ Array.from(trial).forEach(element => {
 });
 
 
-export { stopWorking, ourViewPortWidth, move, trial, slow };
+export { stopWorking, ourViewPortWidth, move, trial };

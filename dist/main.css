@@ -670,7 +670,7 @@ header #bonusArrow p {
 #go {
   display: none;
   font-size: 140px;
-  font-family: 'Lucida Handwriting', 'Gochi Hand', cursive;
+  font-family: 'Lucida Handwriting', cursive;
   color: rgb(184, 238, 184);
   text-shadow: 2px 2px rgb(54, 116, 54);
   z-index: 51;

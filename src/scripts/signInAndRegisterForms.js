@@ -67,6 +67,7 @@ const registerButtonEvent = () => {
     registerFormContainer.style.display = 'block';
     signInFormContainer.style.display = 'none';
     closeX.style.display = 'block';
+    signInForm.reset(); //cleaning the signInForm
 }
 
 registerButton.addEventListener("click", registerButtonEvent);
@@ -75,6 +76,7 @@ const signInButtonEvent = () => {
     signInFormContainer.style.display = 'block';
     registerFormContainer.style.display = 'none';
     closeX.style.display = 'block';
+    registerForm.reset(); //cleaning the registerForm
 }
 
 signInButton.addEventListener("click", signInButtonEvent);
@@ -379,6 +381,7 @@ forgotPassword.addEventListener("click", () => {
     backToGame.style.display = 'block';
     registerButton.style.display = 'none';
     signInButton.style.display = 'none';
+    signInForm.reset(); //cleaning the signInForm
 });
 
 
@@ -400,6 +403,7 @@ backToGame.addEventListener('click', () => {
     registerButton.style.display = 'inline-block';
     signInButton.style.display = 'inline-block';
     forgotForm.reset();
+    signInForm.reset(); //cleaning the signInForm
 });
 
 

@@ -26,7 +26,6 @@ const move = (figure, speed) => {
         randomIntX = 2;
     }
    
-    //const currentFigure = document.querySelector('#'+figure);
 
     //the way the figures move
     const figureMovement = (randomIntX, randomIntY) => {

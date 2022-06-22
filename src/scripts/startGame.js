@@ -1,4 +1,3 @@
-//import style from '../css/cursor.css';
 import '../css/cursor.css';
 import figure1 from '../images/figure1.svg';
 import figure2 from '../images/figure2.svg';
@@ -86,7 +85,7 @@ button.addEventListener("click", (e) => {
 
     stopWorking(0);
 
-    //filling up numsOfFigs array according to figuresPerStage array
+    //Filling up numsOfFigs array according to figuresPerStage array
     for (let z = 1; z <= figuresPerStage[stage]; z++){
         if ((stage == 4) && (z == 11 || z == 12 || z == 13 || z == 14)){ //We don't want the bats in stage 5
             console.log("");
@@ -108,12 +107,12 @@ button.addEventListener("click", (e) => {
     }
     
 
-    //defining the figures' arrays
+    //Defining the figures' arrays
     numsOfFigs.forEach(num => {
-        //adding figures into the figures array
+        //Adding figures into the figures array
         figures.push('figure'+num);
         
-        //creating figures div tags in the html
+        //Creating figures div tags in the html
         const i = document.createElement('div');
         i.classList.add('figures');
         i.setAttribute('id', 'figure'+num);
@@ -126,13 +125,13 @@ button.addEventListener("click", (e) => {
 
         const currentFigure = document.querySelector('#'+figure);
 
-        //adding a background image for each figure:
+        //Adding a background image for each figure:
         currentFigure.style.background = `url('./${figure}.svg')`; 
-        //putting the figures in different places at starting point
+        //Putting the figures in different places at starting point
         currentFigure.style.top = Math.random()*(body.clientHeight - 56) + 'px'; //56 is the size of the figures. body.clientHeight gives the viewport size without the scroll bar
         currentFigure.style.left = Math.random()*(body.clientWidth - 56) + 'px'; //56 is the size of the figures.
         currentFigure.style.display = 'block';
-        //starting to move the figures in different directions:
+        //Starting to move the figures in different directions:
         if (stage >= 5){
             speed = 'fast';
         } else {
@@ -141,7 +140,7 @@ button.addEventListener("click", (e) => {
         move(currentFigure, speed);
 
 
-        //function for clicking a figure
+        //Function for clicking a figure
         const starsAndPoints = () => {
             currentFigure.removeEventListener('click', starsAndPoints);
             currentFigure.style.background = 'url(./stars.svg)';
@@ -151,27 +150,27 @@ button.addEventListener("click", (e) => {
             score.textContent = userScore;
             localStorage.score = userScore;
 
-            //deleting the figure from the DOM
+            //Deleting the figure from the DOM
             setTimeout(() => {
                 currentFigure.remove(); 
             }, 751);
         }
 
-        //adding eventListener for each figure and adjusting the score
+        //Adding eventListener for each figure and adjusting the score
         currentFigure.addEventListener('click', starsAndPoints);
 
-        //function that prevents clicking on figures, while the ambulances come
+        //Function that prevents clicking on figures, while the ambulances come
         const preventClick = () => {
             currentFigure.removeEventListener('click', starsAndPoints);
         }
 
-        //at the end of the stage the user won't be able to click the figures
+        //At the end of the stage the user won't be able to click the figures
         setTimeout(preventClick, secondsForEachStage[stage]*1000);
 
     })
 
      
-    //putting the new nickname in local storage and removing best score of old users
+    //Putting the new nickname in local storage and removing best score of old users
     nickname = document.forms.nicknameForm.nickname.value;
 
     if ((nickname != '') && (nickname != null)) {
@@ -181,9 +180,7 @@ button.addEventListener("click", (e) => {
             localStorage.removeItem('score');
             localStorage.getItem('score');
             localStorage.setItem('name', nickname);
-        } /*else {
-            localStorage.setItem('name', nickname);
-        }*/
+        } 
     } else if ((nickname == '') || (nickname == null)) {
         if (stage == 0) {
             localStorage.clear();
@@ -194,19 +191,19 @@ button.addEventListener("click", (e) => {
     }
 
 
-    //we will remove parts of the form that we won't need any more
+    //We will remove parts of the form that we won't need any more
     nicknameFormLabel.style.display = 'none';
     nicknameFormTextInput.style.display = 'none';
     
-    //we will remove signIn, signUp and quit buttons
+    //We will remove signIn, signUp and quit buttons
     sign.style.display = 'none';
     quit.style.display = 'none';
     
-    //we will make the button bigger and with lighter text color
+    //We will make the button bigger and with lighter text color
     button.style.fontSize = '17px';
     button.style.color = '#555';
 
-    //the corona appears
+    //The corona appears
     if (stage == 0 && failureSign != 1) { //If we are on stage 0, for the first time, then the Corona will appear after the "Go!" will dissappear
         corona.forEach(element => {
             element.style.display = 'block';
@@ -214,7 +211,7 @@ button.addEventListener("click", (e) => {
             element.style.animation = 'appears 0.3s 1.3s ease forwards normal';
         })
 
-        //the small circles of the corona appear
+        //The small circles of the corona appear
         tinyCircleContainer.forEach(element => {
             element.style.display = 'inline-block';
             element.style.opacity = '0';
@@ -226,7 +223,7 @@ button.addEventListener("click", (e) => {
             bottomEyeshade.style.opacity = '1';
         }, 1400);
         
-    } else { //if it is not stage 0, the Corona will appear right away 
+    } else { //If it is not stage 0, the Corona will appear right away 
 
         corona.forEach(element => {
             element.style.display = 'block';
@@ -234,7 +231,7 @@ button.addEventListener("click", (e) => {
             element.style.animation = 'appears 0s ease forwards normal';
         })
 
-        //the small circles of the corona appear
+        //The small circles of the corona appear
         tinyCircleContainer.forEach(element => {
             element.style.display = 'inline-block';
             element.style.opacity = '1';
@@ -242,7 +239,7 @@ button.addEventListener("click", (e) => {
         })
     }
 
-    //the corona's eyes will get closed and turn/look to the other side
+    //The corona's eyes will get closed and turn/look to the other side
     topEyeshade.style.animation = 'shutTopEyeshade 2.5s 0.65s ease infinite normal';
     bottomEyeshade.style.animation = 'shutBottomEyeshade 2.5s 0.65s ease infinite normal';
     eyes.style.animation = 'turnEyes 5s 0.925s ease infinite normal'; 
@@ -251,13 +248,13 @@ button.addEventListener("click", (e) => {
     instructions.style.display = 'none';
 
   
-    //the score section appears:
+    //The score section appears:
     header.style.opacity = '0';
     header.style.display = 'flex'; 
     const score = document.querySelector('header #score span');
     score.textContent = userScore;
     let y = 0;
-    //the next function will be called by: window.requestAnimationFrame(opacityChange);
+    //The next function will be called by: window.requestAnimationFrame(opacityChange);
     //and it will tell the browser that I wish to perform an animation with the opacity
     const opacityChange = () => {
         y = y + 0.03;
@@ -271,7 +268,7 @@ button.addEventListener("click", (e) => {
     window.requestAnimationFrame(opacityChange);
 
 
-    //the timer appears
+    //The timer appears
     const timer = document.querySelector('#timer');
     timer.style.animation = 'none';//in order to reset the animation of the end of the level
     timer.classList.add('animationIsOn');//bringing back the original className
@@ -314,7 +311,7 @@ button.addEventListener("click", (e) => {
         stopWorking(1);   
         failureSign = 1;//important for the "Go!" in level 0
 
-        //making the color of the corona randomly different
+        //Making the color of the corona randomly different
         let h = Math.random() * 359; //the H og the hsl is 0-359
         let s = Math.floor(Math.random() * (80 - 26 + 1) + 26);//I decided that the percentage of the S in hsl will be between 26 and 80 (because i don't like min saturation and max saturation)
         let l = Math.floor(Math.random() * (75 - 35 + 1) + 35);//I decided that the percentage of the L in hsl will be between 35 and 75 (not too light and not too dark)
@@ -523,12 +520,12 @@ button.addEventListener("click", (e) => {
 
             }
 
-            //hiding the corona
+            //Hiding the corona
             corona.forEach(element => {
                 element.style.display = 'none';
             })
             
-            //bringing back the instraction's box
+            //Bringing back the instraction's box
             if((localName == '') || (localName == null)){
                 instructionsPTag.textContent = pAnon[stage]; //pAnon is the text appears in storyLine.js
             } else {

@@ -11,8 +11,6 @@ document.addEventListener('mousemove', e => {
 
 
 const axis = [1, 2, 3, 4, 5, 6]; //for the lines that go out of the corona's center
-//const axisDivs = []; //contains all the axisDivs of the corona
-//const tinyCirclesContainersDivs = [];
 const coronaCircle = document.querySelector('#circle');
 let angle = 0;
 
@@ -23,7 +21,6 @@ axis.forEach(element => {
     i.classList.add('corona', 'axis'); //adding class names for our div
     i.setAttribute('id', 'axis'+element); //adding id for our div
     body.insertBefore(i, coronaCircle.nextSibling);//putting "i" after coronaCircle
-    //axisDivs.push(i); //putting our div inside axisDivs array
     i.style.transform = `rotateZ(${angle}deg)`;
     angle += 30;
 
@@ -33,7 +30,6 @@ axis.forEach(element => {
     n.classList.add('corona', 'tinyCircleContainer'); //adding class names for our div
     n.setAttribute('id', 'tinyCircleContainer'+element); //adding id for our div
     body.insertBefore(n, header);//putting "n" at the top of the page, so it will be easier to put it on the big circle
-    //tinyCirclesContainersDivs.push(n); //putting our div inside tinyCirclesContainersDivs array
     n.style.top = "calc(30% - 110px)"; //locating it at the center of the corona's big circle
     n.style.bottom = "calc(70% + 110px)"; 
     n.style.right = `calc(50% + ${10 + 22*(element -1)}px)`;   //locating each container at the location of the first container

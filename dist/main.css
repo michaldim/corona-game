@@ -120,10 +120,10 @@ header #bonusArrow p {
   -moz-transition: opacity 0.5s ease;
   -o-transition: opacity 0.5s ease;
   -ms-transition: opacity 0.5s ease;
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 #sign {
@@ -135,10 +135,10 @@ header #bonusArrow p {
   position: absolute;
   top: 15px;
   right: 0%;
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
   z-index: 52; 
 }
 
@@ -192,10 +192,10 @@ header #bonusArrow p {
   font-family: Garamond, serif;
   font-weight: lighter;
   margin-right: 15px;
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
   padding: 2px 4px;
 }
 
@@ -241,11 +241,10 @@ header #bonusArrow p {
 
 #registerFormContainer #registerForm input:focus {
   border: none;
-  background-color: rgb(223, 246, 247);/*197 245 247*/
+  background-color: rgb(223, 246, 247);
 }
 
 #registerFormContainer #registerForm input[name="firstName"] {
-  /* margin-right: 2.5%; */
   margin-right: auto;
   margin-left: 5%; 
   margin-top: 35px;
@@ -254,7 +253,6 @@ header #bonusArrow p {
 
 #registerFormContainer #registerForm input[name="lastName"] {
   margin-right: 5%;
-  /* margin-left: 2.5%; */
   margin-top: 35px; 
   border-radius: 5px;
 }
@@ -263,7 +261,6 @@ header #bonusArrow p {
 #registerFormContainer #registerForm input[type=email],
 #registerFormContainer #registerForm input[type=password],
 #registerFormContainer #registerForm input[name="nicknameRegisteredUser"] {
-  /* border: none; */
   border-radius: 5px;
   margin-right: 5%;
   margin-left: 5%;
@@ -472,10 +469,10 @@ header #bonusArrow p {
   position: absolute;
   top: 15px;
   right: 0%;
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
   color:rgb(247, 247, 197);
   margin-right: 17px;
   display: none;
@@ -493,10 +490,10 @@ header #bonusArrow p {
   bottom: 15px;
   left: 15px;
   padding: 2px 7px 4px 7px;
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 #quit:hover {
@@ -559,10 +556,10 @@ header #bonusArrow p {
 }
 
 #instructions p {
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 #instructions form {
@@ -574,10 +571,10 @@ header #bonusArrow p {
   font-size: 32px;
   position: relative;
   top: 3px;
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 #instructions form input[type="submit"] {
@@ -598,10 +595,10 @@ header #bonusArrow p {
   text-align: center;
   margin: auto;
   display: none;
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 #instructions h4 {
@@ -614,10 +611,10 @@ header #bonusArrow p {
   margin-bottom: -25px;
   color: rgb(184, 184, 169);
   display: block;
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 #instructions #bestPlayerScore {
@@ -626,10 +623,10 @@ header #bonusArrow p {
   /* margin-bottom: -60px; */
   color: rgb(184, 184, 169);
   display: none;
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 #medal {
@@ -641,10 +638,10 @@ header #bonusArrow p {
   font-size: 24px;
   color: rgb(184, 238, 184);
   text-shadow: 2px 2px rgb(54, 116, 54);
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
   z-index: 0;
 }
 
@@ -674,10 +671,10 @@ header #bonusArrow p {
   color: rgb(184, 238, 184);
   text-shadow: 2px 2px rgb(54, 116, 54);
   z-index: 51;
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
   position: absolute;
   right: 0;
   left: 0;
@@ -690,10 +687,10 @@ header #bonusArrow p {
  
 .corona {
   display: none;
-  user-select: none; /*******************************************/
-  -moz-user-select: none; /*******************************************/
-  -webkit-user-select: none;/*******************************************/
-  -ms-user-select: none;/*******************************************/
+  user-select: none; 
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 #circle {
@@ -726,7 +723,6 @@ header #bonusArrow p {
 .tinyCircleContainer {
   height:220px;
   width:22px;
-  /* background: rgb(153, 116, 240, 0); */
   position: relative;
   display: inline-block;
   z-index: 2;
